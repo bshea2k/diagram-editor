@@ -5,7 +5,19 @@
     font-family: Helvetica, sans-serif;
 }
 
+body {
+    display: flex;
+    flex-direction: row;
+}
+
 canvas {
     border: 1px solid black;
-    margin: 10px;
+}
+
+.shape-creation-menu__shape-icon {
+    width: 60px;
+}
+
+.shape-creation-menu__shape-icon:hover {
+    cursor: grab;
 }
