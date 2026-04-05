@@ -2,7 +2,7 @@ const canvas = document.querySelector("#workspace");
 const ctx = canvas.getContext("2d");
 
 let shapes = [];
-let selectedShape;
+let selectedShapeID;
 let canvasPos = getElementPosition(canvas);
 
 // create rectangle when clicked on in creation menu
@@ -14,20 +14,31 @@ rect.addEventListener("click", () => {
     render();
 });
 
+// if a shape is found, store its id in global variable
+// if shape not found, make sure global variable is set to no shape
 canvas.addEventListener("mousedown", (e) => {
     if (e.button !== 0) return;
 
-    let selectedShape;
     let mousePos = getMousePosition(e);
+    let foundShape = false;
 
     for (const shape of shapes) {
         if (mousePos.x > shape.x 
             && mousePos.x < shape.x + shape.width 
             && mousePos.y > shape.y 
             && mousePos.y < shape.y + shape.height) {
-                selectedShape = shape;
+                selectedShapeID = shape.id;
+                foundShape = true;
+                // break because earliest found is at front of array, highest layer
+                break;
         }
     }
+
+    if (!foundShape) {
+        selectedShapeID = -1;
+    }
+
+    render();
 });
 
 function render() {
@@ -35,6 +46,10 @@ function render() {
 
     for (const shape of shapes) {
         shape.render();
+
+        if (shape.id === selectedShapeID) {
+            shape.renderSelected();
+        }
     }
 }
 
@@ -81,6 +96,7 @@ function Rect(x, y) {
         ctx.font = "16px Helvetica";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
+        ctx.fillStyle = "#0D0D0D"
         ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
     };
 
