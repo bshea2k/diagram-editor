@@ -66,6 +66,7 @@ function getMousePosition(e) {
 
 // rect object
 function Rect(x, y) {
+    this.id = 1; // temp value, should be generated sequentially
     this.x = x;
     this.y = y;
     this.width = 120;
@@ -73,7 +74,7 @@ function Rect(x, y) {
     this.text = "Text";
 
     this.render = function() {
-        ctx.beginPath()
+        ctx.beginPath();
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
 
@@ -81,5 +82,30 @@ function Rect(x, y) {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
-    }
+    };
+
+    this.renderSelected = function() {
+        ctx.fillStyle = "#C9B4F1";
+        ctx.strokeStyle = "#0D0D0D";
+
+        ctx.beginPath();
+        ctx.arc(this.x + this.width / 2, this.y, 5, 0, Math.PI * 2, true);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(this.x + this.width, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(this.x + this.width / 2, this.y + this.height, 5, 0, Math.PI * 2, true);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
+        ctx.fill();
+        ctx.stroke();
+    };
 }
