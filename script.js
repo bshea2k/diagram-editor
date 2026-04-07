@@ -81,7 +81,7 @@ function getMousePosition(e) {
 
 // rect object
 function Rect(x, y) {
-    this.id = 1; // temp value, should be generated sequentially
+    this.id = self.crypto.randomUUID();
     this.x = x;
     this.y = y;
     this.width = 120;
