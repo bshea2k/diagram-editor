@@ -125,3 +125,39 @@ function Rect(x, y) {
         ctx.stroke();
     };
 }
+
+class Shape {
+    constructor(x, y) {
+        this._id = self.crypto.randomUUID();
+        this._x = x;
+        this._y = y;
+    }
+
+    get id() { return this._id; }
+    get x() { return this._x; }
+    get y() { return this._y; }
+
+    set x(x) { this._x = x; }
+    set y(y) { this._y = y; }
+
+    render() { }
+    renderHovered() { }
+    renderSelected() { }
+}
+
+class Rectangle extends Shape {
+    constructor(x, y) {
+        super(x, y);
+        this._height = 120;
+        this._width = 80;
+        this._text = "Text";
+    }
+
+    get height() { return this._height; }
+    get width() { return this._width; }
+    get text() { return this._text; }
+
+    set height(height) { this._height = height; }
+    set width(width) { this._width = width; }
+    set text(text) { this._text = text; }
+}
