@@ -1,3 +1,5 @@
+export const SELECTED_POINT_OFFSET = 20;
+
 export class Shape {
     constructor(x, y) {
         this._id = self.crypto.randomUUID();

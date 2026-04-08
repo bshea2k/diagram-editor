@@ -1,4 +1,4 @@
-import { Shape } from "./shape.js";
+import { Shape, SELECTED_POINT_OFFSET } from "./shape.js";
 
 export class Rectangle extends Shape {
     constructor(x, y) {
@@ -33,22 +33,22 @@ export class Rectangle extends Shape {
         ctx.strokeStyle = "#0D0D0D";
 
         ctx.beginPath();
-        ctx.arc(this.x + this.width / 2, this.y - 20, 5, 0, Math.PI * 2, true);
+        ctx.arc(this.x + this.width / 2, this.y - SELECTED_POINT_OFFSET, 5, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.arc(this.x + this.width + 20, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
+        ctx.arc(this.x + this.width + SELECTED_POINT_OFFSET, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.arc(this.x + this.width / 2, this.y + this.height + 20, 5, 0, Math.PI * 2, true);
+        ctx.arc(this.x + this.width / 2, this.y + this.height + SELECTED_POINT_OFFSET, 5, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.arc(this.x - 20, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
+        ctx.arc(this.x - SELECTED_POINT_OFFSET, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.stroke();
     }
