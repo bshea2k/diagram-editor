@@ -43,7 +43,7 @@ canvas.addEventListener("mousedown", (e) => {
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    let selectedShapeIndex;
+    let selectedShapeIndex = -1;
 
     for (let i = shapes.length - 1; i >= 0; i--) {
         shapes[i].render(ctx);
@@ -53,7 +53,9 @@ function render() {
         }
     }
 
-    shapes[selectedShapeIndex].renderSelected(ctx);
+    if (selectedShapeIndex !== -1) {
+        shapes[selectedShapeIndex].renderSelected(ctx);
+    }
 }
 
 function getElementPosition(element) {
