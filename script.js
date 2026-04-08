@@ -1,3 +1,5 @@
+import { Rectangle } from "./rectangle.js";
+
 const canvas = document.querySelector("#workspace");
 const ctx = canvas.getContext("2d");
 
@@ -76,78 +78,5 @@ function getMousePosition(e) {
     return {
         x: mouseX,
         y: mouseY
-    }
-}
-
-class Shape {
-    constructor(x, y) {
-        this._id = self.crypto.randomUUID();
-        this._x = x;
-        this._y = y;
-    }
-
-    get id() { return this._id; }
-    get x() { return this._x; }
-    get y() { return this._y; }
-
-    set x(x) { this._x = x; }
-    set y(y) { this._y = y; }
-
-    render() { }
-    renderHovered() { }
-    renderSelected() { }
-}
-
-class Rectangle extends Shape {
-    constructor(x, y) {
-        super(x, y);
-        this._width = 120;
-        this._height = 80;
-        this._text = "Text";
-    }
-
-    get height() { return this._height; }
-    get width() { return this._width; }
-    get text() { return this._text; }
-
-    set height(height) { this._height = height; }
-    set width(width) { this._width = width; }
-    set text(text) { this._text = text; }
-
-    render(ctx) {
-        ctx.beginPath();
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
-
-        ctx.font = "16px Helvetica";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillStyle = "#0D0D0D"
-        ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
-    }
-
-    renderSelected(ctx) {
-        ctx.fillStyle = "#C9B4F1";
-        ctx.strokeStyle = "#0D0D0D";
-
-        ctx.beginPath();
-        ctx.arc(this.x + this.width / 2, this.y, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x + this.width, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x + this.width / 2, this.y + this.height, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
     }
 }
