@@ -52,4 +52,13 @@ export class Rectangle extends Shape {
         ctx.fill();
         ctx.stroke();
     }
+
+    detect(x, y) {
+        if (x > this._x && x < this._x + this._width 
+            && y > this._y && y < this._y + this._height) {
+                return true;
+        }
+        
+        return false;
+    }
 }

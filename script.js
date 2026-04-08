@@ -25,14 +25,11 @@ canvas.addEventListener("mousedown", (e) => {
     let foundShape = false;
 
     for (const shape of shapes) {
-        if (mousePos.x > shape.x 
-            && mousePos.x < shape.x + shape.width 
-            && mousePos.y > shape.y 
-            && mousePos.y < shape.y + shape.height) {
-                selectedShapeID = shape.id;
-                foundShape = true;
-                // break because earliest found is at front of array, highest layer
-                break;
+        if (shape.detect(mousePos.x, mousePos.y)) {
+            selectedShapeID = shape.id;
+            foundShape = true;
+            // break because earliest found is at front of array, highest layer
+            break;
         }
     }
 

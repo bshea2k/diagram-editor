@@ -15,4 +15,5 @@ export class Shape {
     render() { }
     renderHovered() { }
     renderSelected() { }
+    detect(x, y) { }
 }
