@@ -45,6 +45,7 @@ function render() {
 
     let selectedShapeIndex = -1;
 
+    // iterate in reverse due to top layer shapes being at index 0, so render last
     for (let i = shapes.length - 1; i >= 0; i--) {
         shapes[i].render(ctx);
 
