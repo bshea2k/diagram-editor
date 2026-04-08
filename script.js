@@ -79,53 +79,6 @@ function getMousePosition(e) {
     }
 }
 
-// rect object
-function Rect(x, y) {
-    this.id = self.crypto.randomUUID();
-    this.x = x;
-    this.y = y;
-    this.width = 120;
-    this.height = 80;
-    this.text = "Text";
-
-    this.render = function() {
-        ctx.beginPath();
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
-
-        ctx.font = "16px Helvetica";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillStyle = "#0D0D0D"
-        ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
-    };
-
-    this.renderSelected = function() {
-        ctx.fillStyle = "#C9B4F1";
-        ctx.strokeStyle = "#0D0D0D";
-
-        ctx.beginPath();
-        ctx.arc(this.x + this.width / 2, this.y, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x + this.width, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x + this.width / 2, this.y + this.height, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-    };
-}
-
 class Shape {
     constructor(x, y) {
         this._id = self.crypto.randomUUID();
