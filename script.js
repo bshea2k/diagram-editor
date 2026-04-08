@@ -43,13 +43,17 @@ canvas.addEventListener("mousedown", (e) => {
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (const shape of shapes) {
-        shape.render(ctx);
+    let selectedShapeIndex;
 
-        if (shape.id === selectedShapeID) {
-            shape.renderSelected(ctx);
+    for (let i = shapes.length - 1; i >= 0; i--) {
+        shapes[i].render(ctx);
+
+        if (shapes[i].id === selectedShapeID) {
+            selectedShapeIndex = i;
         }
     }
+
+    shapes[selectedShapeIndex].renderSelected(ctx);
 }
 
 function getElementPosition(element) {
