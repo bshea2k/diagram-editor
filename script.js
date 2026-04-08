@@ -9,7 +9,7 @@ let canvasPos = getElementPosition(canvas);
 const rect = document.querySelector("#create__rect");
 rect.addEventListener("click", () => {
     // to be in center, canvas.width / 2 - (shape.width / 2)
-    const rect = new Rect(canvas.width / 2 - 60, canvas.height / 2 - 40);
+    const rect = new Rectangle(canvas.width / 2 - 60, canvas.height / 2 - 40);
     shapes.push(rect);
     render();
 });
@@ -45,10 +45,10 @@ function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (const shape of shapes) {
-        shape.render();
+        shape.render(ctx);
 
         if (shape.id === selectedShapeID) {
-            shape.renderSelected();
+            shape.renderSelected(ctx);
         }
     }
 }
