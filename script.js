@@ -23,22 +23,47 @@ canvas.addEventListener("mousedown", (e) => {
 
     let mousePos = getMousePosition(e);
     let foundShape = false;
+    selectedShapeID = -1;
 
     for (const shape of shapes) {
         if (shape.detect(mousePos.x, mousePos.y)) {
-            selectedShapeID = shape.id;
             foundShape = true;
+            canvas.selectedShape = shape;
+            canvas.selectedShapeInitialX = shape.x;
+            canvas.selectedShapeInitialY = shape.y;
             // break because earliest found is at front of array, highest layer
             break;
         }
     }
 
-    if (!foundShape) {
-        selectedShapeID = -1;
+    render();
+
+    if (foundShape) {
+        canvas.initialClientX = e.clientX;
+        canvas.initialClientY = e.clientY;
+        canvas.addEventListener("mousemove", moveShape);
+        canvas.addEventListener("mouseup", selectShape);
     }
+});
+
+function moveShape(e) {
+    let xOffset = e.clientX - e.currentTarget.initialClientX;
+    let yOffset = e.clientY - e.currentTarget.initialClientY;
+
+    e.currentTarget.selectedShape.x = e.currentTarget.selectedShapeInitialX + xOffset;
+    e.currentTarget.selectedShape.y = e.currentTarget.selectedShapeInitialY + yOffset;
 
     render();
-});
+}
+
+function selectShape(e) {
+    canvas.removeEventListener("mousemove", moveShape);
+    selectedShapeID = e.currentTarget.selectedShape.id;
+
+    render();
+
+    canvas.removeEventListener("mouseup", selectShape);
+}
 
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
