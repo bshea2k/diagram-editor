@@ -1,20 +1,23 @@
+import type { Shape } from "./shape"
 import { Rectangle } from "./rectangle.js";
 
-const canvas = document.querySelector("#workspace");
-const ctx = canvas.getContext("2d");
+const canvas: HTMLCanvasElement = document.querySelector("#workspace")!; // IMPROVE NONNULL ASSERTION
+const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
-let shapes = [];
-let selectedShapeID;
+let shapes: Shape[] = [];
+let selectedShapeID: string;
 let canvasPos = getElementPosition(canvas);
 
 // create rectangle when clicked on in creation menu
 const rect = document.querySelector("#create__rect");
-rect.addEventListener("click", () => {
-    // to be in center, canvas.width / 2 - (shape.width / 2)
-    const rect = new Rectangle(canvas.width / 2 - 60, canvas.height / 2 - 40);
-    shapes.unshift(rect);
-    render();
-});
+if (rect) {
+    rect.addEventListener("click", () => {
+        // to be in center, canvas.width / 2 - (shape.width / 2)
+        const rect = new Rectangle(canvas.width / 2 - 60, canvas.height / 2 - 40);
+        shapes.unshift(rect);
+        render();
+    });
+}
 
 // if a shape is found, store its id in global variable
 // if shape not found, make sure global variable is set to no shape
@@ -23,7 +26,7 @@ canvas.addEventListener("mousedown", (e) => {
 
     let mousePos = getMousePosition(e);
     let foundShape = false;
-    selectedShapeID = -1;
+    selectedShapeID = "0";
 
     for (const shape of shapes) {
         if (shape.detect(mousePos.x, mousePos.y)) {
@@ -46,7 +49,7 @@ canvas.addEventListener("mousedown", (e) => {
     }
 });
 
-function moveShape(e) {
+function moveShape(e: MouseEvent) {
     let xOffset = e.clientX - e.currentTarget.initialClientX;
     let yOffset = e.clientY - e.currentTarget.initialClientY;
 
@@ -56,7 +59,7 @@ function moveShape(e) {
     render();
 }
 
-function selectShape(e) {
+function selectShape(e: MouseEvent) {
     canvas.removeEventListener("mousemove", moveShape);
     selectedShapeID = e.currentTarget.selectedShape.id;
 
@@ -70,28 +73,32 @@ function render() {
 
     let selectedShapeIndex = -1;
 
-    // iterate in reverse due to top layer shapes being at index 0, so render last
+    // iterate in reverse due to top layer shapes being at index 0, so render them last
     for (let i = shapes.length - 1; i >= 0; i--) {
-        shapes[i].render(ctx);
+        const shape = shapes[i];
+        if (!shape) continue;
 
-        if (shapes[i].id === selectedShapeID) {
+        shape.render(ctx);
+
+        if (shape.id === selectedShapeID) {
             selectedShapeIndex = i;
         }
     }
 
     if (selectedShapeIndex !== -1) {
-        shapes[selectedShapeIndex].renderSelected(ctx);
+        shapes[selectedShapeIndex]!.renderSelected(ctx); // CHECK NONNULL ASSERTION
     }
 }
 
-function getElementPosition(element) {
+function getElementPosition(element: HTMLElement) {
     let elementX = 0;
     let elementY = 0;
+    let current: HTMLElement | null = element;
 
-    while (element) {
-        elementX += (element.offsetLeft - element.scrollLeft + element.clientLeft);
-        elementY += (element.offsetTop - element.scrollTop + element.clientTop);
-        element = element.offsetParent;
+    while (current) {
+        elementX += (current.offsetLeft - current.scrollLeft + current.clientLeft);
+        elementY += (current.offsetTop - current.scrollTop + current.clientTop);
+        current = current.offsetParent as HTMLElement | null;
     }
 
     return {
@@ -100,7 +107,7 @@ function getElementPosition(element) {
     };
 }
 
-function getMousePosition(e) {
+function getMousePosition(e: MouseEvent) {
     let mouseX = e.clientX - canvasPos.x;
     let mouseY = e.clientY - canvasPos.y;
 
