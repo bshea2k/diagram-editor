@@ -1,7 +1,11 @@
 import { Shape, SELECTED_POINT_OFFSET } from "./shape.js";
 
 export class Rectangle extends Shape {
-    constructor(x, y) {
+    _width: number;
+    _height: number;
+    _text: string;
+
+    constructor(x: number, y: number) {
         super(x, y);
         this._width = 120;
         this._height = 80;
@@ -16,7 +20,7 @@ export class Rectangle extends Shape {
     set width(width) { this._width = width; }
     set text(text) { this._text = text; }
 
-    render(ctx) {
+    render(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
@@ -28,7 +32,11 @@ export class Rectangle extends Shape {
         ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
     }
 
-    renderSelected(ctx) {
+    renderHovered(ctx: CanvasRenderingContext2D): void {
+
+    }
+
+    renderSelected(ctx: CanvasRenderingContext2D): void {
         ctx.fillStyle = "#C9B4F1";
         ctx.strokeStyle = "#0D0D0D";
 
@@ -53,7 +61,7 @@ export class Rectangle extends Shape {
         ctx.stroke();
     }
 
-    detect(x, y) {
+    detect(x: number, y: number): boolean {
         if (x > this._x && x < this._x + this._width 
             && y > this._y && y < this._y + this._height) {
                 return true;
