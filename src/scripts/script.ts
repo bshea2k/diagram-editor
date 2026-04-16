@@ -5,7 +5,11 @@ const canvas: HTMLCanvasElement = document.querySelector("#workspace")!; // IMPR
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
 let shapes: Shape[] = [];
-let selectedShapeID: string;
+let selectedShape: Shape | null = null;
+let selectedShapeInitialX: number = 0;
+let selectedShapeInitialY: number = 0;
+let initialClientX: number = 0;
+let initialClientY: number = 0;
 let canvasPos = getElementPosition(canvas);
 
 // create rectangle when clicked on in creation menu
@@ -25,15 +29,13 @@ canvas.addEventListener("mousedown", (e) => {
     if (e.button !== 0) return;
 
     let mousePos = getMousePosition(e);
-    let foundShape = false;
-    selectedShapeID = "0";
+    selectedShape = null;
 
     for (const shape of shapes) {
         if (shape.detect(mousePos.x, mousePos.y)) {
-            foundShape = true;
-            canvas.selectedShape = shape;
-            canvas.selectedShapeInitialX = shape.x;
-            canvas.selectedShapeInitialY = shape.y;
+            selectedShape = shape;
+            selectedShapeInitialX = shape.x;
+            selectedShapeInitialY = shape.y;
             // break because earliest found is at front of array, highest layer
             break;
         }
@@ -41,27 +43,26 @@ canvas.addEventListener("mousedown", (e) => {
 
     render();
 
-    if (foundShape) {
-        canvas.initialClientX = e.clientX;
-        canvas.initialClientY = e.clientY;
+    if (selectedShape) {
+        initialClientX = e.clientX;
+        initialClientY = e.clientY;
         canvas.addEventListener("mousemove", moveShape);
         canvas.addEventListener("mouseup", selectShape);
     }
 });
 
 function moveShape(e: MouseEvent) {
-    let xOffset = e.clientX - e.currentTarget.initialClientX;
-    let yOffset = e.clientY - e.currentTarget.initialClientY;
+    let xOffset = e.clientX - initialClientX;
+    let yOffset = e.clientY - initialClientY;
 
-    e.currentTarget.selectedShape.x = e.currentTarget.selectedShapeInitialX + xOffset;
-    e.currentTarget.selectedShape.y = e.currentTarget.selectedShapeInitialY + yOffset;
+    selectedShape!.x = selectedShapeInitialX + xOffset; // CHECK NONNULL ASSERTION
+    selectedShape!.y = selectedShapeInitialY + yOffset; // CHECK NONNULL ASSERTION
 
     render();
 }
 
 function selectShape(e: MouseEvent) {
     canvas.removeEventListener("mousemove", moveShape);
-    selectedShapeID = e.currentTarget.selectedShape.id;
 
     render();
 
@@ -71,22 +72,13 @@ function selectShape(e: MouseEvent) {
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    let selectedShapeIndex = -1;
-
     // iterate in reverse due to top layer shapes being at index 0, so render them last
     for (let i = shapes.length - 1; i >= 0; i--) {
-        const shape = shapes[i];
-        if (!shape) continue;
-
-        shape.render(ctx);
-
-        if (shape.id === selectedShapeID) {
-            selectedShapeIndex = i;
-        }
+        shapes[i]!.render(ctx); // CHECK NONNULL ASSERTION
     }
 
-    if (selectedShapeIndex !== -1) {
-        shapes[selectedShapeIndex]!.renderSelected(ctx); // CHECK NONNULL ASSERTION
+    if (selectedShape) {
+        selectedShape.renderSelected(ctx);
     }
 }
 
