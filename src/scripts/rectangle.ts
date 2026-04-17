@@ -1,5 +1,8 @@
 import { Shape, SELECTED_POINT_OFFSET } from "./shape.js";
 
+const DEFAULT_WIDTH = 120;
+const DEFAULT_HEIGHT = 80;
+
 export class Rectangle extends Shape {
     _width: number;
     _height: number;
@@ -7,8 +10,8 @@ export class Rectangle extends Shape {
 
     constructor(x: number, y: number) {
         super(x, y);
-        this._width = 120;
-        this._height = 80;
+        this._width = DEFAULT_WIDTH;
+        this._height = DEFAULT_HEIGHT;
         this._text = "Text";
     }
 
