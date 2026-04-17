@@ -18,9 +18,13 @@ const rect = document.querySelector("#create__rect");
 if (rect) {
     rect.addEventListener("click", () => {
         // to be in center, canvas.width / 2 - (shape.width / 2)
-        const rect = new Rectangle(canvas.width / 2 - 60, canvas.height / 2 - 40);
+        const rect = new Rectangle(canvas.width / 2, canvas.height / 2);
+        rect.x -= rect.width / 2;
+        rect.y -= rect.height / 2;
+
         shapes.unshift(rect);
         selectedShape = rect;
+        
         render();
     });
 }
