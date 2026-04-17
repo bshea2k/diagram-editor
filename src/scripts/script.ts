@@ -11,6 +11,7 @@ let selectedShapeInitialY: number = 0;
 let initialClientX: number = 0;
 let initialClientY: number = 0;
 let canvasPos = getElementPosition(canvas);
+let draggingShape: boolean = false;
 
 // create rectangle when clicked on in creation menu
 const rect = document.querySelector("#create__rect");
@@ -44,10 +45,12 @@ canvas.addEventListener("mousedown", (e) => {
     render();
 
     if (selectedShape) {
+        draggingShape = true;
         initialClientX = e.clientX;
         initialClientY = e.clientY;
         canvas.addEventListener("mousemove", moveShape);
         canvas.addEventListener("mouseup", selectShape);
+        render();
     }
 });
 
@@ -64,6 +67,8 @@ function moveShape(e: MouseEvent) {
 function selectShape(e: MouseEvent) {
     canvas.removeEventListener("mousemove", moveShape);
 
+    draggingShape = false;
+
     render();
 
     canvas.removeEventListener("mouseup", selectShape);
@@ -77,7 +82,7 @@ function render() {
         shapes[i]!.render(ctx); // CHECK NONNULL ASSERTION
     }
 
-    if (selectedShape) {
+    if (selectedShape && !draggingShape) {
         selectedShape.renderSelected(ctx);
     }
 }
