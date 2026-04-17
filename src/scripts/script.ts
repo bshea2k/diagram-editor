@@ -20,13 +20,16 @@ if (rect) {
         // to be in center, canvas.width / 2 - (shape.width / 2)
         const rect = new Rectangle(canvas.width / 2 - 60, canvas.height / 2 - 40);
         shapes.unshift(rect);
+        selectedShape = rect;
         render();
     });
 }
 
 // if a shape is found, store its id in global variable
 // if shape not found, make sure global variable is set to no shape
-canvas.addEventListener("mousedown", (e) => {
+canvas.addEventListener("mousedown", selectShape);
+
+function selectShape(e: MouseEvent) {
     if (e.button !== 0) return;
 
     let mousePos = getMousePosition(e);
@@ -49,10 +52,10 @@ canvas.addEventListener("mousedown", (e) => {
         initialClientX = e.clientX;
         initialClientY = e.clientY;
         canvas.addEventListener("mousemove", moveShape);
-        canvas.addEventListener("mouseup", selectShape);
+        canvas.addEventListener("mouseup", endMovingShape);
         render();
     }
-});
+}
 
 function moveShape(e: MouseEvent) {
     let xOffset = e.clientX - initialClientX;
@@ -64,14 +67,14 @@ function moveShape(e: MouseEvent) {
     render();
 }
 
-function selectShape(e: MouseEvent) {
+function endMovingShape(e: MouseEvent) {
     canvas.removeEventListener("mousemove", moveShape);
 
     draggingShape = false;
 
     render();
 
-    canvas.removeEventListener("mouseup", selectShape);
+    canvas.removeEventListener("mouseup", endMovingShape);
 }
 
 function render() {
