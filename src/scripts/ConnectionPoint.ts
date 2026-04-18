@@ -18,6 +18,8 @@ export class ConnectionPoint {
     }
 
     render(ctx: CanvasRenderingContext2D): void {
+        this.updatePosition();
+        
         ctx.fillStyle = "#C9B4F1";
         ctx.strokeStyle = "#0D0D0D";
         ctx.beginPath();
