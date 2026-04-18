@@ -1,5 +1,6 @@
 import type { Shape } from "./shape"
 import { Rectangle } from "./rectangle.js";
+import { Circle } from "./circle"
 
 const canvas: HTMLCanvasElement = document.querySelector("#workspace")!; // IMPROVE NONNULL ASSERTION
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
@@ -27,6 +28,20 @@ if (rect) {
         
         render();
     });
+}
+
+const circ = document.querySelector("#create__circ");
+if (circ) {
+    circ.addEventListener("click", () => {
+        const circ = new Circle(canvas.width / 2, canvas.height /2);
+        circ.x -= circ.width / 2;
+        circ.y -= circ.height / 2;
+
+        shapes.unshift(circ);
+        selectedShape = circ;
+        
+        render();
+    })
 }
 
 // if a shape is found, store its id in global variable
