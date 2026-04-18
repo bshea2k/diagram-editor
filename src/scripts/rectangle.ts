@@ -4,14 +4,10 @@ const DEFAULT_WIDTH = 120;
 const DEFAULT_HEIGHT = 80;
 
 export class Rectangle extends Shape {
-    _width: number;
-    _height: number;
     _text: string;
 
     constructor(x: number, y: number) {
-        super(x, y);
-        this._width = DEFAULT_WIDTH;
-        this._height = DEFAULT_HEIGHT;
+        super(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         this._text = "Text";
     }
 

@@ -1,14 +1,22 @@
+import { ConnectionPoint } from "./ConnectionPoint";
+
 export const SELECTED_POINT_OFFSET = 20;
 
 export abstract class Shape {
     _id: string;
     _x: number;
     _y: number;
+    _width: number;
+    _height: number;
+    _connectionPoints: ConnectionPoint[];
 
-    constructor(x: number, y: number) {
+    constructor(x: number, y: number, width: number, height: number) {
         this._id = self.crypto.randomUUID();
         this._x = x;
         this._y = y;
+        this._width = width;
+        this._height = height;
+        this._connectionPoints = [];
     }
 
     get id() { return this._id; }
