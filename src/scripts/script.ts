@@ -1,3 +1,4 @@
+import { getElementPosition, getMousePosition } from "./utils"
 import type { Shape } from "./shape"
 import { Rectangle } from "./rectangle.js";
 import { Circle } from "./circle"
@@ -51,7 +52,7 @@ canvas.addEventListener("mousedown", selectShape);
 function selectShape(e: MouseEvent) {
     if (e.button !== 0) return;
 
-    let mousePos = getMousePosition(e);
+    let mousePos = getMousePosition(e, canvasPos);
     selectedShape = null;
 
     for (const shape of shapes) {
@@ -106,32 +107,5 @@ function render() {
 
     if (selectedShape && !draggingShape) {
         selectedShape.renderSelected(ctx);
-    }
-}
-
-function getElementPosition(element: HTMLElement) {
-    let elementX = 0;
-    let elementY = 0;
-    let current: HTMLElement | null = element;
-
-    while (current) {
-        elementX += (current.offsetLeft - current.scrollLeft + current.clientLeft);
-        elementY += (current.offsetTop - current.scrollTop + current.clientTop);
-        current = current.offsetParent as HTMLElement | null;
-    }
-
-    return {
-        x: elementX,
-        y: elementY
-    };
-}
-
-function getMousePosition(e: MouseEvent) {
-    let mouseX = e.clientX - canvasPos.x;
-    let mouseY = e.clientY - canvasPos.y;
-
-    return {
-        x: mouseX,
-        y: mouseY
     }
 }
