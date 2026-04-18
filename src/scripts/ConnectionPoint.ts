@@ -17,6 +17,15 @@ export class ConnectionPoint {
         this.updatePosition();
     }
 
+    detect(x: number, y: number): boolean {
+        //pythagorean theorem
+        let a = this._x - x;
+        let b = this._y - y;
+        let distance = Math.sqrt((a ** 2) + (b ** 2));
+        
+        return distance <= RADIUS;
+    }
+
     render(ctx: CanvasRenderingContext2D): void {
         this.updatePosition();
         
