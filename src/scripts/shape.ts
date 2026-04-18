@@ -16,7 +16,12 @@ export abstract class Shape {
         this._y = y;
         this._width = width;
         this._height = height;
-        this._connectionPoints = [];
+        this._connectionPoints = [
+            new ConnectionPoint(this, "top"), 
+            new ConnectionPoint(this, "right"), 
+            new ConnectionPoint(this, "bottom"), 
+            new ConnectionPoint(this, "left"),
+        ];
     }
 
     get id() { return this._id; }
