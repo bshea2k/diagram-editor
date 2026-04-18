@@ -11,12 +11,8 @@ export class Rectangle extends Shape {
         this._text = "Text";
     }
 
-    get height() { return this._height; }
-    get width() { return this._width; }
     get text() { return this._text; }
-
-    set height(height) { this._height = height; }
-    set width(width) { this._width = width; }
+    
     set text(text) { this._text = text; }
 
     render(ctx: CanvasRenderingContext2D): void {

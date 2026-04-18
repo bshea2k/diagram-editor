@@ -22,9 +22,13 @@ export abstract class Shape {
     get id() { return this._id; }
     get x() { return this._x; }
     get y() { return this._y; }
+    get height() { return this._height; }
+    get width() { return this._width; }
 
     set x(x) { this._x = x; }
     set y(y) { this._y = y; }
+    set height(height) { this._height = height; }
+    set width(width) { this._width = width; }
 
     // renders the shape
     abstract render(ctx: CanvasRenderingContext2D): void;
