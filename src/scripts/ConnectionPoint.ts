@@ -37,6 +37,15 @@ export class ConnectionPoint {
         ctx.stroke();
     }
 
+    renderHovered(ctx: CanvasRenderingContext2D): void {
+        ctx.fillStyle = "#855CC0";
+        ctx.strokeStyle = "#0D0D0D";
+        ctx.beginPath();
+        ctx.arc(this._x, this._y, RADIUS, 0, Math.PI * 2, true);
+        ctx.fill();
+        ctx.stroke();
+    }
+
     updatePosition() {
         switch(this._side) {
             case "top":
