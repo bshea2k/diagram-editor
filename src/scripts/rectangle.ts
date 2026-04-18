@@ -12,7 +12,7 @@ export class Rectangle extends Shape {
     }
 
     get text() { return this._text; }
-    
+
     set text(text) { this._text = text; }
 
     render(ctx: CanvasRenderingContext2D): void {
@@ -32,28 +32,9 @@ export class Rectangle extends Shape {
     }
 
     renderSelected(ctx: CanvasRenderingContext2D): void {
-        ctx.fillStyle = "#C9B4F1";
-        ctx.strokeStyle = "#0D0D0D";
-
-        ctx.beginPath();
-        ctx.arc(this.x + this.width / 2, this.y - SELECTED_POINT_OFFSET, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x + this.width + SELECTED_POINT_OFFSET, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x + this.width / 2, this.y + this.height + SELECTED_POINT_OFFSET, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x - SELECTED_POINT_OFFSET, this.y + this.height / 2, 5, 0, Math.PI * 2, true);
-        ctx.fill();
-        ctx.stroke();
+        for (const connectionPoint of this._connectionPoints) {
+            connectionPoint.render(ctx);
+        }
     }
 
     detect(x: number, y: number): boolean {
