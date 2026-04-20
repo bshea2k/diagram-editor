@@ -1,10 +1,7 @@
 import { Shape } from "./shape";
-import { getElementPosition, getMousePosition } from "./utils"
 
 const DEFAULT_WIDTH = 120;
 const DEFAULT_HEIGHT = 80;
-
-const canvas: HTMLCanvasElement = document.querySelector("#workspace")!;
 
 export class Rectangle extends Shape {
     _text: string;
@@ -28,25 +25,6 @@ export class Rectangle extends Shape {
         ctx.textBaseline = "middle";
         ctx.fillStyle = "#0D0D0D"
         ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
-    }
-
-    renderHovered(ctx: CanvasRenderingContext2D): void {
-
-    }
-
-    renderSelected(ctx: CanvasRenderingContext2D): void {
-        for (const connectionPoint of this._connectionPoints) {
-            connectionPoint.render(ctx);
-
-            // incredibly inefficient, but works, REFACTOR
-            canvas.addEventListener("mousemove", (e) => {
-                let canvasPos = getElementPosition(canvas);
-                let mousePos = getMousePosition(e, canvasPos);
-                if (connectionPoint.detect(mousePos.x, mousePos.y)) {
-                    connectionPoint.renderHovered(ctx);
-                }
-            })
-        }
     }
 
     detect(x: number, y: number): boolean {

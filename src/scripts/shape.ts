@@ -1,6 +1,9 @@
 import { ConnectionPoint } from "./ConnectionPoint";
+import { getElementPosition, getMousePosition } from "./utils"
 
 export const SELECTED_POINT_OFFSET = 20;
+
+const canvas: HTMLCanvasElement = document.querySelector("#workspace")!;
 
 export abstract class Shape {
     _id: string;
@@ -38,12 +41,25 @@ export abstract class Shape {
     // renders the shape
     abstract render(ctx: CanvasRenderingContext2D): void;
 
-    // renders the hovered version portion of the shape
-    abstract renderHovered(ctx: CanvasRenderingContext2D): void;
-
-    // renders the selected version portion of the shape
-    abstract renderSelected(ctx: CanvasRenderingContext2D): void;
-
     // returns true if x & y are within the shapes area, false otherwise
     abstract detect(x: number, y: number): boolean;
+
+    // renders the hovered version portion of the shape
+    renderHovered(ctx: CanvasRenderingContext2D): void { }
+
+    // renders the selected version portion of the shape
+    renderSelected(ctx: CanvasRenderingContext2D): void {
+        for (const connectionPoint of this._connectionPoints) {
+            connectionPoint.render(ctx);
+
+            // incredibly inefficient, but works, REFACTOR
+            canvas.addEventListener("mousemove", (e) => {
+                let canvasPos = getElementPosition(canvas);
+                let mousePos = getMousePosition(e, canvasPos);
+                if (connectionPoint.detect(mousePos.x, mousePos.y)) {
+                    connectionPoint.renderHovered(ctx);
+                }
+            })
+        }
+    }
 }

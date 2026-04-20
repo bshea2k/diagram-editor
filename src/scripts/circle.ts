@@ -28,16 +28,6 @@ export class Circle extends Shape {
         ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
     }
 
-    renderHovered(ctx: CanvasRenderingContext2D): void {
-
-    }
-
-    renderSelected(ctx: CanvasRenderingContext2D): void {
-        for (const connectionPoint of this._connectionPoints) {
-            connectionPoint.render(ctx);
-        }
-    }
-
     detect(x: number, y: number): boolean {
         //pythagorean theorem
         let a = this.x + DEFAULT_RADIUS - x;
