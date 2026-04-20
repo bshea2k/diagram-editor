@@ -3,11 +3,13 @@ import type { Shape } from "./shape"
 import { Rectangle } from "./rectangle.js";
 import { Circle } from "./circle"
 import { Diagram } from "./diagram"
+import { Renderer } from "./renderer"
 
 const canvas: HTMLCanvasElement = document.querySelector("#workspace")!; // IMPROVE NONNULL ASSERTION
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
 const diagram = new Diagram();
+const renderer = new Renderer(ctx);
 let selectedShape: Shape | null = null;
 let selectedShapeInitialX: number = 0;
 let selectedShapeInitialY: number = 0;
@@ -28,7 +30,7 @@ if (rect) {
         diagram.addShape(rect);
         selectedShape = rect;
         
-        render();
+        renderer.render(diagram, selectedShape, draggingShape);
     });
 }
 
@@ -42,7 +44,7 @@ if (circ) {
         diagram.addShape(circ);
         selectedShape = circ;
         
-        render();
+        renderer.render(diagram, selectedShape, draggingShape);
     })
 }
 
@@ -66,7 +68,7 @@ function selectShape(e: MouseEvent) {
         }
     }
 
-    render();
+    renderer.render(diagram, selectedShape, draggingShape);
 
     if (selectedShape) {
         draggingShape = true;
@@ -74,7 +76,7 @@ function selectShape(e: MouseEvent) {
         initialClientY = e.clientY;
         canvas.addEventListener("mousemove", moveShape);
         canvas.addEventListener("mouseup", endMovingShape);
-        render();
+        renderer.render(diagram, selectedShape, draggingShape);
     }
 }
 
@@ -85,7 +87,7 @@ function moveShape(e: MouseEvent) {
     selectedShape!.x = selectedShapeInitialX + xOffset; // CHECK NONNULL ASSERTION
     selectedShape!.y = selectedShapeInitialY + yOffset; // CHECK NONNULL ASSERTION
 
-    render();
+    renderer.render(diagram, selectedShape, draggingShape);
 }
 
 function endMovingShape(e: MouseEvent) {
@@ -93,20 +95,7 @@ function endMovingShape(e: MouseEvent) {
 
     draggingShape = false;
 
-    render();
+    renderer.render(diagram, selectedShape, draggingShape);
 
     canvas.removeEventListener("mouseup", endMovingShape);
-}
-
-function render() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // iterate in reverse due to top layer shapes being at index 0, so render them last
-    for (let i = diagram.getShapes().length - 1; i >= 0; i--) {
-        diagram.getShapes()[i]!.render(ctx); // CHECK NONNULL ASSERTION
-    }
-
-    if (selectedShape && !draggingShape) {
-        selectedShape.renderSelected(ctx);
-    }
 }
