@@ -2,11 +2,12 @@ import { getElementPosition, getMousePosition } from "./utils"
 import type { Shape } from "./shape"
 import { Rectangle } from "./rectangle.js";
 import { Circle } from "./circle"
+import { Diagram } from "./diagram"
 
 const canvas: HTMLCanvasElement = document.querySelector("#workspace")!; // IMPROVE NONNULL ASSERTION
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
-let shapes: Shape[] = [];
+const diagram = new Diagram();
 let selectedShape: Shape | null = null;
 let selectedShapeInitialX: number = 0;
 let selectedShapeInitialY: number = 0;
@@ -24,7 +25,7 @@ if (rect) {
         rect.x -= rect.width / 2;
         rect.y -= rect.height / 2;
 
-        shapes.unshift(rect);
+        diagram.addShape(rect);
         selectedShape = rect;
         
         render();
@@ -38,7 +39,7 @@ if (circ) {
         circ.x -= circ.width / 2;
         circ.y -= circ.height / 2;
 
-        shapes.unshift(circ);
+        diagram.addShape(circ);
         selectedShape = circ;
         
         render();
@@ -55,7 +56,7 @@ function selectShape(e: MouseEvent) {
     let mousePos = getMousePosition(e, canvasPos);
     selectedShape = null;
 
-    for (const shape of shapes) {
+    for (const shape of diagram.getShapes()) {
         if (shape.detect(mousePos.x, mousePos.y)) {
             selectedShape = shape;
             selectedShapeInitialX = shape.x;
@@ -101,8 +102,8 @@ function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // iterate in reverse due to top layer shapes being at index 0, so render them last
-    for (let i = shapes.length - 1; i >= 0; i--) {
-        shapes[i]!.render(ctx); // CHECK NONNULL ASSERTION
+    for (let i = diagram.getShapes().length - 1; i >= 0; i--) {
+        diagram.getShapes()[i]!.render(ctx); // CHECK NONNULL ASSERTION
     }
 
     if (selectedShape && !draggingShape) {
