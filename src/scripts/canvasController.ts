@@ -75,4 +75,8 @@ export class CanvasController {
     render(): void {
         this._renderer.render(this._diagram, this._selectedShape, this._draggingShape);
     }
+
+    selectCreatedShape(shape: Shape) {
+        this._selectedShape = shape;
+    }
 }

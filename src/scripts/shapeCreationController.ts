@@ -20,6 +20,9 @@ export class ShapeCreationController {
             rect.y -= rect.height / 2;
     
             this._diagram.addShape(rect);
+            
+            this._canvasController.selectCreatedShape(rect);
+            this._canvasController.render();
         })
 
         document.querySelector("#create__circ")?.addEventListener("click", () => {
@@ -28,6 +31,9 @@ export class ShapeCreationController {
             circ.y -= circ.height / 2;
     
             diagram.addShape(circ);
+
+            this._canvasController.selectCreatedShape(circ);
+            this._canvasController.render();
         })
     }
 }
