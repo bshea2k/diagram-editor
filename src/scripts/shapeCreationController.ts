@@ -21,7 +21,7 @@ export class ShapeCreationController {
     
             this._diagram.addShape(rect);
             
-            this._canvasController.selectCreatedShape(rect);
+            this._canvasController.selectShape(rect);
             this._canvasController.render();
         })
 
@@ -32,7 +32,7 @@ export class ShapeCreationController {
     
             diagram.addShape(circ);
 
-            this._canvasController.selectCreatedShape(circ);
+            this._canvasController.selectShape(circ);
             this._canvasController.render();
         })
     }

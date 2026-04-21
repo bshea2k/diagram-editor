@@ -21,10 +21,10 @@ export class CanvasController {
         this._renderer = renderer;
         this._canvasPos = getElementPosition(this._canvas);
 
-        this._canvas.addEventListener("mousedown", this.selectShape);
+        this._canvas.addEventListener("mousedown", this.detectShape);
     }
 
-    selectShape = (e: MouseEvent) => {
+    detectShape = (e: MouseEvent) => {
         if (e.button !== 0) return;
 
         let mousePos = getMousePosition(e, this._canvasPos);
@@ -76,7 +76,7 @@ export class CanvasController {
         this._renderer.render(this._diagram, this._selectedShape, this._draggingShape);
     }
 
-    selectCreatedShape(shape: Shape): void {
+    selectShape(shape: Shape): void {
         this._selectedShape = shape;
     }
 
