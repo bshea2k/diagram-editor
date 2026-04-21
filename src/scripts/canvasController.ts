@@ -78,32 +78,32 @@ export class CanvasController {
         this._canvas.removeEventListener("mouseup", this.endMovingShape);
     }
 
+    connectionPointMouseMove = (e: MouseEvent) => {
+        let mousePos = getMousePosition(e, this._canvasPos);
+        console.log("h");
+
+        for (const cp of this._selectedShape!.connectionPoints) {
+            if (cp.detect(mousePos.x, mousePos.y)) {
+                this._hoveredConnectionPoint = cp;
+                break;
+            }
+            else this._hoveredConnectionPoint = null;
+        }
+
+        this.render();
+    }
+
     render(): void {
         this._renderer.render(this._diagram, this._selectedShape, this._draggingShape, this._hoveredConnectionPoint);
     }
 
     selectShape(shape: Shape): void {
         this._selectedShape = shape;
-
-        shape.connectionPoints.forEach((cp) => {
-            this._canvas.addEventListener("mousemove", (e) => {
-                console.log("h");
-                let mousePos = getMousePosition(e, this._canvasPos);
-
-                if (cp.detect(mousePos.x, mousePos.y)) {
-                    this._hoveredConnectionPoint = cp;
-                }
-                else if (this._hoveredConnectionPoint === cp) {
-                    this._hoveredConnectionPoint = null;
-                }
-
-                this.render();
-            })
-        });
+        this._canvas.addEventListener("mousemove", this.connectionPointMouseMove);
     }
 
     unselectSelectedShape(): void {
-        // remove event listeners for connection points
         this._selectedShape = null;
+        this._canvas.removeEventListener("mousemove", this.connectionPointMouseMove);
     }
 }
