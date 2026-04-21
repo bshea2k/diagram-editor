@@ -48,18 +48,5 @@ export abstract class Shape {
     renderHovered(ctx: CanvasRenderingContext2D): void { }
 
     // renders the selected version portion of the shape
-    renderSelected(ctx: CanvasRenderingContext2D): void {
-        for (const connectionPoint of this._connectionPoints) {
-            connectionPoint.render(ctx);
-
-            // incredibly inefficient, but works, REFACTOR
-            canvas.addEventListener("mousemove", (e) => {
-                let canvasPos = getElementPosition(canvas);
-                let mousePos = getMousePosition(e, canvasPos);
-                if (connectionPoint.detect(mousePos.x, mousePos.y)) {
-                    connectionPoint.renderHovered(ctx);
-                }
-            })
-        }
-    }
+    renderSelected(ctx: CanvasRenderingContext2D): void { }
 }
