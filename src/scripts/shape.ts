@@ -48,5 +48,9 @@ export abstract class Shape {
     renderHovered(ctx: CanvasRenderingContext2D): void { }
 
     // renders the selected version portion of the shape
-    renderSelected(ctx: CanvasRenderingContext2D): void { }
+    renderSelected(ctx: CanvasRenderingContext2D): void {
+        for (const connectionPoint of this._connectionPoints) {
+            connectionPoint.render(ctx);
+        }
+    }
 }
