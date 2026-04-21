@@ -13,7 +13,7 @@ export class Diagram {
         return this._shapes;
     }
 
-    addConncetion(connection: Connection): void {
+    addConnection(connection: Connection): void {
         this._connections.unshift(connection);
     }
 
