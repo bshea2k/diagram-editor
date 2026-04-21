@@ -28,7 +28,7 @@ export class CanvasController {
         if (e.button !== 0) return;
 
         let mousePos = getMousePosition(e, this._canvasPos);
-        this._selectedShape = null;
+        this.unselectSelectedShape();
 
         for (const shape of this._diagram.getShapes()) {
             if (shape.detect(mousePos.x, mousePos.y)) {
@@ -76,7 +76,12 @@ export class CanvasController {
         this._renderer.render(this._diagram, this._selectedShape, this._draggingShape);
     }
 
-    selectCreatedShape(shape: Shape) {
+    selectCreatedShape(shape: Shape): void {
         this._selectedShape = shape;
+    }
+
+    unselectSelectedShape(): void {
+        // remove event listeners for connection points
+        this._selectedShape = null;
     }
 }
