@@ -40,7 +40,7 @@ export class CanvasController {
             }
         }
 
-        this._renderer.render(this._diagram, this._selectedShape, this._draggingShape);
+        this.render();
 
         if (this._selectedShape) {
             this._draggingShape = true;
@@ -48,7 +48,7 @@ export class CanvasController {
             this._initialClientY = e.clientY;
             this._canvas.addEventListener("mousemove", this.moveShape);
             this._canvas.addEventListener("mouseup", this.endMovingShape);
-            this._renderer.render(this._diagram, this._selectedShape, this._draggingShape);
+            this.render();
         }
     }
 
@@ -59,7 +59,7 @@ export class CanvasController {
         this._selectedShape!.x = this._selectedShapeInitialX + xOffset; // CHECK NONNULL ASSERTION
         this._selectedShape!.y = this._selectedShapeInitialY + yOffset; // CHECK NONNULL ASSERTION
 
-        this._renderer.render(this._diagram, this._selectedShape, this._draggingShape);
+        this.render();
     }
 
     endMovingShape = (e: MouseEvent) => {
@@ -67,9 +67,12 @@ export class CanvasController {
 
         this._draggingShape = false;
 
-        this._renderer.render(this._diagram, this._selectedShape, this._draggingShape);
+        this.render();
 
         this._canvas.removeEventListener("mouseup", this.endMovingShape);
     }
 
+    render(): void {
+        this._renderer.render(this._diagram, this._selectedShape, this._draggingShape);
+    }
 }
