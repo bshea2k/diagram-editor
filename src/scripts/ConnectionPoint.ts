@@ -23,7 +23,7 @@ export class ConnectionPoint {
         let b = this._y - y;
         let distance = Math.sqrt((a ** 2) + (b ** 2));
         
-        return distance <= RADIUS;
+        return distance <= RADIUS * 1.75; // multiply to increase leniency
     }
 
     render(ctx: CanvasRenderingContext2D): void {
