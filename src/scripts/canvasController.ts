@@ -2,6 +2,7 @@ import type { Renderer } from "./renderer";
 import type { Shape } from "./shape";
 import type { Diagram } from "./diagram";
 import type { ConnectionPoint } from "./ConnectionPoint";
+import { Connection } from "./connection";
 import { getElementPosition, getMousePosition } from "./utils";
 
 export class CanvasController {
@@ -34,6 +35,12 @@ export class CanvasController {
         if (e.button !== 0) return;
 
         let mousePos = getMousePosition(e, this._canvasPos);
+
+        if (this._hoveredConnectionPoint) {
+            console.log("returned!");
+            return;
+        }
+
         this.unselectSelectedShape();
 
         for (const shape of this._diagram.getShapes()) {
@@ -78,9 +85,8 @@ export class CanvasController {
         this._canvas.removeEventListener("mouseup", this.endMovingShape);
     }
 
-    connectionPointMouseMove = (e: MouseEvent) => {
+    connectionPointHoverMouseMove = (e: MouseEvent) => {
         let mousePos = getMousePosition(e, this._canvasPos);
-        console.log("h");
 
         for (const cp of this._selectedShape!.connectionPoints) {
             if (cp.detect(mousePos.x, mousePos.y)) {
@@ -93,17 +99,47 @@ export class CanvasController {
         this.render();
     }
 
+    connectionPointMouseDown = (e: MouseEvent) => {
+        if (e.button !== 0) return;
+
+        let mousePos = getMousePosition(e, this._canvasPos);
+
+        for (const cp of this._selectedShape!.connectionPoints) {
+            if (cp.detect(mousePos.x, mousePos.y)) {
+                this._selectedConnectionPoint = cp;
+                // use shapeInitial values for now, update class variables
+                this._selectedShapeInitialX = this._selectedShape!.x; // UPDATE
+                this._selectedShapeInitialY = this._selectedShape!.y; // UPDATE
+                break;
+            }
+        }
+
+        if (this._selectedConnectionPoint) {
+            this._draggingShape = true;
+            this._initialClientX = e.clientX;
+            this._initialClientY = e.clientY;
+
+            const newConnection = new Connection({x: this._selectedShapeInitialX, y: this._selectedShapeInitialY}, {x: mousePos.x, y: mousePos.y});
+            this._diagram.addConnection(newConnection);
+            //this._canvas.addEventListener("mousemove", this.moveShape);
+            //this._canvas.addEventListener("mouseup", this.endMovingShape);
+            this.render();
+        }
+    }
+
     render(): void {
         this._renderer.render(this._diagram, this._selectedShape, this._draggingShape, this._hoveredConnectionPoint);
     }
 
     selectShape(shape: Shape): void {
         this._selectedShape = shape;
-        this._canvas.addEventListener("mousemove", this.connectionPointMouseMove);
+        this._canvas.addEventListener("mousemove", this.connectionPointHoverMouseMove);
+        this._canvas.addEventListener("mousedown", this.connectionPointMouseDown);
     }
 
     unselectSelectedShape(): void {
         this._selectedShape = null;
-        this._canvas.removeEventListener("mousemove", this.connectionPointMouseMove);
+        this._canvas.removeEventListener("mousemove", this.connectionPointHoverMouseMove);
+        this._canvas.removeEventListener("mousedown", this.connectionPointMouseDown)
     }
 }
