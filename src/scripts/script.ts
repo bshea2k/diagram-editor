@@ -1,21 +1,18 @@
-import { getElementPosition, getMousePosition } from "./utils"
-import type { Shape } from "./shape"
+import { getElementPosition, getMousePosition } from "./utils";
+import type { Shape } from "./shape";
 import { Rectangle } from "./rectangle.js";
-import { Circle } from "./circle"
-import { Diagram } from "./diagram"
-import { Renderer } from "./renderer"
+import { Circle } from "./circle";
+import { Diagram } from "./diagram";
+import { Renderer } from "./renderer";
+import { CanvasController } from "./canvasController";
 
 const canvas: HTMLCanvasElement = document.querySelector("#workspace")!; // IMPROVE NONNULL ASSERTION
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
 const diagram = new Diagram();
 const renderer = new Renderer(ctx);
+const canvasController = new CanvasController(canvas, diagram, renderer);
 let selectedShape: Shape | null = null;
-let selectedShapeInitialX: number = 0;
-let selectedShapeInitialY: number = 0;
-let initialClientX: number = 0;
-let initialClientY: number = 0;
-let canvasPos = getElementPosition(canvas);
 let draggingShape: boolean = false;
 
 // create rectangle when clicked on in creation menu
@@ -46,56 +43,4 @@ if (circ) {
         
         renderer.render(diagram, selectedShape, draggingShape);
     })
-}
-
-// if a shape is found, store its id in global variable
-// if shape not found, make sure global variable is set to no shape
-canvas.addEventListener("mousedown", selectShape);
-
-function selectShape(e: MouseEvent) {
-    if (e.button !== 0) return;
-
-    let mousePos = getMousePosition(e, canvasPos);
-    selectedShape = null;
-
-    for (const shape of diagram.getShapes()) {
-        if (shape.detect(mousePos.x, mousePos.y)) {
-            selectedShape = shape;
-            selectedShapeInitialX = shape.x;
-            selectedShapeInitialY = shape.y;
-            // break because earliest found is at front of array, highest layer
-            break;
-        }
-    }
-
-    renderer.render(diagram, selectedShape, draggingShape);
-
-    if (selectedShape) {
-        draggingShape = true;
-        initialClientX = e.clientX;
-        initialClientY = e.clientY;
-        canvas.addEventListener("mousemove", moveShape);
-        canvas.addEventListener("mouseup", endMovingShape);
-        renderer.render(diagram, selectedShape, draggingShape);
-    }
-}
-
-function moveShape(e: MouseEvent) {
-    let xOffset = e.clientX - initialClientX;
-    let yOffset = e.clientY - initialClientY;
-
-    selectedShape!.x = selectedShapeInitialX + xOffset; // CHECK NONNULL ASSERTION
-    selectedShape!.y = selectedShapeInitialY + yOffset; // CHECK NONNULL ASSERTION
-
-    renderer.render(diagram, selectedShape, draggingShape);
-}
-
-function endMovingShape(e: MouseEvent) {
-    canvas.removeEventListener("mousemove", moveShape);
-
-    draggingShape = false;
-
-    renderer.render(diagram, selectedShape, draggingShape);
-
-    canvas.removeEventListener("mouseup", endMovingShape);
 }
