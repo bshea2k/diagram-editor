@@ -1,9 +1,6 @@
 import { ConnectionPoint } from "./ConnectionPoint";
-import { getElementPosition, getMousePosition } from "./utils"
 
 export const SELECTED_POINT_OFFSET = 20;
-
-const canvas: HTMLCanvasElement = document.querySelector("#workspace")!;
 
 export abstract class Shape {
     _id: string;
@@ -32,6 +29,7 @@ export abstract class Shape {
     get y() { return this._y; }
     get height() { return this._height; }
     get width() { return this._width; }
+    get connectionPoints() { return this._connectionPoints; }
 
     set x(x) { this._x = x; }
     set y(y) { this._y = y; }
