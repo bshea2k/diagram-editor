@@ -1,5 +1,6 @@
-import type { Diagram } from "./diagram"
-import type { Shape } from "./shape"
+import type { Diagram } from "./diagram";
+import type { Shape } from "./shape";
+import type { ConnectionPoint } from "./ConnectionPoint";
 
 export class Renderer {
     _ctx: CanvasRenderingContext2D;
@@ -9,7 +10,12 @@ export class Renderer {
         this._ctx = ctx;
     }
 
-    render(diagram: Diagram, selectedShape: Shape | null, draggingShape: boolean): void {
+    render(
+        diagram: Diagram, 
+        selectedShape: Shape | null, 
+        draggingShape: boolean,
+        hoveredConnectionPoint: ConnectionPoint | null
+    ): void {
         this._ctx.clearRect(0, 0, this._ctx.canvas.width, this._ctx.canvas.height);
 
         // iterate in reverse due to top layer shapes being at index 0, so render them last
@@ -21,9 +27,12 @@ export class Renderer {
             diagram.getConnections()[i]!.render(this._ctx); // CHECK NONNULL ASSERTION
         }
 
+        // render connection points for the selected shape
         if (selectedShape && !draggingShape) {
-            //selectedShape.renderSelected(this._ctx);
-            selectedShape.connectionPoints.forEach((cp) => cp.render(this._ctx));
+            selectedShape.connectionPoints.forEach((cp) => {
+                if (cp === hoveredConnectionPoint) cp.renderHovered(this._ctx);
+                else cp.render(this._ctx);
+            });
         }
     }
 }

@@ -8,5 +8,5 @@ const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
 const diagram = new Diagram();
 const renderer = new Renderer(ctx);
-const canvasController = new CanvasController(canvas, diagram, renderer);
+const canvasController = new CanvasController(canvas, ctx, diagram, renderer);
 const shapeCreationController = new ShapeCreationController(canvas, canvasController, diagram);
