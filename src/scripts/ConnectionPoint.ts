@@ -38,6 +38,8 @@ export class ConnectionPoint {
     }
 
     renderHovered(ctx: CanvasRenderingContext2D): void {
+        this.updatePosition();
+
         ctx.fillStyle = "#855CC0";
         ctx.strokeStyle = "#0D0D0D";
         ctx.beginPath();
