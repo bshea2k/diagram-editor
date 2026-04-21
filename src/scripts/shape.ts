@@ -41,14 +41,4 @@ export abstract class Shape {
 
     // returns true if x & y are within the shapes area, false otherwise
     abstract detect(x: number, y: number): boolean;
-
-    // renders the hovered version portion of the shape
-    renderHovered(ctx: CanvasRenderingContext2D): void { }
-
-    // renders the selected version portion of the shape
-    renderSelected(ctx: CanvasRenderingContext2D): void {
-        for (const connectionPoint of this._connectionPoints) {
-            connectionPoint.render(ctx);
-        }
-    }
 }

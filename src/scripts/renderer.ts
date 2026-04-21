@@ -22,7 +22,8 @@ export class Renderer {
         }
 
         if (selectedShape && !draggingShape) {
-            selectedShape.renderSelected(this._ctx);
+            //selectedShape.renderSelected(this._ctx);
+            selectedShape.connectionPoints.forEach((cp) => cp.render(this._ctx));
         }
     }
 }
