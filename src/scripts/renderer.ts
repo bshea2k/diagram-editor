@@ -17,6 +17,10 @@ export class Renderer {
             diagram.getShapes()[i]!.render(this._ctx); // CHECK NONNULL ASSERTION
         }
 
+        for (let i = diagram.getConnections().length -1; i >= 0; i--) {
+            diagram.getConnections()[i]!.render(this._ctx); // CHECK NONNULL ASSERTION
+        }
+
         if (selectedShape && !draggingShape) {
             selectedShape.renderSelected(this._ctx);
         }
