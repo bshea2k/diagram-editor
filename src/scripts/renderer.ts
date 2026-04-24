@@ -14,7 +14,6 @@ export class Renderer {
         diagram: Diagram, 
         selectedShape: Shape | null, 
         draggingShape: boolean,
-        hoveredConnectionPoint: ConnectionPoint | null
     ): void {
         this._ctx.clearRect(0, 0, this._ctx.canvas.width, this._ctx.canvas.height);
 
@@ -30,8 +29,7 @@ export class Renderer {
         // render connection points for the selected shape
         if (selectedShape && !draggingShape) {
             selectedShape.connectionPoints.forEach((cp) => {
-                if (cp === hoveredConnectionPoint) cp.renderHovered(this._ctx);
-                else cp.render(this._ctx);
+                cp.render(this._ctx);
             });
         }
     }
