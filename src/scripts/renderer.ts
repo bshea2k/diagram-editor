@@ -1,6 +1,7 @@
 import type { Diagram } from "./diagram";
 import type { Shape } from "./shape";
 import type { ConnectionPoint } from "./ConnectionPoint";
+import type { Connection } from "./connection";
 
 export class Renderer {
     _ctx: CanvasRenderingContext2D;
@@ -15,6 +16,7 @@ export class Renderer {
         selectedShape: Shape | null, 
         draggingMouse: boolean,
         selectedConnectionPoint: ConnectionPoint | null,
+        selectedConnection: Connection | null,
     ): void {
         this._ctx.clearRect(0, 0, this._ctx.canvas.width, this._ctx.canvas.height);
 
@@ -33,6 +35,12 @@ export class Renderer {
                 if (cp === selectedConnectionPoint) cp.renderHovered(this._ctx);
                 else cp.render(this._ctx);
             });
+        }
+
+        if (selectedConnection && !draggingMouse) {
+            selectedConnection.movementPoints.forEach((mp) => {
+                mp.render(this._ctx);
+            })
         }
     }
 }

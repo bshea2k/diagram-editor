@@ -160,7 +160,7 @@ export class CanvasController {
 
 
     render(): void {
-        this._renderer.render(this._diagram, this._selectedShape, this._draggingMouse, this._selectedCP);
+        this._renderer.render(this._diagram, this._selectedShape, this._draggingMouse, this._selectedCP, this._selectedConnection);
     }
 
     selectShape(shape: Shape): void {
