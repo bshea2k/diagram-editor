@@ -117,10 +117,8 @@ export class CanvasController {
         this._diagram.addConnection(connection);
 
         this.unselectSelectedShape();
-        this._selectedCP = null;
         this._canvas.removeEventListener("click", this.createConnection);
         
-
         this.render();
     }
 
@@ -135,6 +133,7 @@ export class CanvasController {
 
     unselectSelectedShape(): void {
         this._selectedShape = null;
+        this._selectedCP = null;
         this._canvas.removeEventListener("mousemove", this.hoverConnectionPoint);
     }
 }
