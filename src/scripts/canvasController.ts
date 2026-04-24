@@ -12,6 +12,7 @@ export class CanvasController {
     _diagram: Diagram;
     _renderer: Renderer;
     _selectedShape: Shape | null = null;
+    _selectedCP: ConnectionPoint | null = null;
     _selectedShapeInitialX: number = 0;
     _selectedShapeInitialY: number = 0;
     _clientMouseInitialX: number = 0;
@@ -87,15 +88,35 @@ export class CanvasController {
         this._canvas.removeEventListener("mouseup", this.endMovingShape);
     }
 
+    /**
+     * Highlights connection points if they are hovered by the mouse,
+     * and allows them to create connection lines
+     */
+    hoverConnectionPoint = (e: MouseEvent): void => {
+        let mousePos = getMousePosition(e, this._canvasPos);
+
+        for (const cp of this._selectedShape!.connectionPoints) {
+            if (cp.detect(mousePos.x, mousePos.y)) {
+                this._selectedCP = cp;
+                break;
+            }
+            else this._selectedCP = null;
+        }
+
+        this.render();
+    }
+
     render(): void {
-        this._renderer.render(this._diagram, this._selectedShape, this._draggingShape);
+        this._renderer.render(this._diagram, this._selectedShape, this._draggingShape, this._selectedCP);
     }
 
     selectShape(shape: Shape): void {
         this._selectedShape = shape;
+        this._canvas.addEventListener("mousemove", this.hoverConnectionPoint);
     }
 
     unselectSelectedShape(): void {
         this._selectedShape = null;
+        this._canvas.removeEventListener("mousemove", this.hoverConnectionPoint);
     }
 }
