@@ -13,11 +13,12 @@ export class CanvasController {
     _renderer: Renderer;
     _selectedShape: Shape | null = null;
     _selectedCP: ConnectionPoint | null = null;
+    _selectedConnection: Connection | null = null;
     _selectedShapeInitialX: number = 0;
     _selectedShapeInitialY: number = 0;
     _clientMouseInitialX: number = 0;
     _clientMouseInitialY: number = 0;
-    _draggingShape: boolean = false;
+    _draggingMouse: boolean = false;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, diagram: Diagram, renderer: Renderer) {
         this._canvas = canvas;
@@ -54,7 +55,7 @@ export class CanvasController {
         this.render();
 
         if (this._selectedShape) {
-            this._draggingShape = true;
+            this._draggingMouse = true;
             this._clientMouseInitialX = e.clientX;
             this._clientMouseInitialY = e.clientY;
             this._canvas.addEventListener("mousemove", this.moveShape);
@@ -82,7 +83,7 @@ export class CanvasController {
     endMovingShape = (e: MouseEvent): void => {
         this._canvas.removeEventListener("mousemove", this.moveShape);
 
-        this._draggingShape = false;
+        this._draggingMouse = false;
 
         this.render();
 
@@ -123,7 +124,7 @@ export class CanvasController {
     }
 
     render(): void {
-        this._renderer.render(this._diagram, this._selectedShape, this._draggingShape, this._selectedCP);
+        this._renderer.render(this._diagram, this._selectedShape, this._draggingMouse, this._selectedCP);
     }
 
     selectShape(shape: Shape): void {
