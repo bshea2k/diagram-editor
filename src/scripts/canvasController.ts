@@ -25,14 +25,14 @@ export class CanvasController {
         this._renderer = renderer;
         this._canvasPos = getElementPosition(this._canvas);
 
-        this._canvas.addEventListener("mousedown", this.detectShape);
+        this._canvas.addEventListener("mousedown", this.startMovingShape);
     }
 
     /**
      * Selects a shape at the mouse position, if any, and
      * allows for movement of the shape via mouse movement
      */
-    detectShape = (e: MouseEvent): void => {
+    startMovingShape = (e: MouseEvent): void => {
         if (e.button !== 0) return;
 
         let mousePos = getMousePosition(e, this._canvasPos);
