@@ -7,15 +7,15 @@ import { getElementPosition, getMousePosition } from "./utils";
 
 export class CanvasController {
     _canvas: HTMLCanvasElement;
+    _canvasPos: {x: number, y: number};
     _ctx: CanvasRenderingContext2D;
     _diagram: Diagram;
     _renderer: Renderer;
     _selectedShape: Shape | null = null;
     _selectedShapeInitialX: number = 0;
     _selectedShapeInitialY: number = 0;
-    _initialClientX: number = 0;
-    _initialClientY: number = 0;
-    _canvasPos: {x: number, y: number};
+    _clientMouseInitialX: number = 0;
+    _clientMouseInitialY: number = 0;
     _draggingShape: boolean = false;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, diagram: Diagram, renderer: Renderer) {
@@ -49,8 +49,8 @@ export class CanvasController {
 
         if (this._selectedShape) {
             this._draggingShape = true;
-            this._initialClientX = e.clientX;
-            this._initialClientY = e.clientY;
+            this._clientMouseInitialX = e.clientX;
+            this._clientMouseInitialY = e.clientY;
             this._canvas.addEventListener("mousemove", this.moveShape);
             this._canvas.addEventListener("mouseup", this.endMovingShape);
             this.render();
@@ -58,8 +58,8 @@ export class CanvasController {
     }
 
     moveShape = (e: MouseEvent) => {
-        let xOffset = e.clientX - this._initialClientX;
-        let yOffset = e.clientY - this._initialClientY;
+        let xOffset = e.clientX - this._clientMouseInitialX;
+        let yOffset = e.clientY - this._clientMouseInitialY;
 
         this._selectedShape!.x = this._selectedShapeInitialX + xOffset; // CHECK NONNULL ASSERTION
         this._selectedShape!.y = this._selectedShapeInitialY + yOffset; // CHECK NONNULL ASSERTION
