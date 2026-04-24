@@ -34,7 +34,8 @@ export class CanvasController {
      * allows for movement of the shape via mouse movement
      */
     startMovingShape = (e: MouseEvent): void => {
-        if (e.button !== 0) return;
+        // only allow left clicks, dont do anything if a CP is hovered
+        if (e.button !== 0 || this._selectedCP) return;
 
         let mousePos = getMousePosition(e, this._canvasPos);
 
@@ -98,10 +99,27 @@ export class CanvasController {
         for (const cp of this._selectedShape!.connectionPoints) {
             if (cp.detect(mousePos.x, mousePos.y)) {
                 this._selectedCP = cp;
+                this._canvas.addEventListener("click", this.createConnection);
                 break;
             }
-            else this._selectedCP = null;
+            else {
+                this._selectedCP = null;
+                this._canvas.removeEventListener("click", this.createConnection);
+            }
         }
+
+        this.render();
+    }
+
+    createConnection = (e: MouseEvent): void => {
+        let mousePos = getMousePosition(e, this._canvasPos);
+        let connection = new Connection({x: this._selectedShape!.x, y: this._selectedShape!.y}, {x: mousePos.x, y: mousePos.y});
+        this._diagram.addConnection(connection);
+
+        this.unselectSelectedShape();
+        this._selectedCP = null;
+        this._canvas.removeEventListener("click", this.createConnection);
+        
 
         this.render();
     }
