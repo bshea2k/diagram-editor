@@ -100,28 +100,51 @@ export class CanvasController {
         for (const cp of this._selectedShape!.connectionPoints) {
             if (cp.detect(mousePos.x, mousePos.y)) {
                 this._selectedCP = cp;
-                this._canvas.addEventListener("click", this.createConnection);
+                this._canvas.addEventListener("mousedown", this.startMovingCreatedConnection);
                 break;
             }
             else {
                 this._selectedCP = null;
-                this._canvas.removeEventListener("click", this.createConnection);
+                this._canvas.removeEventListener("mousedown", this.startMovingCreatedConnection);
             }
         }
 
         this.render();
     }
 
-    createConnection = (e: MouseEvent): void => {
+    startMovingCreatedConnection = (e: MouseEvent): void => {
+        if (e.button !== 0) {
+            return;
+        }
+        
         let mousePos = getMousePosition(e, this._canvasPos);
+        this._draggingMouse = true;
+
         let connection = new Connection({x: this._selectedShape!.x, y: this._selectedShape!.y}, {x: mousePos.x, y: mousePos.y});
+        this._selectedConnection = connection;
         this._diagram.addConnection(connection);
 
         this.unselectSelectedShape();
-        this._canvas.removeEventListener("click", this.createConnection);
+        this._canvas.removeEventListener("mousedown", this.startMovingCreatedConnection);
+        this._canvas.addEventListener("mousemove", this.moveCreatedConnection);
+        this._canvas.addEventListener("mouseup", this.endMovingCreatedConnection);
         
         this.render();
     }
+
+    moveCreatedConnection = (e: MouseEvent): void => {
+        let mousePos = getMousePosition(e, this._canvasPos);
+        this._selectedConnection!.endPos = {x: mousePos.x, y: mousePos.y};
+        this.render();
+    }
+
+    endMovingCreatedConnection = (e: MouseEvent): void => {
+        this._canvas.removeEventListener("mousemove", this.moveCreatedConnection);
+        this._canvas.removeEventListener("mouseup", this.endMovingCreatedConnection);
+        this._draggingMouse = false;
+        this.render();
+    }
+
 
     render(): void {
         this._renderer.render(this._diagram, this._selectedShape, this._draggingMouse, this._selectedCP);
