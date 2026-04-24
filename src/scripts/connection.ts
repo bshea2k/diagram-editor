@@ -1,4 +1,5 @@
 import type { Shape } from "./shape";
+import type { ConnectionPoint } from "./ConnectionPoint";
 
 export class Connection {
     // figure out relation to shapes and positions when moving shapes
@@ -23,12 +24,19 @@ export class Connection {
     set endPos(endPos) { this._endPos = endPos; }
 
     render(ctx: CanvasRenderingContext2D): void {
+        // make this its own updatePosition() function later maybe, or clean up/refactor
+        let actualStartPos: {x: number, y: number} = this.startPos;
+        let actualEndPos: {x: number, y: number} = this.endPos;
+
+        if (this.startShape) actualStartPos = {x: this.startShape.x + this.startPos.x, y: this.startShape.y + this.startPos.y};
+        if (this.endShape) actualEndPos = {x: this.endShape.x + this.endPos.x, y: this.endShape.y + this.endPos.y};
+
         ctx.lineWidth = 1; // should be customizable later
         ctx.strokeStyle = "#0D0D0D" // should be customizable later(?)
 
         ctx.beginPath();
-        ctx.moveTo(this.startPos.x, this.startPos.y);
-        ctx.lineTo(this.endPos.x, this.endPos.y);
+        ctx.moveTo(actualStartPos.x, actualStartPos.y);
+        ctx.lineTo(actualEndPos.x, actualEndPos.y);
         ctx.closePath();
         ctx.stroke();
     }
