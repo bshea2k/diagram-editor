@@ -18,13 +18,13 @@ export class Renderer {
     ): void {
         this._ctx.clearRect(0, 0, this._ctx.canvas.width, this._ctx.canvas.height);
 
+        for (let i = diagram.getConnections().length -1; i >= 0; i--) {
+            diagram.getConnections()[i]!.render(this._ctx); // CHECK NONNULL ASSERTION
+        }
+
         // iterate in reverse due to top layer shapes being at index 0, so render them last
         for (let i = diagram.getShapes().length - 1; i >= 0; i--) {
             diagram.getShapes()[i]!.render(this._ctx); // CHECK NONNULL ASSERTION
-        }
-
-        for (let i = diagram.getConnections().length -1; i >= 0; i--) {
-            diagram.getConnections()[i]!.render(this._ctx); // CHECK NONNULL ASSERTION
         }
 
         // render connection points for the selected shape
