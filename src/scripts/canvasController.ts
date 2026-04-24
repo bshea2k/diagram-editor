@@ -123,7 +123,7 @@ export class CanvasController {
         let mousePos = getMousePosition(e, this._canvasPos);
         this._draggingMouse = true;
 
-        let connection = new Connection({x: this._selectedShape!.x, y: this._selectedShape!.y}, {x: mousePos.x, y: mousePos.y});
+        let connection = new Connection(this.connectionPointSpot(this._selectedCP!), {x: mousePos.x, y: mousePos.y});
         connection.startShape = this._selectedShape;
         this._selectedConnection = connection;
         this._diagram.addConnection(connection);
@@ -172,5 +172,30 @@ export class CanvasController {
         this._selectedShape = null;
         this._selectedCP = null;
         this._canvas.removeEventListener("mousemove", this.hoverConnectionPoint);
+    }
+
+    /**
+     * Calculates the relative position of the connection point to its parent shape
+     * @returns relative position of cp relative to its parent shape
+     */
+    connectionPointSpot(cp: ConnectionPoint): {x: number, y: number} {
+        let position: {x: number, y: number};
+
+        switch(cp._side) {
+            case "top":
+                position = {x: cp._shape.width / 2, y: 0};
+                break;
+            case "right":
+                position = {x: cp._shape.width, y: cp._shape.height / 2};
+                break;
+            case "bottom":
+                position = {x: cp._shape.width / 2, y: cp._shape.height};
+                break;
+            case "left":
+                position = {x: 0, y: cp._shape.height / 2};
+                break;
+        }
+
+        return position;
     }
 }
