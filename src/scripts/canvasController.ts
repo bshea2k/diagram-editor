@@ -28,7 +28,11 @@ export class CanvasController {
         this._canvas.addEventListener("mousedown", this.detectShape);
     }
 
-    detectShape = (e: MouseEvent) => {
+    /**
+     * Selects a shape at the mouse position, if any, and
+     * allows for movement of the shape via mouse movement
+     */
+    detectShape = (e: MouseEvent): void => {
         if (e.button !== 0) return;
 
         let mousePos = getMousePosition(e, this._canvasPos);
@@ -57,7 +61,10 @@ export class CanvasController {
         }
     }
 
-    moveShape = (e: MouseEvent) => {
+    /**
+     * Moves the selected shape's position via mouse movement
+     */
+    moveShape = (e: MouseEvent): void => {
         let xOffset = e.clientX - this._clientMouseInitialX;
         let yOffset = e.clientY - this._clientMouseInitialY;
 
@@ -67,7 +74,10 @@ export class CanvasController {
         this.render();
     }
 
-    endMovingShape = (e: MouseEvent) => {
+    /**
+     * Performs neccesary functions to stop movement of the selected shape
+     */
+    endMovingShape = (e: MouseEvent): void => {
         this._canvas.removeEventListener("mousemove", this.moveShape);
 
         this._draggingShape = false;
