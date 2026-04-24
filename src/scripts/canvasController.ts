@@ -112,15 +112,19 @@ export class CanvasController {
         this.render();
     }
 
+    /**
+     * Creates a connection line and allows it to be moved via mouse movement
+     */
     startMovingCreatedConnection = (e: MouseEvent): void => {
         if (e.button !== 0) {
             return;
         }
-        
+
         let mousePos = getMousePosition(e, this._canvasPos);
         this._draggingMouse = true;
 
         let connection = new Connection({x: this._selectedShape!.x, y: this._selectedShape!.y}, {x: mousePos.x, y: mousePos.y});
+        connection.startShape = this._selectedShape;
         this._selectedConnection = connection;
         this._diagram.addConnection(connection);
 
@@ -132,16 +136,25 @@ export class CanvasController {
         this.render();
     }
 
+    /**
+     * Moves the end of a created connection line to the mouse cursor
+     */
     moveCreatedConnection = (e: MouseEvent): void => {
         let mousePos = getMousePosition(e, this._canvasPos);
         this._selectedConnection!.endPos = {x: mousePos.x, y: mousePos.y};
+
         this.render();
     }
 
+    /**
+     * Performs neccesary functions to stop movement of the created connection line
+     */
     endMovingCreatedConnection = (e: MouseEvent): void => {
+        this._draggingMouse = false;
+
         this._canvas.removeEventListener("mousemove", this.moveCreatedConnection);
         this._canvas.removeEventListener("mouseup", this.endMovingCreatedConnection);
-        this._draggingMouse = false;
+
         this.render();
     }
 
