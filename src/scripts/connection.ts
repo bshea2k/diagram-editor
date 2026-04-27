@@ -50,4 +50,18 @@ export class Connection {
     detect(x: number, y: number): boolean {
         return false;
     }
+
+    removeStartShape(): void {
+        if (!this.startShape) return;
+
+        this.startPos = {x: this.startShape.x + this.startPos.x, y: this.startShape.y + this.startPos.y};
+        this.startShape = null;
+    }
+
+    removeEndShape(): void {
+        if (!this.endShape) return;
+
+        this.endPos = {x: this.endShape.x + this.endPos.x, y: this.endShape.y + this.endPos.y};
+        this.endShape = null;
+    }
 }
