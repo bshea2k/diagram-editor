@@ -28,6 +28,7 @@ export class CanvasController {
         this._canvasPos = getElementPosition(this._canvas);
 
         this._canvas.addEventListener("mousedown", this.startMovingShape);
+        document.addEventListener("keydown", this.deleteSelectedItem);
     }
 
     /**
@@ -158,6 +159,16 @@ export class CanvasController {
         this.render();
     }
 
+    deleteSelectedItem = (e: KeyboardEvent): void => {
+        if (e.key !== "Backspace") return;
+
+        if (this._selectedShape) {
+            this._diagram.removeShape(this._selectedShape);
+            this.unselectSelectedShape();
+            this.render();
+            console.log(this._diagram.getShapes().length);
+        }
+    }
 
     render(): void {
         this._renderer.render(this._diagram, this._selectedShape, this._draggingMouse, this._selectedCP, this._selectedConnection);

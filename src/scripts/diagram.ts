@@ -9,6 +9,12 @@ export class Diagram {
         this._shapes.unshift(shape);
     }
 
+    removeShape(shape: Shape): void {
+        this._shapes = this._shapes.filter((s) => {
+            return s !== shape;
+        })
+    }
+
     getShapes(): Shape[] {
         return this._shapes;
     }
