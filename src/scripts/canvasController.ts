@@ -166,7 +166,6 @@ export class CanvasController {
             this._diagram.removeShape(this._selectedShape);
             this.unselectSelectedShape();
             this.render();
-            console.log(this._diagram.getShapes().length);
         }
     }
 
