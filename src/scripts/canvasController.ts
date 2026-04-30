@@ -6,7 +6,10 @@ import type { Coord, Input } from "./utils";
 import { Connection } from "./connection";
 import { getElementPosition, getMousePosition } from "./utils";
 
+type CanvasState = "nothingSelected" | "shapeHovered" | "draggingShape" | "shapeSelected";
+
 export class CanvasController {
+    _state: CanvasState;
     _canvas: HTMLCanvasElement;
     _canvasPos: Coord;
     _ctx: CanvasRenderingContext2D;
@@ -22,6 +25,7 @@ export class CanvasController {
     _draggingMouse: boolean = false;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, diagram: Diagram, renderer: Renderer) {
+        this._state = "nothingSelected";
         this._canvas = canvas;
         this._ctx = ctx;
         this._diagram = diagram;
@@ -35,5 +39,9 @@ export class CanvasController {
 
     selectShape(shape: Shape): void {
         this._selectedShape = shape;
+    }
+
+    setState(state: CanvasState): void {
+        this._state = state;
     }
 }
