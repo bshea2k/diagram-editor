@@ -34,7 +34,7 @@ export type Input = {
     mousePos?: Coord;
     mouseDown?: boolean;
     mouseMove?: boolean;
-    mousePp?: boolean;
+    mouseUp?: boolean;
     dblClick?: boolean;
     key?: string;
 }
