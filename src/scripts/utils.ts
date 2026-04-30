@@ -24,3 +24,17 @@ export function getMousePosition(e: MouseEvent, canvasPos: {x: number, y: number
         y: mouseY
     }
 }
+
+export type Coord = {
+    x: number;
+    y: number;
+}
+
+export type Input = {
+    mousePos?: Coord;
+    mouseDown?: boolean;
+    mouseMove?: boolean;
+    mousePp?: boolean;
+    dblClick?: boolean;
+    key?: string;
+}
