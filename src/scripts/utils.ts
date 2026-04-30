@@ -1,4 +1,4 @@
-export function getElementPosition(element: HTMLElement) {
+export function getElementPosition(element: HTMLElement): Coord {
     let elementX = 0;
     let elementY = 0;
     let current: HTMLElement | null = element;
@@ -15,7 +15,7 @@ export function getElementPosition(element: HTMLElement) {
     };
 }
 
-export function getMousePosition(e: MouseEvent, canvasPos: {x: number, y: number}) {
+export function getMousePosition(e: MouseEvent, canvasPos: Coord): Coord {
     let mouseX = e.clientX - canvasPos.x;
     let mouseY = e.clientY - canvasPos.y;
 
