@@ -38,8 +38,12 @@ export class CanvasController {
     }
 
     handleMouseDown = (e: MouseEvent): void => {
-        switch(this._state) {
+        const input = {mousePos: getMousePosition(e, this._canvasPos), mouseDown: true}
 
+        switch(this._state) {
+            case "shapeSelected":
+                this.handleShapeSelected(input);
+                break;
         }
     }
 
@@ -55,8 +59,27 @@ export class CanvasController {
         }
     }
 
-    handleNothingSelected = (e: MouseEvent): void => {
+    // relevant fields: _selectedShape
+    handleShapeSelected(input: Input) {
+        if (input.mouseDown && input.mousePos) {
+            this._selectedShape = null;
 
+            for (const shape of this._diagram.getShapes()) {
+                if (shape.detect(input.mousePos.x, input.mousePos.y)) {
+                    this._selectedShape = shape;
+                    // break because earliest found is at front of array, highest layer
+                    break;
+                }
+            }
+
+            if (this._selectedShape) {
+                this.setState("draggingShape");
+            }
+            else {
+                this.setState("nothingSelected");
+                this.render();
+            }
+        }
     }
 
     render(): void {
