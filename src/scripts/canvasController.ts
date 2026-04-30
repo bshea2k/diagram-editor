@@ -69,5 +69,6 @@ export class CanvasController {
 
     setState(state: CanvasState): void {
         this._state = state;
+        console.log("Entering state: " + state); // temp | debugging
     }
 }
