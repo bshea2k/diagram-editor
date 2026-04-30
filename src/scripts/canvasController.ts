@@ -6,7 +6,7 @@ import type { Coord, Input } from "./utils";
 import { Connection } from "./connection";
 import { getElementPosition, getMousePosition } from "./utils";
 
-type CanvasState = "nothingSelected" | "shapeHovered" | "draggingShape" | "shapeSelected";
+type CanvasState = "nothingSelected" | "shapeHovered" | "draggingShape" | "shapeSelected" | "connectionPointHovered" | "movingLine" | "lineSelected" | "lineHovered" | "lineMovePointHovered" | "resizeEdgeHovered" | "resizedPointHovered" | "resizingShape" | "rotatePointHovered" | "rotatingShape";
 
 export class CanvasController {
     _state: CanvasState;
@@ -31,6 +31,32 @@ export class CanvasController {
         this._diagram = diagram;
         this._renderer = renderer;
         this._canvasPos = getElementPosition(this._canvas);
+
+        this._canvas.addEventListener("mousedown", this.handleMouseDown);
+        this._canvas.addEventListener("mousemove", this.handleMouseMove);
+        this._canvas.addEventListener("mouseup", this.handleMouseUp);
+    }
+
+    handleMouseDown = (e: MouseEvent): void => {
+        switch(this._state) {
+
+        }
+    }
+
+    handleMouseMove = (e: MouseEvent): void => {
+        switch(this._state) {
+
+        }
+    }
+
+    handleMouseUp = (e: MouseEvent): void => {
+        switch(this._state) {
+
+        }
+    }
+
+    handleNothingSelected = (e: MouseEvent): void => {
+
     }
 
     render(): void {
