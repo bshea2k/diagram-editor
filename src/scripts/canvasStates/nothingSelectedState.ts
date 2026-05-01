@@ -12,7 +12,7 @@ export class NothingSelectedState extends CanvasState {
         this.canvasController.selectShape(null);
         this.canvasController.render();
 
-        console.log("Entering NothingSelected")
+        console.log("Entering NothingSelected"); // temp | debug
     }
 
     handleInput(input: Input): void {
