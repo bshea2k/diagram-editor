@@ -11,7 +11,7 @@ export class ShapeSelectedState extends CanvasState {
         this.selectedShape = selectedShape;
     }
 
-    enter(input: Input): void {
+    enter(input?: Input): void {
         this.canvasController.selectShape(this.selectedShape);
         this.canvasController.render();
     }

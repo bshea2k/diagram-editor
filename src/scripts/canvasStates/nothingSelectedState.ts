@@ -7,7 +7,7 @@ export class NothingSelectedState extends CanvasState {
         super(canvasController);
     }
 
-    enter(input: Input): void {
+    enter(input?: Input): void {
         this.canvasController.selectShape(null);
         this.canvasController.render();
     }
