@@ -122,4 +122,15 @@ export class CanvasController {
     selectShape(shape: Shape | null): void {
         this._selectedShape = shape;
     }
+
+    detectShape(mousePos: Coord): Shape | null {
+        for (const shape of this._diagram.getShapes()) {
+            if (shape.detect(mousePos.x, mousePos.y)) {
+                // return because earliest found is at front of array, highest layer
+                return shape;
+            }
+        }
+
+        return null;
+    }
 }
