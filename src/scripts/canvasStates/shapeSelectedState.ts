@@ -1,4 +1,5 @@
 import { CanvasState } from "./canvasState";
+import { NothingSelectedState } from "./nothingSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Shape } from "../shape";
@@ -17,6 +18,11 @@ export class ShapeSelectedState extends CanvasState {
     }
 
     handleInput(input: Input): void {
-        
+        if (input.mouseDown && input.mousePos) {
+            let clickedShape = this.canvasController.detectShape(input.mousePos);
+
+            // click blankspace -> NothingSelected state
+            if (!clickedShape) this.canvasController.setState(new NothingSelectedState(this.canvasController));
+        }
     }
 }
