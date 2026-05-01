@@ -18,7 +18,7 @@ export class ShapeSelectedState extends CanvasState {
         this.canvasController.render();
     }
 
-    handleInput(input: Input): void {
-
+    handleInput(input: Input): CanvasState {
+        return this;
     }
 }
