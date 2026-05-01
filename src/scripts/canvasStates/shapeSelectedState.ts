@@ -1,4 +1,5 @@
 import { CanvasState } from "./canvasState";
+import { DraggingShapeState } from "./draggingShapeState";
 import { NothingSelectedState } from "./nothingSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
@@ -22,8 +23,10 @@ export class ShapeSelectedState extends CanvasState {
         if (input.mouseDown && input.mousePos) {
             let clickedShape = this.canvasController.detectShape(input.mousePos);
 
+            // mousedown on this shape -> DraggingShape state
+            if (clickedShape === this.selectedShape) this.canvasController.setState(new DraggingShapeState(this.canvasController, this.selectedShape, input.mousePos));
             // click blankspace -> NothingSelected state
-            if (!clickedShape) this.canvasController.setState(new NothingSelectedState(this.canvasController));
+            else if (!clickedShape) this.canvasController.setState(new NothingSelectedState(this.canvasController));
         }
     }
 }
