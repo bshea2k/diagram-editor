@@ -1,14 +1,18 @@
 import { CanvasState } from "./canvasState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
+import type { Shape } from "../shape";
 
-export class NothingSelectedState extends CanvasState {
-    constructor(canvasController: CanvasController) {
+export class ShapeSelectedState extends CanvasState {
+    private selectedShape: Shape;
+
+    constructor(canvasController: CanvasController, selectedShape: Shape) {
         super(canvasController);
+        this.selectedShape = selectedShape;
     }
 
     enter(input: Input): void {
-        this.canvasController.selectShape(null);
+        this.canvasController.selectShape(this.selectedShape);
         this.canvasController.render();
     }
 
