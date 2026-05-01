@@ -42,6 +42,8 @@ export class CanvasController {
     
     handleMouseDown = (e: MouseEvent): void => {
         const input = {mousePos: getMousePosition(e, this._canvasPos), mouseDown: true};
+
+        this.state = this.state.handleInput(input);
     }
 
     handleMouseMove = (e: MouseEvent): void => {
@@ -128,6 +130,7 @@ export class CanvasController {
 
     setState (state: CanvasState): void {
         this.state = state;
+        state.enter();
     }
 
     detectShape(mousePos: Coord): Shape | null {
