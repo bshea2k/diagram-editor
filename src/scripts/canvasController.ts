@@ -10,7 +10,6 @@ type CanvasState = "nothingSelected" | "shapeHovered" | "draggingShape" | "shape
 
 export class CanvasController {
     _state: CanvasState = "nothingSelected";
-    _enteringState: boolean = true;
 
     _canvas: HTMLCanvasElement;
     _canvasPos: Coord;
@@ -37,37 +36,20 @@ export class CanvasController {
         this._canvas.addEventListener("mousemove", this.handleMouseMove);
         this._canvas.addEventListener("mouseup", this.handleMouseUp);
     }
-
+    
     handleMouseDown = (e: MouseEvent): void => {
-        const input = {mousePos: getMousePosition(e, this._canvasPos), mouseDown: true}
-
-        switch(this._state) {
-            case "shapeSelected":
-                this.handleShapeSelected(input);
-                break;
-        }
+        const input = {mousePos: getMousePosition(e, this._canvasPos), mouseDown: true};
     }
 
     handleMouseMove = (e: MouseEvent): void => {
-        const input = {mousePos: getMousePosition(e, this._canvasPos), mouseMove: true}
-        
-        switch(this._state) {
-            case "draggingShape":
-                this.handleDraggingShape(input);
-                break;
-        }
+        const input = {mousePos: getMousePosition(e, this._canvasPos), mouseMove: true};
     }
 
     handleMouseUp = (e: MouseEvent): void => {
-        const input = {mousePos: getMousePosition(e, this._canvasPos), mouseUp: true}
-
-        switch(this._state) {
-            case "draggingShape":
-                this.handleDraggingShape(input);
-                break;
-        }
+        const input = {mousePos: getMousePosition(e, this._canvasPos), mouseUp: true};
     }
 
+    /*
     handleDraggingShape(input: Input) {
         if (this._enteringState && input.mousePos) {
             this._draggingMouse = true;
@@ -131,18 +113,13 @@ export class CanvasController {
                 this.render();
             }
         }
-    }
+    } */
 
     render(): void {
         this._renderer.render(this._diagram, this._selectedShape, this._draggingMouse, this._selectedCP, this._selectedConnection);
     }
 
-    selectShape(shape: Shape): void {
+    selectShape(shape: Shape | null): void {
         this._selectedShape = shape;
-    }
-
-    setState(state: CanvasState): void {
-        this._state = state;
-        console.log("Entering state: " + state); // temp | debugging
     }
 }
