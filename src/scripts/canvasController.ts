@@ -3,13 +3,15 @@ import type { Shape } from "./shape";
 import type { Diagram } from "./diagram";
 import type { ConnectionPoint } from "./ConnectionPoint";
 import type { Coord, Input } from "./utils";
+import type { CanvasState } from "./canvasStates/canvasState";
+import { NothingSelectedState } from "./canvasStates/nothingSelectedState";
 import { Connection } from "./connection";
 import { getElementPosition, getMousePosition } from "./utils";
 
-type CanvasState = "nothingSelected" | "shapeHovered" | "draggingShape" | "shapeSelected" | "connectionPointHovered" | "movingLine" | "lineSelected" | "lineHovered" | "lineMovePointHovered" | "resizeEdgeHovered" | "resizedPointHovered" | "resizingShape" | "rotatePointHovered" | "rotatingShape";
+//type CanvasState = "nothingSelected" | "shapeHovered" | "draggingShape" | "shapeSelected" | "connectionPointHovered" | "movingLine" | "lineSelected" | "lineHovered" | "lineMovePointHovered" | "resizeEdgeHovered" | "resizedPointHovered" | "resizingShape" | "rotatePointHovered" | "rotatingShape";
 
 export class CanvasController {
-    _state: CanvasState = "nothingSelected";
+    private state: CanvasState;
 
     _canvas: HTMLCanvasElement;
     _canvasPos: Coord;
@@ -26,6 +28,7 @@ export class CanvasController {
     _draggingMouse: boolean = false;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, diagram: Diagram, renderer: Renderer) {
+        this.state = new NothingSelectedState(this);
         this._canvas = canvas;
         this._ctx = ctx;
         this._diagram = diagram;
