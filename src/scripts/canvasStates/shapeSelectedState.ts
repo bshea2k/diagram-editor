@@ -27,6 +27,11 @@ export class ShapeSelectedState extends CanvasState {
             if (clickedShape === this.selectedShape) this.canvasController.setState(new DraggingShapeState(this.canvasController, this.selectedShape, input.mousePos));
             // click blankspace -> NothingSelected state
             else if (!clickedShape) this.canvasController.setState(new NothingSelectedState(this.canvasController));
+            // click another shape -> new ShapeSelected state for that shape
+            else if (clickedShape !== this.selectedShape) {
+                this.canvasController.selectedShape = null;
+                this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
+            }
         }
     }
 }
