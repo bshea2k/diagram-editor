@@ -43,15 +43,19 @@ export class CanvasController {
     handleMouseDown = (e: MouseEvent): void => {
         const input = {mousePos: getMousePosition(e, this._canvasPos), mouseDown: true};
 
-        this.state = this.state.handleInput(input);
+        this.state.handleInput(input);
     }
 
     handleMouseMove = (e: MouseEvent): void => {
         const input = {mousePos: getMousePosition(e, this._canvasPos), mouseMove: true};
+
+        this.state.handleInput(input);
     }
 
     handleMouseUp = (e: MouseEvent): void => {
         const input = {mousePos: getMousePosition(e, this._canvasPos), mouseUp: true};
+
+        this.state.handleInput(input);
     }
 
     /*
@@ -128,9 +132,9 @@ export class CanvasController {
         this._selectedShape = shape;
     }
 
-    setState (state: CanvasState): void {
+    setState(state: CanvasState, input?: Input): void {
         this.state = state;
-        state.enter();
+        state.enter(input);
     }
 
     detectShape(mousePos: Coord): Shape | null {

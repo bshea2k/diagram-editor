@@ -12,7 +12,7 @@ export class NothingSelectedState extends CanvasState {
         this.canvasController.render();
     }
 
-    handleInput(input: Input): CanvasState {
-        return this;
+    handleInput(input: Input): void {
+        
     }
 }
