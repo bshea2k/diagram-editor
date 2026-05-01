@@ -28,12 +28,12 @@ export class CanvasController {
     _draggingMouse: boolean = false;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, diagram: Diagram, renderer: Renderer) {
-        this.state = new NothingSelectedState(this);
         this._canvas = canvas;
         this._ctx = ctx;
         this._diagram = diagram;
         this._renderer = renderer;
         this._canvasPos = getElementPosition(this._canvas);
+        this.state = new NothingSelectedState(this);
 
         this._canvas.addEventListener("mousedown", this.handleMouseDown);
         this._canvas.addEventListener("mousemove", this.handleMouseMove);
