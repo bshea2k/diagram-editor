@@ -9,7 +9,9 @@ import { getElementPosition, getMousePosition } from "./utils";
 type CanvasState = "nothingSelected" | "shapeHovered" | "draggingShape" | "shapeSelected" | "connectionPointHovered" | "movingLine" | "lineSelected" | "lineHovered" | "lineMovePointHovered" | "resizeEdgeHovered" | "resizedPointHovered" | "resizingShape" | "rotatePointHovered" | "rotatingShape";
 
 export class CanvasController {
-    _state: CanvasState;
+    _state: CanvasState = "nothingSelected";
+    _enteringState: boolean = true;
+
     _canvas: HTMLCanvasElement;
     _canvasPos: Coord;
     _ctx: CanvasRenderingContext2D;
@@ -25,7 +27,6 @@ export class CanvasController {
     _draggingMouse: boolean = false;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, diagram: Diagram, renderer: Renderer) {
-        this._state = "nothingSelected";
         this._canvas = canvas;
         this._ctx = ctx;
         this._diagram = diagram;
@@ -48,19 +49,65 @@ export class CanvasController {
     }
 
     handleMouseMove = (e: MouseEvent): void => {
+        const input = {mousePos: getMousePosition(e, this._canvasPos), mouseMove: true}
+        
         switch(this._state) {
-
+            case "draggingShape":
+                this.handleDraggingShape(input);
+                break;
         }
     }
 
     handleMouseUp = (e: MouseEvent): void => {
-        switch(this._state) {
+        const input = {mousePos: getMousePosition(e, this._canvasPos), mouseUp: true}
 
+        switch(this._state) {
+            case "draggingShape":
+                this.handleDraggingShape(input);
+                break;
+        }
+    }
+
+    handleDraggingShape(input: Input) {
+        if (this._enteringState && input.mousePos) {
+            this._draggingMouse = true;
+            this._clientMouseInitialX = input.mousePos.x;
+            this._clientMouseInitialY = input.mousePos.y;
+            this._selectedShapeInitialX = this._selectedShape!.x;
+            this._selectedShapeInitialY = this._selectedShape!.y;
+
+            this._enteringState = false;
+            this.render();
+            return;
+        }
+
+        if (input.mouseMove && input.mousePos) {
+            let xOffset = input.mousePos.x - this._clientMouseInitialX;
+            let yOffset = input.mousePos.y- this._clientMouseInitialY;
+
+            this._selectedShape!.x = this._selectedShapeInitialX + xOffset;
+            this._selectedShape!.y = this._selectedShapeInitialY + yOffset;
+
+            this.render();
+        }
+
+        if (input.mouseUp) {
+            this._draggingMouse = false;
+
+            this._enteringState = true;
+            this.setState("shapeSelected");
+            this.handleShapeSelected(input);
         }
     }
 
     // relevant fields: _selectedShape
     handleShapeSelected(input: Input) {
+        if (this._enteringState) {
+            this._enteringState = false;
+            this.render();
+            return;
+        }
+
         if (input.mouseDown && input.mousePos) {
             this._selectedShape = null;
 
@@ -73,10 +120,14 @@ export class CanvasController {
             }
 
             if (this._selectedShape) {
+                this._enteringState = true;
                 this.setState("draggingShape");
+                this.handleDraggingShape(input);
             }
             else {
+                this._enteringState = true;
                 this.setState("nothingSelected");
+                //this.handleNothingSelected(input);
                 this.render();
             }
         }
