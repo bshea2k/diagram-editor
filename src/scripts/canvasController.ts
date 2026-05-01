@@ -126,6 +126,10 @@ export class CanvasController {
         this._selectedShape = shape;
     }
 
+    setState (state: CanvasState): void {
+        this.state = state;
+    }
+
     detectShape(mousePos: Coord): Shape | null {
         for (const shape of this._diagram.getShapes()) {
             if (shape.detect(mousePos.x, mousePos.y)) {

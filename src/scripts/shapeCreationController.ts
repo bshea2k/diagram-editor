@@ -2,28 +2,27 @@ import type { CanvasController } from "./canvasController";
 import type { Diagram } from "./diagram";
 import { Rectangle } from "./rectangle";
 import { Circle } from "./circle";
+import { ShapeSelectedState } from "./canvasStates/shapeSelectedState";
 
 export class ShapeCreationController {
-    _canvas: HTMLCanvasElement;
-    _canvasController: CanvasController;
-    _diagram: Diagram;
+    private canvas: HTMLCanvasElement;
+    private canvasController: CanvasController;
+    private diagram: Diagram;
 
     constructor(canvas: HTMLCanvasElement, canvasController: CanvasController, diagram: Diagram) {
-        this._canvas = canvas;
-        this._canvasController = canvasController;
-        this._diagram = diagram;
+        this.canvas = canvas;
+        this.canvasController = canvasController;
+        this.diagram = diagram;
 
         document.querySelector("#create__rect")?.addEventListener("click", () => {
             // to be in center, canvas.width / 2 - (shape.width / 2)
-            const rect = new Rectangle(this._canvas.width / 2, this._canvas.height / 2);
+            const rect = new Rectangle(this.canvas.width / 2, this.canvas.height / 2);
             rect.x -= rect.width / 2;
             rect.y -= rect.height / 2;
     
-            this._diagram.addShape(rect);
+            this.diagram.addShape(rect);
             
-            this._canvasController.selectShape(rect);
-            this._canvasController.setState("shapeSelected");
-            this._canvasController.render();
+            this.canvasController.setState(new ShapeSelectedState(this.canvasController, rect));
         })
 
         document.querySelector("#create__circ")?.addEventListener("click", () => {
@@ -33,9 +32,7 @@ export class ShapeCreationController {
     
             diagram.addShape(circ);
 
-            this._canvasController.selectShape(circ);
-            this._canvasController.setState("shapeSelected");
-            this._canvasController.render();
+            this.canvasController.setState(new ShapeSelectedState(this.canvasController, circ));
         })
     }
 }
