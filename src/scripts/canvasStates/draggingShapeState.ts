@@ -1,18 +1,19 @@
 import { CanvasState } from "./canvasState";
+import { ShapeSelectedState } from "./shapeSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Coord, Input } from "../utils";
 import type { Shape } from "../shape";
 
 export class DraggingShapeState extends CanvasState {
-    private selectedShape: Shape;
+    private draggedShape: Shape;
     private clientMouseInitialPos: Coord;
-    private selectedShapeInitialPos: Coord;
+    private draggedShapeInitialPos: Coord;
 
-    constructor(canvasController: CanvasController, selectedShape: Shape, clientMouseInitialPos: Coord) {
+    constructor(canvasController: CanvasController, draggedShape: Shape, clientMouseInitialPos: Coord) {
         super(canvasController);
-        this.selectedShape = selectedShape;
+        this.draggedShape = draggedShape;
         this.clientMouseInitialPos = clientMouseInitialPos;
-        this.selectedShapeInitialPos = {x: selectedShape.x, y: selectedShape.y};
+        this.draggedShapeInitialPos = {x: draggedShape.x, y: draggedShape.y};
     }
 
     enter(input?: Input): void {
@@ -27,10 +28,14 @@ export class DraggingShapeState extends CanvasState {
             let xOffset = input.mousePos.x - this.clientMouseInitialPos.x;
             let yOffset = input.mousePos.y - this.clientMouseInitialPos.y;
 
-            this.selectedShape.x = this.selectedShapeInitialPos.x + xOffset;
-            this.selectedShape.y = this.selectedShapeInitialPos.y + yOffset;
+            this.draggedShape.x = this.draggedShapeInitialPos.x + xOffset;
+            this.draggedShape.y = this.draggedShapeInitialPos.y + yOffset;
 
             this.canvasController.render();
+        } else if (input.mouseUp) {
+            this.canvasController.draggingMouse = false;
+            // mouse up -> ShapeSelected
+            this.canvasController.setState(new ShapeSelectedState(this.canvasController, this.draggedShape));
         }
     }
 }
