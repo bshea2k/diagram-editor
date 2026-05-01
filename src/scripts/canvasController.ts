@@ -18,14 +18,14 @@ export class CanvasController {
     _ctx: CanvasRenderingContext2D;
     _diagram: Diagram;
     _renderer: Renderer;
-    _selectedShape: Shape | null = null;
-    _selectedCP: ConnectionPoint | null = null;
-    _selectedConnection: Connection | null = null;
+    public selectedShape: Shape | null = null;
+    public selectedCP: ConnectionPoint | null = null;
+    public selectedConnection: Connection | null = null;
     _selectedShapeInitialX: number = 0;
     _selectedShapeInitialY: number = 0;
     _clientMouseInitialX: number = 0;
     _clientMouseInitialY: number = 0;
-    _draggingMouse: boolean = false;
+    public draggingMouse: boolean = false;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, diagram: Diagram, renderer: Renderer) {
         this._canvas = canvas;
@@ -125,11 +125,11 @@ export class CanvasController {
     } */
 
     render(): void {
-        this._renderer.render(this._diagram, this._selectedShape, this._draggingMouse, this._selectedCP, this._selectedConnection);
+        this._renderer.render(this._diagram, this.selectedShape, this.draggingMouse, this.selectedCP, this.selectedConnection);
     }
 
     selectShape(shape: Shape | null): void {
-        this._selectedShape = shape;
+        this.selectedShape = shape;
     }
 
     setState(state: CanvasState, input?: Input): void {
