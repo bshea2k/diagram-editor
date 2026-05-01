@@ -17,6 +17,11 @@ export class shapeHoveredState extends CanvasState {
     }
 
     handleInput(input: Input): void {
-        
+        if (input.mouseMove && input.mousePos) {
+            let hoveredShape = this.canvasController.detectShape(input.mousePos);
+
+            // hover a DIFFERENT shape -> ShapeHovered state
+            if (hoveredShape && hoveredShape !== this.hoveredShape) this.canvasController.setState(new shapeHoveredState(this.canvasController, hoveredShape));
+        }
     }
 }
