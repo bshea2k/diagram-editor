@@ -1,4 +1,5 @@
 import { CanvasState } from "./canvasState";
+import { DraggingShapeState } from "./draggingShapeState";
 import { NothingSelectedState } from "./nothingSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
@@ -25,6 +26,10 @@ export class shapeHoveredState extends CanvasState {
             if (hoveredShape && hoveredShape !== this.hoveredShape) this.canvasController.setState(new shapeHoveredState(this.canvasController, hoveredShape));
             // hover blankspace -> NothingSelected state
             else if (!hoveredShape) this.canvasController.setState(new NothingSelectedState(this.canvasController));
+        }
+        else if (input.mouseDown && input.mousePos) {
+            // click to select shape -> DraggingShape state
+            this.canvasController.setState(new DraggingShapeState(this.canvasController, this.hoveredShape, input.mousePos));
         }
     }
 }
