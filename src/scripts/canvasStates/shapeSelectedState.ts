@@ -9,8 +9,6 @@ export class ShapeSelectedState extends CanvasState {
     constructor(canvasController: CanvasController, selectedShape: Shape) {
         super(canvasController);
         this.selectedShape = selectedShape;
-
-        this.enter();
     }
 
     enter(input?: Input): void {
