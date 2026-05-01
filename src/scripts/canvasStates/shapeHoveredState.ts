@@ -13,6 +13,7 @@ export class shapeHoveredState extends CanvasState {
 
     enter(input?: Input): void {
         this.canvasController.render();
+        console.log("Entering ShapeHovered"); // temp | debug
     }
 
     handleInput(input: Input): void {
