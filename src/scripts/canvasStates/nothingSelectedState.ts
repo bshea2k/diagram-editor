@@ -1,4 +1,5 @@
 import { CanvasState } from "./canvasState";
+import { shapeHoveredState } from "./shapeHoveredState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 
@@ -13,6 +14,11 @@ export class NothingSelectedState extends CanvasState {
     }
 
     handleInput(input: Input): void {
-        
+        if (input.mouseMove && input.mousePos) {
+            let hoveredShape = this.canvasController.detectShape(input.mousePos);
+
+            // hover a shape -> ShapeHovered state
+            if (hoveredShape) this.canvasController.setState(new shapeHoveredState(this.canvasController, hoveredShape));
+        }
     }
 }
