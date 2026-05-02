@@ -30,19 +30,12 @@ export class Connection {
     set endPos(endPos) { this._endPos = endPos; }
 
     render(ctx: CanvasRenderingContext2D): void {
-        // make this its own updatePosition() function later maybe, or clean up/refactor
-        let actualStartPos: {x: number, y: number} = this.startPos;
-        let actualEndPos: {x: number, y: number} = this.endPos;
-
-        if (this.startShape) actualStartPos = {x: this.startShape.x + this.startPos.x, y: this.startShape.y + this.startPos.y};
-        if (this.endShape) actualEndPos = {x: this.endShape.x + this.endPos.x, y: this.endShape.y + this.endPos.y};
-
         ctx.lineWidth = 1; // should be customizable later
         ctx.strokeStyle = "#0D0D0D" // should be customizable later(?)
 
         ctx.beginPath();
-        ctx.moveTo(actualStartPos.x, actualStartPos.y);
-        ctx.lineTo(actualEndPos.x, actualEndPos.y);
+        ctx.moveTo(this.actualStartPos().x, this.actualStartPos().y);
+        ctx.lineTo(this.actualStartPos().x, this.actualStartPos().y);
         ctx.closePath();
         ctx.stroke();
     }
@@ -63,5 +56,15 @@ export class Connection {
 
         this.endPos = {x: this.endShape.x + this.endPos.x, y: this.endShape.y + this.endPos.y};
         this.endShape = null;
+    }
+
+    actualStartPos(): {x: number, y: number} {
+        if (this.startShape) return {x: this.startShape.x + this.startPos.x, y: this.startShape.y + this.startPos.y};
+        else return this.startPos;
+    }
+
+    actualEndPos(): {x: number, y: number} {
+        if (this.endShape) return {x: this.endShape.x + this.endPos.x, y: this.endShape.y + this.endPos.y};
+        else return this.endPos;
     }
 }
