@@ -13,11 +13,11 @@ export class ResizePoint extends UtilityPoint {
         return true;
     }
 
-    render(): void {
+    render(ctx: CanvasRenderingContext2D): void {
 
     }
 
-    renderActive(): void {
+    renderActive(ctx: CanvasRenderingContext2D): void {
         
     }
 }

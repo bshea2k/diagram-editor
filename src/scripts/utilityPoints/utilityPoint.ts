@@ -3,7 +3,7 @@ export abstract class UtilityPoint {
 
     abstract detect(x: number, y: number): boolean;
 
-    abstract render(): void;
+    abstract render(ctx: CanvasRenderingContext2D): void;
 
-    abstract renderActive(): void;
+    abstract renderActive(ctx: CanvasRenderingContext2D): void;
 }
