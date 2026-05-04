@@ -11,7 +11,7 @@ export class ConnectionPoint extends UtilityPoint {
     _y: number;
 
     constructor(shape: Shape, side: "top" | "bottom" | "right" | "left") {
-        super();
+        super("ConnectionPoint");
         this._shape = shape;
         this._side = side;
         this._x = 0;

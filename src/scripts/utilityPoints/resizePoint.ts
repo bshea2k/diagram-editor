@@ -11,7 +11,7 @@ export class ResizePoint extends UtilityPoint {
     private y!: number;
 
     constructor(shape: Shape, side: Side) {
-        super();
+        super("ResizePoint");
         this.shape = shape;
         this.side = side;
         this.updatePosition();

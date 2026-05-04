@@ -1,5 +1,5 @@
 export abstract class UtilityPoint {
-    constructor() {}
+    constructor(public type: string) {}
 
     abstract detect(x: number, y: number): boolean;
 
