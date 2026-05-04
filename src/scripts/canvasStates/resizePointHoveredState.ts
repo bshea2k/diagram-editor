@@ -1,4 +1,5 @@
 import { CanvasState } from "./canvasState";
+import { ShapeSelectedState } from "./shapeSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { UtilityPoint } from "../utilityPoints/utilityPoint";
@@ -30,6 +31,13 @@ export class ResizePointHoveredState extends CanvasState {
     }
 
     handleInput(input: Input): void {
-
+        if (input.mouseMove && input.mousePos) {
+            // hover off of resize point -> ShapeSelected state
+            if (!this.resizePoint.detect(input.mousePos)) {
+                document.body.style.cursor = "default";
+                this.canvasController.activeUP = null;
+                this.canvasController.setState(new ShapeSelectedState(this.canvasController, this.resizePoint.shape));
+            }
+        }
     }
 }
