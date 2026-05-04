@@ -15,7 +15,7 @@ export class Renderer {
         diagram: Diagram, 
         selectedShape: Shape | null, 
         draggingMouse: boolean,
-        selectedUtilityPoint: UtilityPoint | null,
+        activeUtilityPoint: UtilityPoint | null,
         selectedConnection: Connection | null,
     ): void {
         this._ctx.clearRect(0, 0, this._ctx.canvas.width, this._ctx.canvas.height);
@@ -35,7 +35,7 @@ export class Renderer {
             for (let i = selectedShape.utilityPoints.length -1; i>=0; i--) {
                 const up = selectedShape.utilityPoints[i];
 
-                if (up === selectedUtilityPoint) up.renderActive(this._ctx);
+                if (up === activeUtilityPoint) up.renderActive(this._ctx);
                 else up!.render(this._ctx);
             }
         }
