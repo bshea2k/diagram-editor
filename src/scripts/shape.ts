@@ -20,6 +20,10 @@ export abstract class Shape {
         this._width = width;
         this._height = height;
         this.utilityPoints = [
+            new ResizePoint(this, "topleft"),
+            new ResizePoint(this, "topright"),
+            new ResizePoint(this, "bottomright"),
+            new ResizePoint(this, "bottomleft"),
             new ConnectionPoint(this, "top"), 
             new ConnectionPoint(this, "right"), 
             new ConnectionPoint(this, "bottom"), 
@@ -28,10 +32,6 @@ export abstract class Shape {
             new ResizeEdge(this, "right"),
             new ResizeEdge(this, "bottom"),
             new ResizeEdge(this, "left"),
-            new ResizePoint(this, "topleft"),
-            new ResizePoint(this, "topright"),
-            new ResizePoint(this, "bottomright"),
-            new ResizePoint(this, "bottomleft"),
         ];
     }
 

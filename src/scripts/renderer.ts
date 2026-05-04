@@ -29,12 +29,22 @@ export class Renderer {
             diagram.getShapes()[i]!.render(this._ctx); // CHECK NONNULL ASSERTION
         }
 
-        // render connection points for the selected shape
+        // render utility points for the selected shape
         if (selectedShape && !draggingMouse) {
-            selectedShape.utilityPoints.forEach((up) => {
+            // iterate in reverse due to top layer UPs being at index 0, so render them last
+            for (let i = selectedShape.utilityPoints.length -1; i>=0; i--) {
+                const up = selectedShape.utilityPoints[i];
+
                 if (up === selectedUtilityPoint) up.renderActive(this._ctx);
-                else up.render(this._ctx);
-            });
+                else up!.render(this._ctx);
+            }
+        }
+
+        // when dragging a shape, only render the resize edges
+        if (selectedShape && draggingMouse) {
+            selectedShape.utilityPoints.forEach((up) => {
+                if (up.type === "ResizeEdge") up.render(this._ctx);
+            })
         }
 
         if (selectedConnection && !draggingMouse) {
