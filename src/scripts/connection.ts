@@ -1,4 +1,4 @@
-import { ConnectionMovementPoint } from "./connectionMovementPoint";
+import { ConnectionMovementPoint } from "./utilityPoints/connectionMovementPoint";
 import type { Shape } from "./shape";
 
 export class Connection {

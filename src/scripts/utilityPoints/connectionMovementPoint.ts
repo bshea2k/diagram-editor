@@ -1,4 +1,4 @@
-import { Connection } from "./connection";
+import { Connection } from "../connection";
 
 const DEFAULT_WIDTH = 10;
 const DEFAULT_HEIGHT = 10;

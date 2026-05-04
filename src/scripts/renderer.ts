@@ -1,6 +1,6 @@
 import type { Diagram } from "./diagram";
 import type { Shape } from "./shape";
-import type { ConnectionPoint } from "./ConnectionPoint";
+import type { ConnectionPoint } from "./utilityPoints/ConnectionPoint";
 import type { Connection } from "./connection";
 
 export class Renderer {

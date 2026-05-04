@@ -1,4 +1,4 @@
-import { ConnectionPoint } from "./ConnectionPoint";
+import { ConnectionPoint } from "./utilityPoints/ConnectionPoint";
 
 export const SELECTED_POINT_OFFSET = 20;
 

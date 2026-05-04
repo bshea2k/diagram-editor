@@ -1,4 +1,4 @@
-import type { Shape } from "./shape"
+import type { Shape } from "../shape"
 
 const DISTANCE_FROM_SHAPE = 20;
 const RADIUS = 5;
