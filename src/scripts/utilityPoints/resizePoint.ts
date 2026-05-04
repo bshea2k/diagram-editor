@@ -27,6 +27,8 @@ export class ResizePoint extends UtilityPoint {
     }
 
     render(ctx: CanvasRenderingContext2D): void {
+        this.updatePosition();
+
         ctx.strokeStyle = "#855CC0";
         ctx.fillStyle = "#F8F8F8";
 
@@ -37,6 +39,8 @@ export class ResizePoint extends UtilityPoint {
     }
 
     renderActive(ctx: CanvasRenderingContext2D): void {
+        this.updatePosition();
+
         ctx.strokeStyle = "#855CC0";
         ctx.fillStyle = "#855CC0";
 
