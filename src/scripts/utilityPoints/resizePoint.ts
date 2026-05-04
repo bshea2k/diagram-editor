@@ -6,8 +6,8 @@ const WIDTH = 10;
 type Side = "topleft" | "topright" | "bottomright" | "bottomleft";
 
 export class ResizePoint extends UtilityPoint {
-    private shape: Shape;
-    private side: Side;
+    public shape: Shape;
+    public side: Side;
     private x!: number;
     private y!: number;
 
