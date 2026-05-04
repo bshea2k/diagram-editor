@@ -1,15 +1,17 @@
+import { UtilityPoint } from "./utilityPoint";
 import type { Shape } from "../shape"
 
 const DISTANCE_FROM_SHAPE = 20;
 const RADIUS = 5;
 
-export class ConnectionPoint {
+export class ConnectionPoint extends UtilityPoint {
     _shape: Shape;
     _side: "top" | "bottom" | "right" | "left";
     _x: number;
     _y: number;
 
     constructor(shape: Shape, side: "top" | "bottom" | "right" | "left") {
+        super();
         this._shape = shape;
         this._side = side;
         this._x = 0;
@@ -37,7 +39,7 @@ export class ConnectionPoint {
         ctx.stroke();
     }
 
-    renderHovered(ctx: CanvasRenderingContext2D): void {
+    renderActive(ctx: CanvasRenderingContext2D): void {
         this.updatePosition();
 
         ctx.fillStyle = "#855CC0";

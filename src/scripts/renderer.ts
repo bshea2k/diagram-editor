@@ -32,7 +32,7 @@ export class Renderer {
         // render connection points for the selected shape
         if (selectedShape && !draggingMouse) {
             selectedShape.connectionPoints.forEach((cp) => {
-                if (cp === selectedConnectionPoint) cp.renderHovered(this._ctx);
+                if (cp === selectedConnectionPoint) cp.renderActive(this._ctx);
                 else cp.render(this._ctx);
             });
         }
