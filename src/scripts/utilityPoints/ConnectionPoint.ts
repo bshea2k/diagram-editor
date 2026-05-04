@@ -1,5 +1,6 @@
 import { UtilityPoint } from "./utilityPoint";
 import type { Shape } from "../shape"
+import type { Coord } from "../utils";
 
 const DISTANCE_FROM_SHAPE = 20;
 const RADIUS = 5;
@@ -19,10 +20,10 @@ export class ConnectionPoint extends UtilityPoint {
         this.updatePosition();
     }
 
-    detect(x: number, y: number): boolean {
+    detect(pos: Coord): boolean {
         //pythagorean theorem
-        let a = this._x - x;
-        let b = this._y - y;
+        let a = this._x - pos.x;
+        let b = this._y - pos.y;
         let distance = Math.sqrt((a ** 2) + (b ** 2));
         
         return distance <= RADIUS * 1.75; // multiply to increase leniency

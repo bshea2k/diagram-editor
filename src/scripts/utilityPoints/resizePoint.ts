@@ -1,5 +1,6 @@
 import { UtilityPoint } from "./utilityPoint";
 import type { Shape } from "../shape"
+import type { Coord } from "../utils";
 
 const WIDTH = 10;
 type Side = "topleft" | "topright" | "bottomright" | "bottomleft";
@@ -17,10 +18,10 @@ export class ResizePoint extends UtilityPoint {
         this.updatePosition();
     }
 
-    detect(x: number, y: number): boolean {
+    detect(pos: Coord): boolean {
         this.updatePosition();
 
-        if (x > this.x && x < this.x + WIDTH && y > this.y && y < this.y + WIDTH) {
+        if (pos.x > this.x && pos.x < this.x + WIDTH && pos.y > this.y && pos.y < this.y + WIDTH) {
             return true;
         }
         else return false;

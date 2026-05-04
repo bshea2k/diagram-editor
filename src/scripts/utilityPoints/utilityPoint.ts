@@ -1,7 +1,9 @@
+import type { Coord } from "../utils";
+
 export abstract class UtilityPoint {
     constructor(public type: string) {}
 
-    abstract detect(x: number, y: number): boolean;
+    abstract detect(pos: Coord): boolean;
 
     abstract render(ctx: CanvasRenderingContext2D): void;
 

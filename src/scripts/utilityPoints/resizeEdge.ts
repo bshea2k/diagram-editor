@@ -18,10 +18,10 @@ export class ResizeEdge extends UtilityPoint {
         this.updatePosition();
     }
 
-    detect(x: number, y: number): boolean {
+    detect(pos: Coord): boolean {
         this.updatePosition();
 
-        if (x > this.startPos.x - LENIENCY_WIDTH / 2 && x < this.startPos.x + LENIENCY_WIDTH / 2 && y > this.startPos.y && y < this.endPos.y - this.startPos.y) {
+        if (pos.x > this.startPos.x - LENIENCY_WIDTH / 2 && pos.x < this.startPos.x + LENIENCY_WIDTH / 2 && pos.y > this.startPos.y && pos.y < this.endPos.y - this.startPos.y) {
             return true;
         }
         else return false;
