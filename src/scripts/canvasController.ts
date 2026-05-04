@@ -19,7 +19,7 @@ export class CanvasController {
     _diagram: Diagram;
     _renderer: Renderer;
     public selectedShape: Shape | null = null;
-    public selectedUP: UtilityPoint | null = null;
+    public activeUP: UtilityPoint | null = null;
     public selectedConnection: Connection | null = null;
     public draggingMouse: boolean = false;
 
@@ -55,7 +55,7 @@ export class CanvasController {
     }
 
     render(): void {
-        this._renderer.render(this._diagram, this.selectedShape, this.draggingMouse, this.selectedUP, this.selectedConnection);
+        this._renderer.render(this._diagram, this.selectedShape, this.draggingMouse, this.activeUP, this.selectedConnection);
     }
 
     setState(state: CanvasState, input?: Input): void {
