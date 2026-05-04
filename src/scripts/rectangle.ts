@@ -16,9 +16,12 @@ export class Rectangle extends Shape {
     set text(text) { this._text = text; }
 
     render(ctx: CanvasRenderingContext2D): void {
+        ctx.strokeStyle = "#0D0D0D";
+        ctx.fillStyle = "#F8F8F8";
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
+        ctx.fill();
 
         ctx.font = "16px Helvetica";
         ctx.textAlign = "center";

@@ -17,9 +17,11 @@ export class Circle extends Shape {
 
     render(ctx: CanvasRenderingContext2D): void {
         ctx.strokeStyle = "#0D0D0D";
+        ctx.fillStyle = "#F8F8F8";
         ctx.beginPath();
         ctx.arc(this.x + DEFAULT_RADIUS, this.y + DEFAULT_RADIUS, DEFAULT_RADIUS, 0, Math.PI * 2, true);
         ctx.stroke();
+        ctx.fill();
 
         ctx.font = "16px Helvetica";
         ctx.textAlign = "center";
