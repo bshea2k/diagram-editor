@@ -17,6 +17,7 @@ export class DraggingShapeState extends CanvasState {
     }
 
     enter(input?: Input): void {
+        this.canvasController.selectedShape = this.draggedShape;
         this.canvasController.draggingMouse = true;
         this.canvasController.render();
 
