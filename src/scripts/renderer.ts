@@ -31,15 +31,10 @@ export class Renderer {
 
         // render connection points for the selected shape
         if (selectedShape && !draggingMouse) {
-            selectedShape.connectionPoints.forEach((cp) => {
-                if (cp === selectedUtilityPoint) cp.renderActive(this._ctx);
-                else cp.render(this._ctx);
+            selectedShape.utilityPoints.forEach((up) => {
+                if (up === selectedUtilityPoint) up.renderActive(this._ctx);
+                else up.render(this._ctx);
             });
-
-            selectedShape.resizePoints.forEach((rp) => {
-                if (rp === selectedUtilityPoint) rp.renderActive(this._ctx);
-                else rp.render(this._ctx);
-            })
         }
 
         if (selectedConnection && !draggingMouse) {
