@@ -1,5 +1,6 @@
 import { ConnectionPoint } from "./utilityPoints/ConnectionPoint";
 import { ResizePoint } from "./utilityPoints/resizePoint";
+import { ResizeEdge } from "./utilityPoints/resizeEdge";
 import type { UtilityPoint } from "./utilityPoints/utilityPoint";
 
 export const SELECTED_POINT_OFFSET = 20;
@@ -23,6 +24,10 @@ export abstract class Shape {
             new ConnectionPoint(this, "right"), 
             new ConnectionPoint(this, "bottom"), 
             new ConnectionPoint(this, "left"),
+            new ResizeEdge(this, "top"),
+            new ResizeEdge(this, "right"),
+            new ResizeEdge(this, "bottom"),
+            new ResizeEdge(this, "left"),
             new ResizePoint(this, "topleft"),
             new ResizePoint(this, "topright"),
             new ResizePoint(this, "bottomright"),
