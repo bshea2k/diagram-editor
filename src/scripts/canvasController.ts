@@ -1,9 +1,9 @@
 import type { Renderer } from "./renderer";
 import type { Shape } from "./shape";
 import type { Diagram } from "./diagram";
-import type { ConnectionPoint } from "./utilityPoints/ConnectionPoint";
 import type { Coord, Input } from "./utils";
 import type { CanvasState } from "./canvasStates/canvasState";
+import type { UtilityPoint } from "./utilityPoints/utilityPoint";
 import { NothingSelectedState } from "./canvasStates/nothingSelectedState";
 import { Connection } from "./connection";
 import { getElementPosition, getMousePosition } from "./utils";
@@ -19,7 +19,7 @@ export class CanvasController {
     _diagram: Diagram;
     _renderer: Renderer;
     public selectedShape: Shape | null = null;
-    public selectedCP: ConnectionPoint | null = null;
+    public selectedUP: UtilityPoint | null = null;
     public selectedConnection: Connection | null = null;
     public draggingMouse: boolean = false;
 
@@ -55,7 +55,7 @@ export class CanvasController {
     }
 
     render(): void {
-        this._renderer.render(this._diagram, this.selectedShape, this.draggingMouse, this.selectedCP, this.selectedConnection);
+        this._renderer.render(this._diagram, this.selectedShape, this.draggingMouse, this.selectedUP, this.selectedConnection);
     }
 
     setState(state: CanvasState, input?: Input): void {

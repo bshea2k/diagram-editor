@@ -1,7 +1,7 @@
 import type { Diagram } from "./diagram";
 import type { Shape } from "./shape";
-import type { ConnectionPoint } from "./utilityPoints/ConnectionPoint";
 import type { Connection } from "./connection";
+import type { UtilityPoint } from "./utilityPoints/utilityPoint";
 
 export class Renderer {
     _ctx: CanvasRenderingContext2D;
@@ -15,7 +15,7 @@ export class Renderer {
         diagram: Diagram, 
         selectedShape: Shape | null, 
         draggingMouse: boolean,
-        selectedConnectionPoint: ConnectionPoint | null,
+        selectedUtilityPoint: UtilityPoint | null,
         selectedConnection: Connection | null,
     ): void {
         this._ctx.clearRect(0, 0, this._ctx.canvas.width, this._ctx.canvas.height);
@@ -32,9 +32,14 @@ export class Renderer {
         // render connection points for the selected shape
         if (selectedShape && !draggingMouse) {
             selectedShape.connectionPoints.forEach((cp) => {
-                if (cp === selectedConnectionPoint) cp.renderActive(this._ctx);
+                if (cp === selectedUtilityPoint) cp.renderActive(this._ctx);
                 else cp.render(this._ctx);
             });
+
+            selectedShape.resizePoints.forEach((rp) => {
+                if (rp === selectedUtilityPoint) rp.renderActive(this._ctx);
+                else rp.render(this._ctx);
+            })
         }
 
         if (selectedConnection && !draggingMouse) {
