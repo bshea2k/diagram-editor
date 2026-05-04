@@ -1,6 +1,7 @@
 import { CanvasState } from "./canvasState";
 import { DraggingShapeState } from "./draggingShapeState";
 import { NothingSelectedState } from "./nothingSelectedState";
+import { ResizePointHoveredState } from "./resizePointHoveredState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Shape } from "../shape";
@@ -20,7 +21,26 @@ export class ShapeSelectedState extends CanvasState {
     }
 
     handleInput(input: Input): void {
-        if (input.mouseDown && input.mousePos) {
+        if (input.mouseMove && input.mousePos) {
+            let hoveredUtilityPoint = null;
+
+            // could be its own function in shape.ts or canvasController.ts?
+            for (const up of this.selectedShape.utilityPoints) {
+                if (up.detect(input.mousePos)) {
+                    hoveredUtilityPoint = up;
+                    break;
+                }
+            }
+
+            if (hoveredUtilityPoint) {
+                switch(hoveredUtilityPoint.type) {
+                    case "ResizePoint":
+                        this.canvasController.setState(new ResizePointHoveredState(this.canvasController, hoveredUtilityPoint));
+                        break;
+                }
+            }
+        }
+        else if (input.mouseDown && input.mousePos) {
             let clickedShape = this.canvasController.detectShape(input.mousePos);
 
             // mousedown on this shape -> DraggingShape state
