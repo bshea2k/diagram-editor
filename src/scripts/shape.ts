@@ -1,4 +1,5 @@
 import { ConnectionPoint } from "./utilityPoints/ConnectionPoint";
+import { ResizePoint } from "./utilityPoints/resizePoint";
 
 export const SELECTED_POINT_OFFSET = 20;
 
@@ -9,6 +10,7 @@ export abstract class Shape {
     _width: number;
     _height: number;
     _connectionPoints: ConnectionPoint[];
+    public resizePoints: ResizePoint[];
 
     constructor(x: number, y: number, width: number, height: number) {
         this._id = self.crypto.randomUUID();
@@ -21,6 +23,12 @@ export abstract class Shape {
             new ConnectionPoint(this, "right"), 
             new ConnectionPoint(this, "bottom"), 
             new ConnectionPoint(this, "left"),
+        ];
+        this.resizePoints = [
+            new ResizePoint(this, "topleft"),
+            new ResizePoint(this, "topright"),
+            new ResizePoint(this, "bottomright"),
+            new ResizePoint(this, "bottomleft"),
         ];
     }
 
