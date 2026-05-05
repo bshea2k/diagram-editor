@@ -77,6 +77,12 @@ export class ResizingShapeState extends CanvasState {
                 break;
         }
 
+        this.preventInverting();
+
+        this.canvasController.render();
+    }
+
+    preventInverting(): void {
         // formalize/conventionalize these values
         // prevent width/height from inverting
         if (this.resizeUtilityPoint.shape.width < 5) this.resizeUtilityPoint.shape.width = 5;
@@ -85,7 +91,5 @@ export class ResizingShapeState extends CanvasState {
         // prevent shape from moving outside of normal bounds when resizing
         if (this.resizeUtilityPoint.shape.x >= this.initialShapePos.x + this.initialShapeWidth - 5) this.resizeUtilityPoint.shape.x = this.initialShapePos.x + this.initialShapeWidth - 5;
         if (this.resizeUtilityPoint.shape.y >= this.initialShapePos.y + this.initialShapeHeight - 5) this.resizeUtilityPoint.shape.y = this.initialShapePos.y + this.initialShapeHeight - 5;
-
-        this.canvasController.render();
     }
 }
