@@ -42,7 +42,7 @@ export class ResizePointHoveredState extends CanvasState {
         }
         else if (input.mouseDown) {
             // click resize point -> ResizingShape state
-            this.canvasController.setState(new ResizingShapeState(this.canvasController, this.resizePoint));
+            this.canvasController.setState(new ResizingShapeState(this.canvasController, this.resizePoint), input);
         }
     }
 }

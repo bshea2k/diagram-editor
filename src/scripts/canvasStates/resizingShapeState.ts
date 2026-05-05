@@ -2,13 +2,14 @@ import { CanvasState } from "./canvasState";
 import { ResizePointHoveredState } from "./resizePointHoveredState";
 import { ResizeEdgeHoveredState } from "./resizeEdgeHoveredState";
 import type { CanvasController } from "../canvasController";
-import type { Input } from "../utils";
+import type { Coord, Input } from "../utils";
 import type { UtilityPoint } from "../utilityPoints/utilityPoint";
 import type { ResizePoint } from "../utilityPoints/resizePoint";
 import type { ResizeEdge } from "../utilityPoints/resizeEdge";
 
 export class ResizingShapeState extends CanvasState {
     private resizeUtilityPoint: ResizePoint | ResizeEdge;
+    private initialMousePos: Coord = {x: 0, y: 0};
 
     constructor(canvasController: CanvasController, resizeUtilityPoint: UtilityPoint) {
         super(canvasController);
@@ -18,6 +19,11 @@ export class ResizingShapeState extends CanvasState {
     }
 
     enter(input?: Input): void {
+        if (input && input.mousePos) {
+            this.initialMousePos.x = input.mousePos.x;
+            this.initialMousePos.y = input.mousePos.x;
+        }
+
         this.canvasController.draggingMouse = true;
         this.canvasController.render();
 
@@ -25,7 +31,10 @@ export class ResizingShapeState extends CanvasState {
     }
 
     handleInput(input: Input): void {
-        if (input.mouseUp) {
+        if (input.mouseMove && input.mousePos) {
+
+        }
+        else if (input.mouseUp) {
             this.canvasController.draggingMouse = false;
 
             // mouse up -> Resize(Point/Edge)Hovered state
