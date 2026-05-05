@@ -34,14 +34,6 @@ export class ResizeEdgeHoveredState extends CanvasState {
 
     handleInput(input: Input): void {
         if (input.mouseMove && input.mousePos) {
-            // hover off of resize edge -> ShapeSelected state
-            if (!this.resizeEdge.detect(input.mousePos)) {
-                document.body.style.cursor = "default";
-                this.canvasController.activeUP = null;
-                this.canvasController.setState(new ShapeSelectedState(this.canvasController, this.resizeEdge.shape));
-            }
-
-            // hover over a resize point -> ResizePointHovered state
             let hoveredUtilityPoint = null;
             // could be its own function in shape.ts or canvasController.ts?
             for (const up of this.resizeEdge.shape.utilityPoints) {
@@ -50,8 +42,16 @@ export class ResizeEdgeHoveredState extends CanvasState {
                     break;
                 }
             }
+
+            // hover over a resize point -> ResizePointHovered state
             if (hoveredUtilityPoint && hoveredUtilityPoint.type === "ResizePoint") {
                 this.canvasController.setState(new ResizePointHoveredState(this.canvasController, hoveredUtilityPoint));
+            }
+            // hover off of resize edge -> ShapeSelected state
+            else if (hoveredUtilityPoint !== this.resizeEdge) {
+                document.body.style.cursor = "default";
+                this.canvasController.activeUP = null;
+                this.canvasController.setState(new ShapeSelectedState(this.canvasController, this.resizeEdge.shape));
             }
         }
         else if (input.mouseDown) {
