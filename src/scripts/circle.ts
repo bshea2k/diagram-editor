@@ -19,7 +19,7 @@ export class Circle extends Shape {
         ctx.strokeStyle = "#0D0D0D";
         ctx.fillStyle = "#F8F8F8";
         ctx.beginPath();
-        ctx.arc(this.x + DEFAULT_RADIUS, this.y + DEFAULT_RADIUS, DEFAULT_RADIUS, 0, Math.PI * 2, true);
+        ctx.arc(this.x + this.width / 2, this.y + this.width / 2, this.width / 2, 0, Math.PI * 2, true);
         ctx.stroke();
         ctx.fill();
 
@@ -32,10 +32,10 @@ export class Circle extends Shape {
 
     detect(x: number, y: number): boolean {
         //pythagorean theorem
-        let a = this.x + DEFAULT_RADIUS - x;
-        let b = this.y + DEFAULT_RADIUS - y;
+        let a = this.x + this.width / 2 - x;
+        let b = this.y + this.width / 2 - y;
         let distance = Math.sqrt((a ** 2) + (b ** 2));
         
-        return distance <= DEFAULT_RADIUS;
+        return distance <= this.width / 2;
     }
 }
