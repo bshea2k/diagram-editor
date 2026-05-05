@@ -28,7 +28,7 @@ export class ResizingShapeState extends CanvasState {
     enter(input?: Input): void {
         if (input && input.mousePos) {
             this.initialMousePos.x = input.mousePos.x;
-            this.initialMousePos.y = input.mousePos.x;
+            this.initialMousePos.y = input.mousePos.y;
         }
 
         this.canvasController.draggingMouse = true;
@@ -51,15 +51,22 @@ export class ResizingShapeState extends CanvasState {
     }
 
     handleResizePointResizing(mousePos: Coord): void {
+        let xOffset = mousePos.x - this.initialMousePos.x;
+        let yOffset = mousePos.y - this.initialMousePos.y;
+
         switch(this.resizeUtilityPoint.side) {
             case "topleft":
                 break;
             case "topright":
                 break;
             case "bottomright":
+                this.resizeUtilityPoint.shape.width = this.initialShapeWidth + xOffset;
+                this.resizeUtilityPoint.shape.height = this.initialShapeHeight + yOffset;
                 break;
             case "bottomleft":
                 break;
         }
+
+        this.canvasController.render();
     }
 }
