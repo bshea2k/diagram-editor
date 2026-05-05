@@ -67,6 +67,11 @@ export class ResizingShapeState extends CanvasState {
                 break;
         }
 
+        // formalize/conventionalize these values
+        // prevent width/height from inverting
+        if (this.resizeUtilityPoint.shape.width <= 0) this.resizeUtilityPoint.shape.width = 5;
+        if (this.resizeUtilityPoint.shape.height <= 0) this.resizeUtilityPoint.shape.height = 5;
+
         this.canvasController.render();
     }
 }
