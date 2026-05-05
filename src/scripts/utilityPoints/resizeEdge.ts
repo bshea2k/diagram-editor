@@ -37,6 +37,22 @@ export class ResizeEdge extends UtilityPoint {
         ctx.moveTo(this.startPos.x, this.startPos.y);
         ctx.lineTo(this.endPos.x, this.endPos.y);
         ctx.stroke();
+
+        /* VISUALIZATION FOR HITBOX PURPOSES
+        if (this.side === "top" || this.side === "bottom") {
+            ctx.fillStyle = "#88888888"
+            ctx.beginPath();
+            ctx.rect(this.startPos.x, this.startPos.y - LENIENCY_WIDTH / 2, this.endPos.x - this.startPos.x, LENIENCY_WIDTH);
+            ctx.fill();
+        }
+        else if (this.side === "left" || this.side === "right") {
+            ctx.fillStyle = "#88888888"
+            ctx.beginPath();
+            ctx.rect(this.startPos.x - LENIENCY_WIDTH / 2, this.startPos.y, LENIENCY_WIDTH, this.endPos.y - this.startPos.y);
+            console.log(this.startPos.x - LENIENCY_WIDTH / 2);
+            console.log(this.startPos.y);
+            ctx.fill();
+        } */
     }
 
     renderActive(ctx: CanvasRenderingContext2D): void {
