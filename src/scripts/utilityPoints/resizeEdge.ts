@@ -21,10 +21,14 @@ export class ResizeEdge extends UtilityPoint {
     detect(pos: Coord): boolean {
         this.updatePosition();
 
-        if (pos.x > this.startPos.x - LENIENCY_WIDTH / 2 && pos.x < this.startPos.x + LENIENCY_WIDTH / 2 && pos.y > this.startPos.y && pos.y < this.endPos.y - this.startPos.y) {
-            return true;
+        if (this.side === "top" || this.side === "bottom") {
+            if (pos.x > this.startPos.x && pos.x < this.startPos.x + this.endPos.x - this.startPos.x && pos.y > this.startPos.y - LENIENCY_WIDTH / 2 && pos.y < this.startPos.y - LENIENCY_WIDTH / 2 + LENIENCY_WIDTH) return true;
         }
-        else return false;
+        else if (this.side === "left" || this.side === "right") {
+            if (pos.x > this.startPos.x - LENIENCY_WIDTH / 2 && pos.x < this.startPos.x - LENIENCY_WIDTH / 2 + LENIENCY_WIDTH && pos.y > this.startPos.y && pos.y < this.startPos.y + this.endPos.y - this.startPos.y) return true;
+        }
+
+        return false;
     }
 
     render(ctx: CanvasRenderingContext2D): void {
@@ -38,7 +42,7 @@ export class ResizeEdge extends UtilityPoint {
         ctx.lineTo(this.endPos.x, this.endPos.y);
         ctx.stroke();
 
-        /* VISUALIZATION FOR HITBOX PURPOSES
+        /*VISUALIZATION FOR HITBOX PURPOSES
         if (this.side === "top" || this.side === "bottom") {
             ctx.fillStyle = "#88888888"
             ctx.beginPath();
@@ -49,8 +53,6 @@ export class ResizeEdge extends UtilityPoint {
             ctx.fillStyle = "#88888888"
             ctx.beginPath();
             ctx.rect(this.startPos.x - LENIENCY_WIDTH / 2, this.startPos.y, LENIENCY_WIDTH, this.endPos.y - this.startPos.y);
-            console.log(this.startPos.x - LENIENCY_WIDTH / 2);
-            console.log(this.startPos.y);
             ctx.fill();
         } */
     }
