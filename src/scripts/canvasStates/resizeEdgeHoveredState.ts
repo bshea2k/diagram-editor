@@ -13,7 +13,18 @@ export class ResizeEdgeHoveredState extends CanvasState {
     }
 
     enter(input?: Input): void {
+        this.canvasController.activeUP = this.resizeEdge;
         this.canvasController.render();
+
+        // update cursor style based on resize edge position
+        switch(this.resizeEdge.side) {
+            case "top":
+            case "bottom":
+                document.body.style.cursor = "ns-resize";
+                break;
+            default:
+                document.body.style.cursor = "ew-resize";
+        }
 
         console.log("Entering ResizeEdgeHovered"); // temp | debug
     }
