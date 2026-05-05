@@ -1,6 +1,7 @@
 import { CanvasState } from "./canvasState";
 import { ResizingShapeState } from "./resizingShapeState";
 import { ShapeSelectedState } from "./shapeSelectedState";
+import { ResizePointHoveredState } from "./resizePointHoveredState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { UtilityPoint } from "../utilityPoints/utilityPoint";
@@ -38,6 +39,19 @@ export class ResizeEdgeHoveredState extends CanvasState {
                 document.body.style.cursor = "default";
                 this.canvasController.activeUP = null;
                 this.canvasController.setState(new ShapeSelectedState(this.canvasController, this.resizeEdge.shape));
+            }
+
+            // hover over a resize point -> ResizePointHovered state
+            let hoveredUtilityPoint = null;
+            // could be its own function in shape.ts or canvasController.ts?
+            for (const up of this.resizeEdge.shape.utilityPoints) {
+                if (up.detect(input.mousePos)) {
+                    hoveredUtilityPoint = up;
+                    break;
+                }
+            }
+            if (hoveredUtilityPoint && hoveredUtilityPoint.type === "ResizePoint") {
+                this.canvasController.setState(new ResizePointHoveredState(this.canvasController, hoveredUtilityPoint));
             }
         }
         else if (input.mouseDown) {
