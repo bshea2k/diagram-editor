@@ -56,6 +56,10 @@ export class ResizingShapeState extends CanvasState {
 
         switch(this.resizeUtilityPoint.side) {
             case "topleft":
+                this.resizeUtilityPoint.shape.x = this.initialShapePos.x + xOffset;
+                this.resizeUtilityPoint.shape.width = this.initialShapeWidth - xOffset;
+                this.resizeUtilityPoint.shape.y = this.initialShapePos.y + yOffset;
+                this.resizeUtilityPoint.shape.height = this.initialShapeHeight - yOffset;
                 break;
             case "topright":
                 break;
@@ -69,8 +73,12 @@ export class ResizingShapeState extends CanvasState {
 
         // formalize/conventionalize these values
         // prevent width/height from inverting
-        if (this.resizeUtilityPoint.shape.width <= 0) this.resizeUtilityPoint.shape.width = 5;
-        if (this.resizeUtilityPoint.shape.height <= 0) this.resizeUtilityPoint.shape.height = 5;
+        if (this.resizeUtilityPoint.shape.width < 5) this.resizeUtilityPoint.shape.width = 5;
+        if (this.resizeUtilityPoint.shape.height < 5) this.resizeUtilityPoint.shape.height = 5;
+
+        // prevent shape from moving outside of normal bounds when resizing
+        if (this.resizeUtilityPoint.shape.x >= this.initialShapePos.x + this.initialShapeWidth - 5) this.resizeUtilityPoint.shape.x = this.initialShapePos.x + this.initialShapeWidth - 5;
+        if (this.resizeUtilityPoint.shape.y >= this.initialShapePos.y + this.initialShapeHeight - 5) this.resizeUtilityPoint.shape.y = this.initialShapePos.y + this.initialShapeHeight - 5;
 
         this.canvasController.render();
     }
