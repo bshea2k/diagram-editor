@@ -40,6 +40,7 @@ export class ResizingShapeState extends CanvasState {
     handleInput(input: Input): void {
         if (input.mouseMove && input.mousePos) {
             if (this.resizeUtilityPoint.type === "ResizePoint") this.handleResizePointResizing(input.mousePos);
+            else this.handleResizeEdgeResizing(input.mousePos);
         }
         else if (input.mouseUp) {
             this.canvasController.draggingMouse = false;
@@ -80,6 +81,22 @@ export class ResizingShapeState extends CanvasState {
         this.preventInverting();
 
         this.canvasController.render();
+    }
+
+    handleResizeEdgeResizing(mousePos: Coord): void {
+        let xOffset = mousePos.x - this.initialMousePos.x;
+        let yOffset = mousePos.y - this.initialMousePos.y;
+
+        switch(this.resizeUtilityPoint.side) {
+            case "top":
+                break;
+            case "right":
+                break;
+            case "bottom":
+                break;
+            case "left":
+                break;
+        }
     }
 
     preventInverting(): void {
