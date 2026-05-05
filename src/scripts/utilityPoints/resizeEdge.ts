@@ -6,8 +6,8 @@ const LENIENCY_WIDTH = 10;
 type Side = "top" | "right" | "bottom" | "left";
 
 export class ResizeEdge extends UtilityPoint {
-    private shape: Shape;
-    private side: Side;
+    public shape: Shape;
+    public side: Side;
     private startPos: Coord = {x: 0, y: 0};
     private endPos: Coord = {x: 0, y: 0};
 
