@@ -46,7 +46,7 @@ export class ResizingShapeState extends CanvasState {
 
             // mouse up -> Resize(Point/Edge)Hovered state
             if (this.resizeUtilityPoint.type === "ResizePoint") this.canvasController.setState(new ResizePointHoveredState(this.canvasController, this.resizeUtilityPoint));
-            else this.canvasController.setState(new ResizeEdgeHoveredState(this.canvasController));
+            else this.canvasController.setState(new ResizeEdgeHoveredState(this.canvasController, this.resizeUtilityPoint));
         }
     }
 
