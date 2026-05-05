@@ -10,12 +10,19 @@ import type { ResizeEdge } from "../utilityPoints/resizeEdge";
 export class ResizingShapeState extends CanvasState {
     private resizeUtilityPoint: ResizePoint | ResizeEdge;
     private initialMousePos: Coord = {x: 0, y: 0};
+    private initialShapePos: Coord;
+    private initialShapeWidth: number;
+    private initialShapeHeight: number;
 
     constructor(canvasController: CanvasController, resizeUtilityPoint: UtilityPoint) {
         super(canvasController);
 
         if (resizeUtilityPoint.type === "ResizePoint") this.resizeUtilityPoint = resizeUtilityPoint as ResizePoint;
         else this.resizeUtilityPoint = resizeUtilityPoint as ResizeEdge;
+
+        this.initialShapePos = {x: this.resizeUtilityPoint.shape.x, y: this.resizeUtilityPoint.shape.y};
+        this.initialShapeWidth = this.resizeUtilityPoint.shape.width;
+        this.initialShapeHeight = this.resizeUtilityPoint.shape.height;
     }
 
     enter(input?: Input): void {
