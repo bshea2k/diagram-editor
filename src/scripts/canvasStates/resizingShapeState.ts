@@ -89,14 +89,24 @@ export class ResizingShapeState extends CanvasState {
 
         switch(this.resizeUtilityPoint.side) {
             case "top":
+                this.resizeUtilityPoint.shape.y = this.initialShapePos.y + yOffset;
+                this.resizeUtilityPoint.shape.height = this.initialShapeHeight - yOffset;
                 break;
             case "right":
+                this.resizeUtilityPoint.shape.width = this.initialShapeWidth + xOffset;
                 break;
             case "bottom":
+                this.resizeUtilityPoint.shape.height = this.initialShapeHeight + yOffset;
                 break;
             case "left":
+                this.resizeUtilityPoint.shape.x = this.initialShapePos.x + xOffset;
+                this.resizeUtilityPoint.shape.width = this.initialShapeWidth - xOffset;
                 break;
         }
+
+        this.preventInverting();
+
+        this.canvasController.render();
     }
 
     preventInverting(): void {
