@@ -1,7 +1,9 @@
 import { CanvasState } from "./canvasState";
 import { shapeHoveredState } from "./shapeHoveredState";
+import { ShapeSelectedState } from "./shapeSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
+import { Shape } from "../shape";
 
 export class NothingSelectedState extends CanvasState {
     constructor(canvasController: CanvasController) {
@@ -21,6 +23,13 @@ export class NothingSelectedState extends CanvasState {
 
             // hover a shape -> ShapeHovered state
             if (hoveredShape) this.canvasController.setState(new shapeHoveredState(this.canvasController, hoveredShape));
+        }
+        // usually impossible transition, happens only in rare cases like deleting a shape on top another shape
+        else if (input.mouseDown && input.mousePos) {
+            let clickedShape = this.canvasController.detectShape(input.mousePos);
+
+            // click a shape -> ShapeSelected state
+            if (clickedShape) this.canvasController.setState(new ShapeSelectedState(this.canvasController, clickedShape));
         }
     }
 }
