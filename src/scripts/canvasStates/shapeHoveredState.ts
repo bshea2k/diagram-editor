@@ -5,7 +5,7 @@ import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Shape } from "../shape";
 
-export class shapeHoveredState extends CanvasState {
+export class ShapeHoveredState extends CanvasState {
     private hoveredShape: Shape;
 
     constructor(canvasController: CanvasController, hoveredShape: Shape) {
@@ -23,7 +23,7 @@ export class shapeHoveredState extends CanvasState {
             let hoveredShape = this.canvasController.detectShape(input.mousePos);
 
             // hover a DIFFERENT shape -> ShapeHovered state
-            if (hoveredShape && hoveredShape !== this.hoveredShape) this.canvasController.setState(new shapeHoveredState(this.canvasController, hoveredShape));
+            if (hoveredShape && hoveredShape !== this.hoveredShape) this.canvasController.setState(new ShapeHoveredState(this.canvasController, hoveredShape));
             // hover blankspace -> NothingSelected state
             else if (!hoveredShape) this.canvasController.setState(new NothingSelectedState(this.canvasController));
         }
