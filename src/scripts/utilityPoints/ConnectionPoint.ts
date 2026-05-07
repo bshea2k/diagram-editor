@@ -4,26 +4,27 @@ import type { Coord } from "../utils";
 
 const DISTANCE_FROM_SHAPE = 20;
 const RADIUS = 5;
+type Side = "top" | "right" | "bottom" | "left";
 
 export class ConnectionPoint extends UtilityPoint {
-    _shape: Shape;
-    _side: "top" | "bottom" | "right" | "left";
-    _x: number;
-    _y: number;
+    public shape: Shape;
+    public side: Side;
+    private x: number;
+    private y: number;
 
-    constructor(shape: Shape, side: "top" | "bottom" | "right" | "left") {
+    constructor(shape: Shape, side: Side) {
         super("ConnectionPoint");
-        this._shape = shape;
-        this._side = side;
-        this._x = 0;
-        this._y = 0;
+        this.shape = shape;
+        this.side = side;
+        this.x = 0;
+        this.y = 0;
         this.updatePosition();
     }
 
     detect(pos: Coord): boolean {
         //pythagorean theorem
-        let a = this._x - pos.x;
-        let b = this._y - pos.y;
+        let a = this.x - pos.x;
+        let b = this.y - pos.y;
         let distance = Math.sqrt((a ** 2) + (b ** 2));
         
         return distance <= RADIUS * 1.75; // multiply to increase leniency
@@ -35,7 +36,7 @@ export class ConnectionPoint extends UtilityPoint {
         ctx.fillStyle = "#C9B4F1";
         ctx.strokeStyle = "#0D0D0D";
         ctx.beginPath();
-        ctx.arc(this._x, this._y, RADIUS, 0, Math.PI * 2, true);
+        ctx.arc(this.x, this.y, RADIUS, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.stroke();
     }
@@ -46,28 +47,28 @@ export class ConnectionPoint extends UtilityPoint {
         ctx.fillStyle = "#855CC0";
         ctx.strokeStyle = "#0D0D0D";
         ctx.beginPath();
-        ctx.arc(this._x, this._y, RADIUS, 0, Math.PI * 2, true);
+        ctx.arc(this.x, this.y, RADIUS, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.stroke();
     }
 
     updatePosition() {
-        switch(this._side) {
+        switch(this.side) {
             case "top":
-                this._x = this._shape.x + this._shape.width / 2;
-                this._y = this._shape.y - DISTANCE_FROM_SHAPE;
+                this.x = this.shape.x + this.shape.width / 2;
+                this.y = this.shape.y - DISTANCE_FROM_SHAPE;
                 break;
             case "right":
-                this._x = this._shape.x + this._shape.width + DISTANCE_FROM_SHAPE;
-                this._y = this._shape.y + this._shape.height / 2;
+                this.x = this.shape.x + this.shape.width + DISTANCE_FROM_SHAPE;
+                this.y = this.shape.y + this.shape.height / 2;
                 break;
             case "bottom":
-                this._x = this._shape.x + this._shape.width / 2;
-                this._y = this._shape.y + this._shape.height + DISTANCE_FROM_SHAPE;
+                this.x = this.shape.x + this.shape.width / 2;
+                this.y = this.shape.y + this.shape.height + DISTANCE_FROM_SHAPE;
                 break;
             case "left":
-                this._x = this._shape.x - DISTANCE_FROM_SHAPE;
-                this._y = this._shape.y + this._shape.height / 2;
+                this.x = this.shape.x - DISTANCE_FROM_SHAPE;
+                this.y = this.shape.y + this.shape.height / 2;
                 break;
         }
     }
