@@ -3,31 +3,20 @@ import type { Shape } from "./shape";
 
 export class Connection {
     // figure out relation to shapes and positions when moving shapes
-    _startShape: Shape | null = null;
-    _endShape: Shape | null = null;
-    _startPos: {x: number, y: number};
-    _endPos: {x: number, y: number};
-    _movementPoints: ConnectionMovementPoint[];
+    public startShape: Shape | null = null;
+    public endShape: Shape | null = null;
+    public startPos: {x: number, y: number};
+    public endPos: {x: number, y: number};
+    public movementPoints: ConnectionMovementPoint[];
 
     constructor(startPos: {x: number, y: number}, endPos: {x: number, y: number}) {
-        this._startPos = startPos;
-        this._endPos = endPos;
-        this._movementPoints = [
+        this.startPos = startPos;
+        this.endPos = endPos;
+        this.movementPoints = [
             new ConnectionMovementPoint(this, "start"),
             new ConnectionMovementPoint(this, "end"),
         ];
     }
-
-    get startShape() { return this._startShape; }
-    get endShape() { return this._endShape; }
-    get startPos() { return this._startPos; }
-    get endPos() { return this._endPos; }
-    get movementPoints() { return this._movementPoints; }
-
-    set startShape(startShape) { this._startShape = startShape; }
-    set endShape(endShape) { this._endShape = endShape; }
-    set startPos(startPos) { this._startPos = startPos; }
-    set endPos(endPos) { this._endPos = endPos; }
 
     render(ctx: CanvasRenderingContext2D): void {
         ctx.lineWidth = 1; // should be customizable later
