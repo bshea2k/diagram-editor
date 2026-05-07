@@ -34,6 +34,7 @@ export class CanvasController {
         this._canvas.addEventListener("mousedown", this.handleMouseDown);
         this._canvas.addEventListener("mousemove", this.handleMouseMove);
         this._canvas.addEventListener("mouseup", this.handleMouseUp);
+        document.addEventListener("keydown", this.handleKeyDown);
     }
     
     handleMouseDown = (e: MouseEvent): void => {
@@ -51,6 +52,12 @@ export class CanvasController {
     handleMouseUp = (e: MouseEvent): void => {
         const input = {mousePos: getMousePosition(e, this._canvasPos), mouseUp: true};
 
+        this.state.handleInput(input);
+    }
+
+    handleKeyDown = (e: KeyboardEvent): void => {
+        const input = {key: e.key};
+        
         this.state.handleInput(input);
     }
 
