@@ -1,4 +1,5 @@
 import { CanvasState } from "./canvasState";
+import { ShapeSelectedState } from "./shapeSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { UtilityPoint } from "../utilityPoints/utilityPoint";
@@ -22,6 +23,22 @@ export class ConnectionPointHoveredState extends CanvasState {
     }
 
     handleInput(input: Input): void {
+        if (input.mouseMove && input.mousePos) {
+            let hoveredUtilityPoint = null;
+            // could be its own function in shape.ts or canvasController.ts?
+            for (const up of this.connectionPoint.shape.utilityPoints) {
+                if (up.detect(input.mousePos)) {
+                    hoveredUtilityPoint = up;
+                    break;
+                }
+            }
 
+            // hover off connection point -> ShapeSelected state
+            if (hoveredUtilityPoint !== this.connectionPoint) {
+                document.body.style.cursor = "default";
+                this.canvasController.activeUP = null;
+                this.canvasController.setState(new ShapeSelectedState(this.canvasController, this.connectionPoint.shape));
+            }
+        }
     }
 }
