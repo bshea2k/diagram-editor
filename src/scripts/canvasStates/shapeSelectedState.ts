@@ -57,5 +57,12 @@ export class ShapeSelectedState extends CanvasState {
                 this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
             }
         }
+        else if (input.key) {
+            // press backspace to delete shape -> NothingSelected state
+            if (input.key === "Backspace" || input.key === "Delete") {
+                this.canvasController._diagram.removeShape(this.selectedShape);
+                this.canvasController.setState(new NothingSelectedState(this.canvasController));
+            }
+        }
     }
 }
