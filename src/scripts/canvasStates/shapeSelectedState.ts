@@ -3,6 +3,7 @@ import { DraggingShapeState } from "./draggingShapeState";
 import { NothingSelectedState } from "./nothingSelectedState";
 import { ResizePointHoveredState } from "./resizePointHoveredState";
 import { ResizeEdgeHoveredState } from "./resizeEdgeHoveredState";
+import { ConnectionPointHoveredState } from "./connectionPointHoveredState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Shape } from "../shape";
@@ -40,6 +41,9 @@ export class ShapeSelectedState extends CanvasState {
                         break;
                     case "ResizeEdge":
                         this.canvasController.setState(new ResizeEdgeHoveredState(this.canvasController, hoveredUtilityPoint));
+                        break;
+                    case "ConnectionPoint":
+                        this.canvasController.setState(new ConnectionPointHoveredState(this.canvasController, hoveredUtilityPoint));
                         break;
                 }
             }
