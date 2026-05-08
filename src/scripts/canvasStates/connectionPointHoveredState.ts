@@ -1,5 +1,7 @@
 import { CanvasState } from "./canvasState";
 import { ShapeSelectedState } from "./shapeSelectedState";
+import { MovingConnectionState } from "./movingConnection";
+import { Connection } from "../connection";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { UtilityPoint } from "../utilityPoints/utilityPoint";
@@ -39,6 +41,10 @@ export class ConnectionPointHoveredState extends CanvasState {
                 this.canvasController.activeUP = null;
                 this.canvasController.setState(new ShapeSelectedState(this.canvasController, this.connectionPoint.shape));
             }
+        }
+        else if (input.mouseDown && input.mousePos) {
+            let createdConnection = new Connection(this.connectionPoint.getShapeMidpoint(), input.mousePos, this.connectionPoint.shape);
+            this.canvasController._diagram.addConnection(createdConnection);
         }
     }
 }
