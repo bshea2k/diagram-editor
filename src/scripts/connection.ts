@@ -41,4 +41,14 @@ export class Connection {
     detect(x: number, y: number): boolean {
         return false;
     }
+
+    getActualStartPos(): Coord {
+        if (this.startPos) return this.startPos;
+        else return {x: 0, y: 0};
+    }
+
+    getActualEndPos(): Coord {
+        if (this.endPos) return this.endPos;
+        else return {x: 0, y: 0};
+    }
 }
