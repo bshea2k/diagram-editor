@@ -40,6 +40,20 @@ export class Connection {
         return false;
     }
 
+    connectStartShape(shape: Shape, side: Side, pos: number): void {
+        this.startShape = shape;
+        this.startShapeSide = side;
+        this.startShapePos = pos;
+        this.startPos = null;
+    }
+
+    connectEndShape(shape: Shape, side: Side, pos: number): void {
+        this.endShape = shape;
+        this.endShapeSide = side;
+        this.endShapePos = pos;
+        this.endPos = null;
+    }
+
     getActualStartPos(): Coord {
         if (this.startPos) return this.startPos;
         else return {x: 0, y: 0};
