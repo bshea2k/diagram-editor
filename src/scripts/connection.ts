@@ -37,21 +37,25 @@ export class Connection {
         return false;
     }
 
-    connectStartShape(shape: Shape): void {
+    connectStartShape(shape: Shape, posOnShape: Coord): void {
         this.startShape = shape;
+        this.startPos.x = (posOnShape.x - shape.x) / shape.width;
+        this.startPos.y = (posOnShape.y - shape.y) / shape.height;
     }
 
-    connectEndShape(shape: Shape): void {
+    connectEndShape(shape: Shape, posOnShape: Coord): void {
         this.endShape = shape;
+        this.endPos.x = (posOnShape.x - shape.x) / shape.width;
+        this.endPos.y = (posOnShape.y - shape.y) / shape.height;
     }
 
     getActualStartPos(): Coord {
-        if (this.startPos) return this.startPos;
-        else return {x: 0, y: 0};
+        if (this.startShape) return {x: this.startShape.x + this.startShape.width * this.startPos.x, y: this.startShape.y + this.startShape.height * this.startPos.y};
+        else return this.startPos;
     }
 
     getActualEndPos(): Coord {
-        if (this.endPos) return this.endPos;
-        else return {x: 0, y: 0};
+        if (this.endShape) return {x: this.endShape.x + this.endShape.width * this.endPos.x, y: this.endShape.y + this.endShape.height * this.endPos.y};
+        else return this.endPos;
     }
 }
