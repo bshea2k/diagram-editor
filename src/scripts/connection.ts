@@ -29,13 +29,11 @@ export class Connection {
         ctx.lineWidth = 1; // should be customizable later
         ctx.strokeStyle = "#0D0D0D" // should be customizable later(?)
 
-        if (this.startPos && this.endPos) {
-            ctx.beginPath();
-            ctx.moveTo(this.startPos.x, this.startPos.y);
-            ctx.lineTo(this.endPos.x, this.endPos.y);
-            ctx.closePath();
-            ctx.stroke();
-        }
+        ctx.beginPath();
+        ctx.moveTo(this.getActualStartPos().x, this.getActualStartPos().y);
+        ctx.lineTo(this.getActualEndPos().x, this.getActualEndPos().y);
+        ctx.closePath();
+        ctx.stroke();
     }
 
     detect(x: number, y: number): boolean {
