@@ -15,7 +15,7 @@ export class Connection {
     constructor(startPos: Coord, endPos: Coord, startShape?: Shape) {
         this.startPos = startPos;
         this.endPos = endPos;
-        if (startShape) this.startShape = startShape;
+        if (startShape) this.connectStartShape(startShape, startPos);
         this.utilityPoints = [
             new MovementPoint(this, "start"),
             new MovementPoint(this, "end"),
