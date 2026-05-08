@@ -53,12 +53,12 @@ export class MovementPoint extends UtilityPoint {
     updatePosition(): void {
         switch(this.side) {
             case "start":
-                this.x = this.connection.startPos.x - WIDTH / 2;
-                this.y = this.connection.startPos.y - WIDTH / 2;
+                this.x = this.connection.getActualStartPos().x - WIDTH / 2;
+                this.y = this.connection.getActualStartPos().y - WIDTH / 2;
                 break;
             case "end":
-                this.x = this.connection.endPos.x - WIDTH / 2;
-                this.y = this.connection.endPos.y - WIDTH / 2;
+                this.x = this.connection.getActualEndPos().x - WIDTH / 2;
+                this.y = this.connection.getActualEndPos().y - WIDTH / 2;
                 break;
         }
     }
