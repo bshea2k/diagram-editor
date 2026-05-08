@@ -72,4 +72,17 @@ export class ConnectionPoint extends UtilityPoint {
                 break;
         }
     }
+
+    getShapeMidpoint(): Coord {
+        switch(this.side) {
+            case "top":
+                return {x: this.shape.x + this.shape.width / 2, y: this.shape.y};
+            case "right":
+                return {x: this.shape.x + this.shape.width, y: this.shape.y + this.shape.height / 2};
+            case "bottom":
+                return {x: this.shape.x + this.shape.width / 2, y: this.shape.y + this.shape.height};
+            case "left":
+                return {x: this.shape.x, y: this.shape.y + this.shape.height / 2};
+        }
+    }
 }
