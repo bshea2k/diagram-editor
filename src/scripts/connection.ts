@@ -7,18 +7,15 @@ type Side = "top" | "right" | "bottom" | "left";
 
 export class Connection {
     public startShape: Shape | null = null;
-    public startShapeSide: Side | null = null;
-    public startShapePos: number | null = null;
     public endShape: Shape | null = null;
-    public endShapeSide: Side | null = null;
-    public endShapePos: number | null = null;
-    public startPos: Coord | null = null;
-    public endPos: Coord | null = null;
+    public startPos: Coord;
+    public endPos: Coord;
     public utilityPoints: UtilityPoint[];
 
-    constructor(startPos: Coord, endPos: Coord) {
+    constructor(startPos: Coord, endPos: Coord, startShape?: Shape) {
         this.startPos = startPos;
         this.endPos = endPos;
+        if (startShape) this.startShape = startShape;
         this.utilityPoints = [
             new MovementPoint(this, "start"),
             new MovementPoint(this, "end"),
@@ -40,18 +37,12 @@ export class Connection {
         return false;
     }
 
-    connectStartShape(shape: Shape, side: Side, pos: number): void {
+    connectStartShape(shape: Shape): void {
         this.startShape = shape;
-        this.startShapeSide = side;
-        this.startShapePos = pos;
-        this.startPos = null;
     }
 
-    connectEndShape(shape: Shape, side: Side, pos: number): void {
+    connectEndShape(shape: Shape): void {
         this.endShape = shape;
-        this.endShapeSide = side;
-        this.endShapePos = pos;
-        this.endPos = null;
     }
 
     getActualStartPos(): Coord {
