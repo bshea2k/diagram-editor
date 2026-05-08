@@ -1,15 +1,22 @@
 import { ConnectionMovementPoint } from "./utilityPoints/connectionMovementPoint";
 import type { Shape } from "./shape";
+import type { Coord } from "./utils";
+
+type Side = "top" | "right" | "bottom" | "left";
 
 export class Connection {
     // figure out relation to shapes and positions when moving shapes
     public startShape: Shape | null = null;
+    public startShapeSide: Side | null = null;
+    public startShapePos: number | null = null;
     public endShape: Shape | null = null;
-    public startPos: {x: number, y: number};
-    public endPos: {x: number, y: number};
+    public endShapeSide: Side | null = null;
+    public endShapePos: number | null = null;
+    public startPos: Coord | null = null;
+    public endPos: Coord;
     public movementPoints: ConnectionMovementPoint[];
 
-    constructor(startPos: {x: number, y: number}, endPos: {x: number, y: number}) {
+    constructor(startPos: Coord, endPos: Coord) {
         this.startPos = startPos;
         this.endPos = endPos;
         this.movementPoints = [
