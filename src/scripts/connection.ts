@@ -1,4 +1,5 @@
-import { ConnectionMovementPoint } from "./utilityPoints/connectionMovementPoint";
+import { MovementPoint } from "./utilityPoints/movementPoint";
+import type { UtilityPoint } from "./utilityPoints/utilityPoint";
 import type { Shape } from "./shape";
 import type { Coord } from "./utils";
 
@@ -13,14 +14,14 @@ export class Connection {
     public endShapePos: number | null = null;
     public startPos: Coord | null = null;
     public endPos: Coord | null = null;
-    public movementPoints: ConnectionMovementPoint[];
+    public utilityPoints: UtilityPoint[];
 
     constructor(startPos: Coord, endPos: Coord) {
         this.startPos = startPos;
         this.endPos = endPos;
-        this.movementPoints = [
-            new ConnectionMovementPoint(this, "start"),
-            new ConnectionMovementPoint(this, "end"),
+        this.utilityPoints = [
+            new MovementPoint(this, "start"),
+            new MovementPoint(this, "end"),
         ];
     }
 
