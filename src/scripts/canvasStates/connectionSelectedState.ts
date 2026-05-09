@@ -25,9 +25,15 @@ export class ConnectionSelectedState extends CanvasState {
             let clickedShape = this.canvasController.detectShape(input.mousePos);
             
             // click blankspace -> NothingSelected state
-            if (!clickedShape) this.canvasController.setState(new NothingSelectedState(this.canvasController));
+            if (!clickedShape) {
+                this.canvasController.selectedConnection = null;
+                this.canvasController.setState(new NothingSelectedState(this.canvasController));
+            }
             // click a shape -> DraggingShape state
-            else if (clickedShape) this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
+            else if (clickedShape) {
+                this.canvasController.selectedConnection = null;
+                this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
+            }
         }
     }
 }
