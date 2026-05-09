@@ -45,6 +45,8 @@ export class ConnectionPointHoveredState extends CanvasState {
         else if (input.mouseDown && input.mousePos) {
             let createdConnection = new Connection(this.connectionPoint.getShapeMidpoint(), input.mousePos, this.connectionPoint.shape);
             this.canvasController._diagram.addConnection(createdConnection);
+            // click to create connection -> MovingConnection state
+            this.canvasController.setState(new MovingConnectionState(this.canvasController, createdConnection.utilityPoints[1]!)); // fix hard code and non-null assertion
         }
     }
 }
