@@ -14,6 +14,7 @@ export class ConnectionSelectedState extends CanvasState {
     }
 
     enter(input?: Input): void {
+        this.canvasController.selectedConnection = this.selectedConnection;
         this.canvasController.render();
         document.body.style.cursor = "default";
 
