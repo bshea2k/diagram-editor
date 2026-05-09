@@ -3,13 +3,14 @@ import { ConnectionSelectedState } from "./connectionSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { MovementPoint } from "../utilityPoints/movementPoint";
+import type { UtilityPoint } from "../utilityPoints/utilityPoint";
 
 export class MovingConnectionState extends CanvasState {
     private movementPoint;
 
-    constructor(canvasController: CanvasController, movementPoint: MovementPoint) {
+    constructor(canvasController: CanvasController, movementPoint: UtilityPoint) {
         super(canvasController);
-        this.movementPoint = movementPoint;
+        this.movementPoint = movementPoint as MovementPoint;
     }
 
     enter(input?: Input): void {
