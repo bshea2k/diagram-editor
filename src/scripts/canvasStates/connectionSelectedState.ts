@@ -1,5 +1,6 @@
 import { CanvasState } from "./canvasState";
 import { NothingSelectedState } from "./nothingSelectedState";
+import { DraggingShapeState } from "./draggingShapeState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Connection } from "../connection";
@@ -25,6 +26,8 @@ export class ConnectionSelectedState extends CanvasState {
             
             // click blankspace -> NothingSelected state
             if (!clickedShape) this.canvasController.setState(new NothingSelectedState(this.canvasController));
+            // click a shape -> DraggingShape state
+            else if (clickedShape) this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
         }
     }
 }
