@@ -48,8 +48,8 @@ export class Renderer {
         }
 
         if (selectedConnection && !draggingMouse) {
-            selectedConnection.movementPoints.forEach((mp) => {
-                mp.render(this._ctx);
+            selectedConnection.utilityPoints.forEach((up) => {
+                up.render(this._ctx);
             })
         }
     }
