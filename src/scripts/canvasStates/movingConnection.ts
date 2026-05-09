@@ -28,6 +28,8 @@ export class MovingConnectionState extends CanvasState {
             else {
                 this.movementPoint.connection.endPos = input.mousePos;
             }
+
+            this.canvasController.render();
         }
         else if (input.mouseUp) {
             this.canvasController.draggingMouse = false;
