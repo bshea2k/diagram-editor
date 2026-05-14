@@ -81,4 +81,15 @@ export class CanvasController {
 
         return null;
     }
+
+    detectConnection(mousePos: Coord): Connection | null {
+        for (const connection of this._diagram.getConnections()) {
+            if (connection.detect(mousePos.x, mousePos.y)) {
+                // return because earliest found is at front of array, highest layer
+                return connection;
+            }
+        }
+
+        return null;
+    }
 }
