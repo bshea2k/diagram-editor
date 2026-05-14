@@ -37,4 +37,8 @@ export class ConnectionSelectedState extends CanvasState {
             }
         }
     }
+
+    exit(input?: Input): void {
+        
+    }
 }

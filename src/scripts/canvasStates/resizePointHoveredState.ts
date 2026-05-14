@@ -59,4 +59,8 @@ export class ResizePointHoveredState extends CanvasState {
             this.canvasController.setState(new ResizingShapeState(this.canvasController, this.resizePoint), input);
         }
     }
+
+    exit(input?: Input): void {
+        
+    }
 }

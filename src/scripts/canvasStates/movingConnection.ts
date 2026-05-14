@@ -37,4 +37,8 @@ export class MovingConnectionState extends CanvasState {
             this.canvasController.setState(new ConnectionSelectedState(this.canvasController, this.movementPoint.connection));
         }
     }
+
+    exit(input?: Input): void {
+        
+    }
 }

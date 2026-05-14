@@ -7,4 +7,6 @@ export abstract class CanvasState {
     abstract enter(input?: Input): void;
 
     abstract handleInput(input: Input): void;
+
+    abstract exit(input?: Input): void;
 }

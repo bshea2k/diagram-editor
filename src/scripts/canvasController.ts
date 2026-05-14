@@ -66,6 +66,7 @@ export class CanvasController {
     }
 
     setState(state: CanvasState, input?: Input): void {
+        this.state.exit(input);
         this.state = state;
         state.enter(input);
     }

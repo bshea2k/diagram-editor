@@ -32,4 +32,8 @@ export class ShapeHoveredState extends CanvasState {
             this.canvasController.setState(new DraggingShapeState(this.canvasController, this.hoveredShape, input.mousePos));
         }
     }
+
+    exit(input?: Input): void {
+        
+    }
 }

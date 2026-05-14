@@ -69,4 +69,8 @@ export class ShapeSelectedState extends CanvasState {
             }
         }
     }
+
+    exit(input?: Input): void {
+        
+    }
 }

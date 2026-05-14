@@ -32,4 +32,8 @@ export class NothingSelectedState extends CanvasState {
             if (clickedShape) this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
         }
     }
+
+    exit(input?: Input): void {
+        
+    }
 }

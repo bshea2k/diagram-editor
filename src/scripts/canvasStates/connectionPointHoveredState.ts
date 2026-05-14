@@ -51,4 +51,8 @@ export class ConnectionPointHoveredState extends CanvasState {
             this.canvasController.setState(new MovingConnectionState(this.canvasController, createdConnection.utilityPoints[1]!)); // fix hard code and non-null assertion
         }
     }
+
+    exit(input?: Input): void {
+        
+    }
 }

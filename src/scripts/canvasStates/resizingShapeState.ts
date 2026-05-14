@@ -51,6 +51,10 @@ export class ResizingShapeState extends CanvasState {
         }
     }
 
+    exit(input?: Input): void {
+        
+    }
+
     handleResizePointResizing(mousePos: Coord): void {
         let xOffset = mousePos.x - this.initialMousePos.x;
         let yOffset = mousePos.y - this.initialMousePos.y;

@@ -39,4 +39,8 @@ export class DraggingShapeState extends CanvasState {
             this.canvasController.setState(new ShapeSelectedState(this.canvasController, this.draggedShape));
         }
     }
+
+    exit(input?: Input): void {
+        
+    }
 }
