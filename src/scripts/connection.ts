@@ -57,8 +57,8 @@ export class Connection {
             }
         }
 
-        let rotatedEnd = {x: end.x * Math.cos(rotation) - end.y * Math.sin(rotation), y: end.x * Math.sin(rotation) + end.y * Math.cos(theta)};
-        let rotatedCursor = {x: x * Math.cos(rotation) - y * Math.sin(rotation), y: x * Math.sin(rotation) + y * Math.cos(theta)}
+        let rotatedEnd = {x: end.x * Math.cos(rotation) - end.y * Math.sin(rotation), y: end.x * Math.sin(rotation) + end.y * Math.cos(rotation)};
+        let rotatedCursor = {x: x * Math.cos(rotation) - y * Math.sin(rotation), y: x * Math.sin(rotation) + y * Math.cos(rotation)}
 
         if (rotatedCursor.x > start.x && rotatedCursor.x < start.x + rotatedEnd.x - start.x && rotatedCursor.y > LENIENCY_WIDTH && rotatedCursor.y < (start.y - LENIENCY_WIDTH / 2) + LENIENCY_WIDTH) {
             return true;
