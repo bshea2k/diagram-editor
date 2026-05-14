@@ -3,7 +3,7 @@ import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Connection } from "../connection";
 
-export class NothingSelectedState extends CanvasState {
+export class ConnectionHoveredState extends CanvasState {
     private hoveredConnection: Connection;
 
     constructor(canvasController: CanvasController, hoveredConnection: Connection) {
