@@ -43,8 +43,6 @@ export class ResizingShapeState extends CanvasState {
             else this.handleResizeEdgeResizing(input.mousePos);
         }
         else if (input.mouseUp) {
-            this.canvasController.draggingMouse = false;
-
             // mouse up -> Resize(Point/Edge)Hovered state
             if (this.resizeUtilityPoint.type === "ResizePoint") this.canvasController.setState(new ResizePointHoveredState(this.canvasController, this.resizeUtilityPoint));
             else this.canvasController.setState(new ResizeEdgeHoveredState(this.canvasController, this.resizeUtilityPoint));
@@ -52,7 +50,7 @@ export class ResizingShapeState extends CanvasState {
     }
 
     exit(input?: Input): void {
-        
+        this.canvasController.draggingMouse = false;
     }
 
     handleResizePointResizing(mousePos: Coord): void {

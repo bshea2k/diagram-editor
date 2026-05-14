@@ -34,13 +34,12 @@ export class DraggingShapeState extends CanvasState {
 
             this.canvasController.render();
         } else if (input.mouseUp) {
-            this.canvasController.draggingMouse = false;
             // mouse up -> ShapeSelected
             this.canvasController.setState(new ShapeSelectedState(this.canvasController, this.draggedShape));
         }
     }
 
     exit(input?: Input): void {
-        
+        this.canvasController.draggingMouse = false;
     }
 }

@@ -32,13 +32,12 @@ export class MovingConnectionState extends CanvasState {
             this.canvasController.render();
         }
         else if (input.mouseUp) {
-            this.canvasController.draggingMouse = false;
             // release mouse -> ConnectionSelected state
             this.canvasController.setState(new ConnectionSelectedState(this.canvasController, this.movementPoint.connection));
         }
     }
 
     exit(input?: Input): void {
-        
+        this.canvasController.draggingMouse = false;
     }
 }
