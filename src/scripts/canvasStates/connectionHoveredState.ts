@@ -1,5 +1,6 @@
 import { CanvasState } from "./canvasState";
 import { NothingSelectedState } from "./nothingSelectedState";
+import { ConnectionSelectedState } from "./connectionSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Connection } from "../connection";
@@ -24,6 +25,10 @@ export class ConnectionHoveredState extends CanvasState {
 
             // hover blankspace -> NothingSelected state
             if(!hoveredConnection) this.canvasController.setState(new NothingSelectedState(this.canvasController));
+        }
+        else if (input.mouseDown) {
+            // click -> ConnectionSelected state
+            this.canvasController.setState(new ConnectionSelectedState(this.canvasController, this.hoveredConnection));
         }
     }
 
