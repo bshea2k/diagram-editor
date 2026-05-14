@@ -26,6 +26,7 @@ export class NothingSelectedState extends CanvasState {
 
             let hoveredConnection = this.canvasController.detectConnection(input.mousePos);
 
+            // hover a connection -> ConnectionHovered state
             if (hoveredConnection) this.canvasController.setState(new ConnectionHoveredState(this.canvasController, hoveredConnection));
         }
         // usually impossible transition, happens only in rare cases like deleting a shape on top another shape
