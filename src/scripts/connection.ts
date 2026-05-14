@@ -34,7 +34,36 @@ export class Connection {
     }
 
     detect(x: number, y: number): boolean {
-        return false;
+        let LENIENCY_WIDTH = 5;
+        let start = this.getActualStartPos();
+        let end = this.getActualEndPos();
+        let opposite = end.y - start.y;
+        let adjacent = end.x - start.x;
+        let theta = Math.atan(opposite / adjacent);
+        let rotation = 0;
+
+        if (opposite > 0) {
+            if (adjacent >= 0) rotation = -theta;
+            else rotation = theta - Math.PI;
+        }
+        else if (opposite < 0) {
+            if (adjacent >= 0) rotation =  theta;
+            else rotation = Math.PI - theta;
+        }
+        else {
+            if (start.x > end.x) {
+                start = end;
+                end = this.getActualStartPos();
+            }
+        }
+
+        let rotatedEnd = {x: end.x * Math.cos(rotation) - end.y * Math.sin(rotation), y: end.x * Math.sin(rotation) + end.y * Math.cos(theta)};
+        let rotatedCursor = {x: x * Math.cos(rotation) - y * Math.sin(rotation), y: x * Math.sin(rotation) + y * Math.cos(theta)}
+
+        if (rotatedCursor.x > start.x && rotatedCursor.x < start.x + rotatedEnd.x - start.x && rotatedCursor.y > LENIENCY_WIDTH && rotatedCursor.y < (start.y - LENIENCY_WIDTH / 2) + LENIENCY_WIDTH) {
+            return true;
+        }
+        else return false;
     }
 
     connectStartShape(shape: Shape, posOnShape: Coord): void {
