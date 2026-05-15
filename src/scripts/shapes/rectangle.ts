@@ -32,8 +32,8 @@ export class Rectangle extends Shape {
     }
 
     detect(x: number, y: number): boolean {
-        if (x > this._x && x < this._x + this._width 
-            && y > this._y && y < this._y + this._height) {
+        if (x > this.x && x < this.x + this.width 
+            && y > this.y && y < this.y + this.height) {
                 return true;
         }
         
@@ -41,6 +41,19 @@ export class Rectangle extends Shape {
     }
 
     getNearestEdgePoint(x: number, y: number): Coord {
-        return {x: 0, y: 0};
+        // clamp(MIN, VAL, MAX) = max(MIN, min(VAL, MAX))
+        let clampX = Math.max(this.x, Math.min(x, this.x + this.width));
+        let clampY = Math.max(this.y, Math.min(y, this.y + this.height));
+
+        let distFromTop = Math.abs(clampY - this.y);
+        let distFromRight = Math.abs(clampX - (this.x + this.width));
+        let distFromBottom = Math.abs(clampY - (this.y + this.height));
+        let distFromLeft = Math.abs(clampX - this.x);
+        let minDist = Math.min(distFromTop, distFromRight, distFromBottom, distFromLeft);
+
+        if (minDist === distFromTop) return {x: clampX, y: this.y};
+        else if (minDist === distFromRight) return {x: this.x + this.width, y: clampY};
+        else if (minDist === distFromBottom) return {x: clampX, y: this.y + this.height};
+        else return {x: this.x, y: clampY};
     }
 }
