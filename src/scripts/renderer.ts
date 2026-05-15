@@ -1,5 +1,5 @@
 import type { Diagram } from "./diagram";
-import type { Shape } from "./shape";
+import type { Shape } from "./shapes/shape";
 import type { Connection } from "./connection";
 import type { UtilityPoint } from "./utilityPoints/utilityPoint";
 

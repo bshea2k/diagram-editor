@@ -6,7 +6,7 @@ import { ResizeEdgeHoveredState } from "./resizeEdgeHoveredState";
 import { ConnectionPointHoveredState } from "./connectionPointHoveredState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
-import type { Shape } from "../shape";
+import type { Shape } from "../shapes/shape";
 
 export class ShapeSelectedState extends CanvasState {
     private selectedShape: Shape;

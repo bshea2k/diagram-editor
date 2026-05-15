@@ -1,7 +1,8 @@
-import { ConnectionPoint } from "./utilityPoints/ConnectionPoint";
-import { ResizePoint } from "./utilityPoints/resizePoint";
-import { ResizeEdge } from "./utilityPoints/resizeEdge";
-import type { UtilityPoint } from "./utilityPoints/utilityPoint";
+import { ConnectionPoint } from "../utilityPoints/ConnectionPoint";
+import { ResizePoint } from "../utilityPoints/resizePoint";
+import { ResizeEdge } from "../utilityPoints/resizeEdge";
+import type { UtilityPoint } from "../utilityPoints/utilityPoint";
+import type { Coord } from "../utils";
 
 export const SELECTED_POINT_OFFSET = 20;
 
@@ -51,4 +52,6 @@ export abstract class Shape {
 
     // returns true if x & y are within the shapes area, false otherwise
     abstract detect(x: number, y: number): boolean;
+
+    abstract getNearestEdgePoint(x: number, y: number): Coord;
 }

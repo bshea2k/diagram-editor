@@ -1,6 +1,6 @@
 import { MovementPoint } from "./utilityPoints/movementPoint";
 import type { UtilityPoint } from "./utilityPoints/utilityPoint";
-import type { Shape } from "./shape";
+import type { Shape } from "./shapes/shape";
 import type { Coord } from "./utils";
 
 type Side = "top" | "right" | "bottom" | "left";

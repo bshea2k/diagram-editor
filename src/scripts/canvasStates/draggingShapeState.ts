@@ -2,7 +2,7 @@ import { CanvasState } from "./canvasState";
 import { ShapeSelectedState } from "./shapeSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Coord, Input } from "../utils";
-import type { Shape } from "../shape";
+import type { Shape } from "../shapes/shape";
 
 export class DraggingShapeState extends CanvasState {
     private draggedShape: Shape;

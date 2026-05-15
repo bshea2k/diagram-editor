@@ -1,5 +1,5 @@
 import { UtilityPoint } from "./utilityPoint";
-import type { Shape } from "../shape"
+import type { Shape } from "../shapes/shape"
 import type { Coord } from "../utils";
 
 const DISTANCE_FROM_SHAPE = 20;

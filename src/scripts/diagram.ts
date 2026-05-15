@@ -1,4 +1,4 @@
-import type { Shape } from "./shape";
+import type { Shape } from "./shapes/shape";
 import type { Connection } from "./connection";
 
 export class Diagram {

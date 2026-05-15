@@ -1,5 +1,5 @@
 import type { Renderer } from "./renderer";
-import type { Shape } from "./shape";
+import type { Shape } from "./shapes/shape";
 import type { Diagram } from "./diagram";
 import type { Coord, Input } from "./utils";
 import type { CanvasState } from "./canvasStates/canvasState";

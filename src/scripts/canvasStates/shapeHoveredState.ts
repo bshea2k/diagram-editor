@@ -3,7 +3,7 @@ import { DraggingShapeState } from "./draggingShapeState";
 import { NothingSelectedState } from "./nothingSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
-import type { Shape } from "../shape";
+import type { Shape } from "../shapes/shape";
 
 export class ShapeHoveredState extends CanvasState {
     private hoveredShape: Shape;

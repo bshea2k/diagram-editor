@@ -1,7 +1,7 @@
 import type { CanvasController } from "./canvasController";
 import type { Diagram } from "./diagram";
-import { Rectangle } from "./rectangle";
-import { Circle } from "./circle";
+import { Rectangle } from "./shapes/rectangle";
+import { Circle } from "./shapes/circle";
 import { ShapeSelectedState } from "./canvasStates/shapeSelectedState";
 
 export class ShapeCreationController {

@@ -1,13 +1,14 @@
 import { Shape } from "./shape";
+import type { Coord } from "../utils";
 
-const DEFAULT_WIDTH = 120;
-const DEFAULT_HEIGHT = 80;
+const DEFAULT_RADIUS = 40;
 
-export class Rectangle extends Shape {
+// WILL NEED TO BE DRAWN USING CURVES IN FUTURE, TO MAKE OVALS
+export class Circle extends Shape {
     _text: string;
 
     constructor(x: number, y: number) {
-        super(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        super(x, y, DEFAULT_RADIUS * 2, DEFAULT_RADIUS * 2);
         this._text = "Text";
     }
 
@@ -19,7 +20,7 @@ export class Rectangle extends Shape {
         ctx.strokeStyle = "#0D0D0D";
         ctx.fillStyle = "#F8F8F8";
         ctx.beginPath();
-        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.arc(this.x + this.width / 2, this.y + this.width / 2, this.width / 2, 0, Math.PI * 2, true);
         ctx.stroke();
         ctx.fill();
 
@@ -31,11 +32,15 @@ export class Rectangle extends Shape {
     }
 
     detect(x: number, y: number): boolean {
-        if (x > this._x && x < this._x + this._width 
-            && y > this._y && y < this._y + this._height) {
-                return true;
-        }
+        //pythagorean theorem
+        let a = this.x + this.width / 2 - x;
+        let b = this.y + this.width / 2 - y;
+        let distance = Math.sqrt((a ** 2) + (b ** 2));
         
-        return false;
+        return distance <= this.width / 2;
+    }
+
+    getNearestEdgePoint(x: number, y: number): Coord {
+        return {x: 0, y: 0};
     }
 }
