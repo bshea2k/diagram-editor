@@ -32,7 +32,7 @@ export class Renderer {
         // render utility points for the selected shape
         if (selectedShape && !draggingMouse) {
             // iterate in reverse due to top layer UPs being at index 0, so render them last
-            for (let i = selectedShape.utilityPoints.length -1; i>=0; i--) {
+            for (let i = selectedShape.utilityPoints.length - 1; i >= 0; i--) {
                 const up = selectedShape.utilityPoints[i];
 
                 if (up === activeUtilityPoint) up.renderActive(this._ctx);
@@ -48,9 +48,13 @@ export class Renderer {
         }
 
         if (selectedConnection && !draggingMouse) {
-            selectedConnection.utilityPoints.forEach((up) => {
-                up.render(this._ctx);
-            })
+            // iterate in reverse due to top layer UPs being at index 0, so render them last
+            for (let i = selectedConnection.utilityPoints.length - 1; i >= 0; i--) {
+                const up = selectedConnection.utilityPoints[i];
+
+                if (up === activeUtilityPoint) up.renderActive(this._ctx);
+                else up!.render(this._ctx);
+            }
         }
     }
 }
