@@ -1,6 +1,6 @@
 import { CanvasState } from "./canvasState";
 import { ShapeSelectedState } from "./shapeSelectedState";
-import { MovingConnectionState } from "./movingConnection";
+import { MovingConnectionState } from "./movingConnectionState";
 import { Connection } from "../connection";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
