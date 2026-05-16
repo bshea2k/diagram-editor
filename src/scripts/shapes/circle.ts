@@ -31,6 +31,7 @@ export class Circle extends Shape {
         ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
     }
 
+    // UPDATE TO REFLECT OVALS
     detect(x: number, y: number): boolean {
         //pythagorean theorem
         let a = this.x + this.width / 2 - x;
@@ -41,6 +42,16 @@ export class Circle extends Shape {
     }
 
     getNearestEdgePoint(x: number, y: number): Coord {
-        return {x: 0, y: 0};
+        const centerX = this.x + this.width / 2;
+        const centerY = this.y + this.height / 2;
+        const radiusX = this.width / 2;
+        const radiusY = this.height / 2;
+
+        const distX = x - centerX;
+        const distY = y - centerY;
+
+        const theta = Math.atan2(distY / radiusY, distX / radiusX);
+
+        return {x: centerX + radiusX * Math.cos(theta), y: centerY + radiusY * Math.sin(theta)};
     }
 }
