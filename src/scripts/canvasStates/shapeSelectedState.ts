@@ -4,6 +4,7 @@ import { NothingSelectedState } from "./nothingSelectedState";
 import { ResizePointHoveredState } from "./resizePointHoveredState";
 import { ResizeEdgeHoveredState } from "./resizeEdgeHoveredState";
 import { ConnectionPointHoveredState } from "./connectionPointHoveredState";
+import { ConnectionSelectedState } from "./connectionSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Shape } from "../shapes/shape";
@@ -60,6 +61,11 @@ export class ShapeSelectedState extends CanvasState {
                 this.canvasController.selectedShape = null;
                 this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
             }
+
+            let clickedConnection = this.canvasController.detectConnection(input.mousePos);
+
+            // click connection -> ConnectionSelected state
+            if (clickedConnection) this.canvasController.setState(new ConnectionSelectedState(this.canvasController, clickedConnection));
         }
         else if (input.key) {
             // press backspace to delete shape -> NothingSelected state
