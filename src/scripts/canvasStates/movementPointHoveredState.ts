@@ -5,6 +5,7 @@ import type { UtilityPoint } from "../utilityPoints/utilityPoint";
 import type { MovementPoint } from "../utilityPoints/movementPoint";
 import { ConnectionHoveredState } from "./connectionHoveredState";
 import { MovingConnectionState } from "./movingConnectionState";
+import { ConnectionSelectedState } from "./connectionSelectedState";
 
 export class movementPointHoveredState extends CanvasState {
     private movementPoint: MovementPoint;
@@ -34,8 +35,10 @@ export class movementPointHoveredState extends CanvasState {
             }
 
             if (!hoveredUtilityPoint) {
-                // hover off movement point -> ConnectionHovered state
-                this.canvasController.setState(new ConnectionHoveredState(this.canvasController, this.movementPoint.connection));
+                // hover off movement point & connection already selected -> ConnectionSelected state
+                if (this.canvasController.selectedConnection) this.canvasController.setState(new ConnectionSelectedState(this.canvasController, this.canvasController.selectedConnection));
+                // hover off movement point & connection not selected -> ConnectionHovered state
+                else this.canvasController.setState(new ConnectionHoveredState(this.canvasController, this.movementPoint.connection));
             }
         }
         else if (input.mouseDown) {
