@@ -1,11 +1,11 @@
 import { CanvasState } from "./canvasState";
+import { ConnectionHoveredState } from "./connectionHoveredState";
+import { MovingConnectionState } from "./movingConnectionState";
+import { ConnectionSelectedState } from "./connectionSelectedState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { UtilityPoint } from "../utilityPoints/utilityPoint";
 import type { MovementPoint } from "../utilityPoints/movementPoint";
-import { ConnectionHoveredState } from "./connectionHoveredState";
-import { MovingConnectionState } from "./movingConnectionState";
-import { ConnectionSelectedState } from "./connectionSelectedState";
 
 export class movementPointHoveredState extends CanvasState {
     private movementPoint: MovementPoint;
