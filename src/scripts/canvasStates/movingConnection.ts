@@ -41,9 +41,11 @@ export class MovingConnectionState extends CanvasState {
 
             if (!snapped) {
                 if (this.movementPoint.side === "start") {
+                    this.movementPoint.connection.startShape = null;
                     this.movementPoint.connection.startPos = input.mousePos;
                 }
                 else {
+                    this.movementPoint.connection.endShape = null;
                     this.movementPoint.connection.endPos = input.mousePos;
                 }
             }
