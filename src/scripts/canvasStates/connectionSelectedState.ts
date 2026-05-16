@@ -4,6 +4,7 @@ import { DraggingShapeState } from "./draggingShapeState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Connection } from "../connection";
+import { movementPointHoveredState } from "./movementPointHoveredState";
 
 export class ConnectionSelectedState extends CanvasState {
     private selectedConnection: Connection;
@@ -22,7 +23,24 @@ export class ConnectionSelectedState extends CanvasState {
     }
 
     handleInput(input: Input): void {
-        if (input.mouseDown && input.mousePos) {
+        if (input.mouseMove && input.mousePos) {
+            let hoveredUtilityPoint = null;
+            for (const up of this.selectedConnection.utilityPoints) {
+                if (up.detect(input.mousePos)) {
+                    hoveredUtilityPoint = up;
+                    break;
+                }
+            }
+
+            if (hoveredUtilityPoint) {
+                switch(hoveredUtilityPoint.type) {
+                    case "MovementPoint":
+                        this.canvasController.setState(new movementPointHoveredState(this.canvasController, hoveredUtilityPoint));
+                        break;
+                }
+            }
+        }
+        else if (input.mouseDown && input.mousePos) {
             let clickedShape = this.canvasController.detectShape(input.mousePos);
             
             // click blankspace -> NothingSelected state
