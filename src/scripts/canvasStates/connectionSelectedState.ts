@@ -1,10 +1,10 @@
 import { CanvasState } from "./canvasState";
 import { NothingSelectedState } from "./nothingSelectedState";
 import { DraggingShapeState } from "./draggingShapeState";
+import { movementPointHoveredState } from "./movementPointHoveredState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Connection } from "../connection";
-import { movementPointHoveredState } from "./movementPointHoveredState";
 
 export class ConnectionSelectedState extends CanvasState {
     private selectedConnection: Connection;
@@ -50,6 +50,13 @@ export class ConnectionSelectedState extends CanvasState {
             // click a shape -> DraggingShape state
             else if (clickedShape) {
                 this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
+            }
+        }
+        else if (input.key) {
+            // press backspace to delete connection -> NothingSelected state
+            if (input.key === "Backspace" || input.key === "Delete") {
+                this.canvasController._diagram.removeConnection(this.selectedConnection);
+                this.canvasController.setState(new NothingSelectedState(this.canvasController));
             }
         }
     }
