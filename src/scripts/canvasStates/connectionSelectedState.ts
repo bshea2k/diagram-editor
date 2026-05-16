@@ -45,16 +45,18 @@ export class ConnectionSelectedState extends CanvasState {
             
             // click blankspace -> NothingSelected state
             if (!clickedShape) {
+                this.canvasController.selectedConnection = null;
                 this.canvasController.setState(new NothingSelectedState(this.canvasController));
             }
             // click a shape -> DraggingShape state
             else if (clickedShape) {
+                this.canvasController.selectedConnection = null;
                 this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
             }
         }
     }
 
     exit(input?: Input): void {
-        this.canvasController.selectedConnection = null;
+
     }
 }
