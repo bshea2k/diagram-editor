@@ -23,6 +23,12 @@ export class Diagram {
         this.connections.unshift(connection);
     }
 
+    removeConnection(connection: Connection): void {
+        this.connections = this.connections.filter((c) => {
+            return c !== connection;
+        })
+    }
+
     getConnections(): Connection[] {
         return this.connections;
     }
