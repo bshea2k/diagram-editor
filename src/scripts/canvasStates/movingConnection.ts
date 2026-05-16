@@ -5,6 +5,8 @@ import type { Input } from "../utils";
 import type { MovementPoint } from "../utilityPoints/movementPoint";
 import type { UtilityPoint } from "../utilityPoints/utilityPoint";
 
+const SNAP_LENIENCY = 20;
+
 export class MovingConnectionState extends CanvasState {
     private movementPoint;
 
@@ -30,11 +32,11 @@ export class MovingConnectionState extends CanvasState {
                 let yDist = edgePoint.y - input.mousePos.y;
                 let dist = Math.sqrt(xDist ** 2 + yDist ** 2);
 
-                // snap leniency = 20
-                if (dist <= 20) {
+                if (dist <= SNAP_LENIENCY) {
                     if (this.movementPoint.side === "start") this.movementPoint.connection.connectStartShape(shape, edgePoint);
                     else this.movementPoint.connection.connectEndShape(shape, edgePoint);
                     snapped = true;
+                    // break because earliest found is at front of array, highest layer
                     break;
                 }
             }
