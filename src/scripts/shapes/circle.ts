@@ -20,7 +20,12 @@ export class Circle extends Shape {
         ctx.strokeStyle = "#0D0D0D";
         ctx.fillStyle = "#F8F8F8";
         ctx.beginPath();
-        ctx.arc(this.x + this.width / 2, this.y + this.width / 2, this.width / 2, 0, Math.PI * 2, true);
+        ctx.lineTo(this.x + this.width / 2, this.y);
+        ctx.quadraticCurveTo(this.x + this.width, this.y, this.x + this.width, this.y + this.height / 2);
+        ctx.quadraticCurveTo(this.x + this.width, this.y + this.height, this.x + this.width / 2, this.y + this.height);
+        ctx.quadraticCurveTo(this.x, this.y + this.height, this.x, this.y + this.height / 2);
+        ctx.quadraticCurveTo(this.x, this.y, this.x + this.width / 2, this.y);
+        ctx.closePath();
         ctx.stroke();
         ctx.fill();
 
@@ -31,14 +36,14 @@ export class Circle extends Shape {
         ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
     }
 
-    // UPDATE TO REFLECT OVALS
     detect(x: number, y: number): boolean {
-        //pythagorean theorem
-        let a = this.x + this.width / 2 - x;
-        let b = this.y + this.width / 2 - y;
-        let distance = Math.sqrt((a ** 2) + (b ** 2));
-        
-        return distance <= this.width / 2;
+        const centerX = this.x + this.width / 2;
+        const centerY = this.y + this.height / 2;
+        const radiusX = this.width / 2;
+        const radiusY = this.height / 2;
+
+        // equation of a standard ellipse
+        return ((x - centerX) ** 2) / (radiusX ** 2) + ((y - centerY) ** 2) / (radiusY ** 2) <= 1;
     }
 
     getNearestEdgePoint(x: number, y: number): Coord {
