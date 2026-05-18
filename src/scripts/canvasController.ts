@@ -56,7 +56,7 @@ export class CanvasController {
     }
 
     handleKeyDown = (e: KeyboardEvent): void => {
-        const input = {key: e.key};
+        const input = {key: e.key, keydown: true};
         
         this.state.handleInput(input);
     }

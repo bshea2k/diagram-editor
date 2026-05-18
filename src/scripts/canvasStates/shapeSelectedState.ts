@@ -67,7 +67,7 @@ export class ShapeSelectedState extends CanvasState {
             // click connection -> ConnectionSelected state
             if (clickedConnection) this.canvasController.setState(new ConnectionSelectedState(this.canvasController, clickedConnection));
         }
-        else if (input.key) {
+        else if (input.keydown && input.key) {
             // press backspace to delete shape -> NothingSelected state
             if (input.key === "Backspace" || input.key === "Delete") {
                 this.canvasController._diagram.removeShape(this.selectedShape);

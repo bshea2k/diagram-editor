@@ -37,4 +37,5 @@ export type Input = {
     mouseUp?: boolean;
     dblClick?: boolean;
     key?: string;
+    keydown?: boolean;
 }

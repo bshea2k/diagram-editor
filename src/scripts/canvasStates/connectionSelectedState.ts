@@ -52,7 +52,7 @@ export class ConnectionSelectedState extends CanvasState {
                 this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
             }
         }
-        else if (input.key) {
+        else if (input.keydown && input.key) {
             // press backspace to delete connection -> NothingSelected state
             if (input.key === "Backspace" || input.key === "Delete") {
                 this.canvasController._diagram.removeConnection(this.selectedConnection);
