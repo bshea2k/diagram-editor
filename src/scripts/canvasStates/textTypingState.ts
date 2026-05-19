@@ -23,11 +23,21 @@ export class TextTypingState extends CanvasState {
 
     handleInput(input: Input): void {
         if (input.keydown && input.key) {
-            if (this.validateKey(input.key)) this.shape.text += input.key;
-            else if (input.key === "Backspace" && this.shape.text.length > 0) {
+            if (this.validateKey(input.key)) {
+                this.shape.text += input.key;
+            }
+            else if ((input.key === "Backspace" || input.key === "Delete") && this.shape.text.length > 0) {
                 this.shape.text = this.shape.text.slice(0, - 1);
                 input.keydown = false;
             }
+            else if (input.key === "Enter" && this.prevKey === "Shift") {
+                this.shape.text += "\n";
+            }
+
+            // prevent backspace from deleting shape, even if no text present
+            if (input.key === "Backspace" || input.key === "Delete") input.keydown = false;
+
+            this.prevKey = input.key;
         }
 
         this.canvasController.render();
