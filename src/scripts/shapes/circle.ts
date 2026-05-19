@@ -1,5 +1,6 @@
 import { Shape } from "./shape";
 import type { Coord } from "../utils";
+import { drawText } from "canvas-txt";
 
 const DEFAULT_RADIUS = 40;
 
@@ -21,11 +22,17 @@ export class Circle extends Shape {
         ctx.stroke();
         ctx.fill();
 
-        ctx.font = "16px Helvetica";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
         ctx.fillStyle = "#0D0D0D"
-        ctx.fillText(this.text, this.x + (this.width / 2), this.y + (this.height / 2));
+        drawText(ctx, this.text, {
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height,
+            font: "Helvetica",
+            fontSize: 16,
+            align: "center",
+            vAlign: "middle"
+        });
     }
 
     detect(x: number, y: number): boolean {
