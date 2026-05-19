@@ -5,16 +5,10 @@ const DEFAULT_WIDTH = 120;
 const DEFAULT_HEIGHT = 80;
 
 export class Rectangle extends Shape {
-    _text: string;
 
     constructor(x: number, y: number) {
-        super(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        this._text = "Text";
+        super(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, "Text");
     }
-
-    get text() { return this._text; }
-
-    set text(text) { this._text = text; }
 
     render(ctx: CanvasRenderingContext2D): void {
         ctx.strokeStyle = "#0D0D0D";

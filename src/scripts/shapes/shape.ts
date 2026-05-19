@@ -12,14 +12,16 @@ export abstract class Shape {
     public y: number;
     public width: number;
     public height: number;
+    public text: string;
     public utilityPoints: UtilityPoint[];
 
-    constructor(x: number, y: number, width: number, height: number) {
+    constructor(x: number, y: number, width: number, height: number, text: string) {
         this.id = self.crypto.randomUUID();
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.text = text;
         this.utilityPoints = [
             new ResizePoint(this, "topleft"),
             new ResizePoint(this, "topright"),
