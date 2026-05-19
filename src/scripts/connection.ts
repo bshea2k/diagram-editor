@@ -5,6 +5,8 @@ import type { Coord } from "./utils";
 
 type Side = "top" | "right" | "bottom" | "left";
 
+const ARROW_SIZE = 15;
+
 export class Connection {
     public startShape: Shape | null = null;
     public endShape: Shape | null = null;
@@ -23,14 +25,30 @@ export class Connection {
     }
 
     render(ctx: CanvasRenderingContext2D): void {
-        ctx.lineWidth = 1; // should be customizable later
+        ctx.lineWidth = 2; // should be customizable later
         ctx.strokeStyle = "#0D0D0D" // should be customizable later(?)
+        ctx.fillStyle = "#0D0D0D"; // should be customizable later(?)
+        const start = this.getActualStartPos();
+        const end = this.getActualEndPos();
 
+        // draw connection ine
         ctx.beginPath();
-        ctx.moveTo(this.getActualStartPos().x, this.getActualStartPos().y);
-        ctx.lineTo(this.getActualEndPos().x, this.getActualEndPos().y);
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
         ctx.closePath();
         ctx.stroke();
+ 
+        const theta = Math.atan2(end.y - start.y, end.x - start.x);
+        const left  = theta + Math.PI + Math.PI / 6;
+        const right = theta + Math.PI - Math.PI / 6;
+
+        // draw arrow at end of connection line
+        ctx.beginPath();
+        ctx.moveTo(end.x, end.y);
+        ctx.lineTo(end.x + ARROW_SIZE * Math.cos(left),  end.y + ARROW_SIZE * Math.sin(left));
+        ctx.lineTo(end.x + ARROW_SIZE * Math.cos(right), end.y + ARROW_SIZE * Math.sin(right));
+        ctx.closePath();
+        ctx.fill();
     }
 
     detect(x: number, y: number): boolean {
