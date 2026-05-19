@@ -1,4 +1,5 @@
 import { CanvasState } from "./canvasState";
+import { TextIdleState } from "./textIdleState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
 import type { Shape } from "../shapes/shape";
@@ -10,6 +11,7 @@ export class TextTypingState extends CanvasState {
     constructor(canvasController: CanvasController) {
         super(canvasController);
         this.shape = this.canvasController.selectedShape!;
+        this.canvasController.subscribe(this);
     }
 
     enter(input?: Input): void {
@@ -38,13 +40,15 @@ export class TextTypingState extends CanvasState {
             if (input.key === "Backspace" || input.key === "Delete") input.keydown = false;
 
             this.prevKey = input.key;
+            this.canvasController.render();
         }
-
-        this.canvasController.render();
+        else if (input.notify) {
+            if (!this.canvasController.selectedShape) this.canvasController.setState(new TextIdleState(this.canvasController));
+        }
     }
 
     exit(input?: Input): void {
-        
+        this.canvasController.unsubscribe(this);
     }
 
     validateKey(key: string): boolean {
