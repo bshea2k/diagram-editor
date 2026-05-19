@@ -1,23 +1,46 @@
 import { CanvasState } from "./canvasState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
+import type { Shape } from "../shapes/shape";
 
 export class TextTypingState extends CanvasState {
+    private shape: Shape;
+    private prevKey: string | null = null;
+
     constructor(canvasController: CanvasController) {
         super(canvasController);
+        this.shape = this.canvasController.selectedShape!;
     }
 
     enter(input?: Input): void {
+        if (input && input.key && this.validateKey(input.key)) {
+            this.shape.text = input.key;
+        }
+
         this.canvasController.render();
 
         console.log("TEXT STATE: Entering TextTyping"); // temp | debug
     }
 
     handleInput(input: Input): void {
+        if (input.keydown && input.key && this.validateKey(input.key)) {
+            this.shape.text += input.key;
+        }
 
+        this.canvasController.render();
     }
 
     exit(input?: Input): void {
         
+    }
+
+    validateKey(key: string): boolean {
+        if (key === "Shift") return false;
+        if (key === "CapsLock") return false;
+        if (key === "Tab") return false;
+        if (key === "Alt") return false;
+        if (key === "Escape") return false;
+        if (key === "Enter") return false;
+        return true;
     }
 }
