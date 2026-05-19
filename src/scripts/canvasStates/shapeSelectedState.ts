@@ -59,6 +59,7 @@ export class ShapeSelectedState extends CanvasState {
             // click another shape -> new ShapeSelected state for that shape
             else if (clickedShape !== this.selectedShape) {
                 this.canvasController.selectedShape = null;
+                this.canvasController.notify();
                 this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
             }
 
