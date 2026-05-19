@@ -12,6 +12,7 @@ import { getElementPosition, getMousePosition } from "./utils";
 export class CanvasController {
     private state: CanvasState;
     private textState: CanvasState;
+    private observers: CanvasState[] = [];
 
     _canvas: HTMLCanvasElement;
     _canvasPos: Coord;
@@ -103,5 +104,17 @@ export class CanvasController {
         }
 
         return null;
+    }
+
+    subscribe(observer: CanvasState): void {
+        this.observers.push(observer);
+    }
+
+    unsubscribe(observer: CanvasState): void {
+        this.observers = this.observers.filter((o) => o !== observer);
+    }
+
+    notify(): void {
+        this.observers.forEach((observer) => observer.handleInput({notify: true}));
     }
 }
