@@ -5,13 +5,13 @@ import type { Coord, Input } from "./utils";
 import type { CanvasState } from "./canvasStates/canvasState";
 import type { UtilityPoint } from "./utilityPoints/utilityPoint";
 import { NothingSelectedState } from "./canvasStates/nothingSelectedState";
+import { TextIdleState } from "./canvasStates/textIdleState";
 import { Connection } from "./connection";
 import { getElementPosition, getMousePosition } from "./utils";
 
-//type CanvasState = "nothingSelected" | "shapeHovered" | "draggingShape" | "shapeSelected" | "connectionPointHovered" | "movingLine" | "lineSelected" | "lineHovered" | "lineMovePointHovered" | "resizeEdgeHovered" | "resizedPointHovered" | "resizingShape" | "rotatePointHovered" | "rotatingShape";
-
 export class CanvasController {
     private state: CanvasState;
+    private textState: CanvasState;
 
     _canvas: HTMLCanvasElement;
     _canvasPos: Coord;
@@ -29,7 +29,9 @@ export class CanvasController {
         this._diagram = diagram;
         this._renderer = renderer;
         this._canvasPos = getElementPosition(this._canvas);
+
         this.state = new NothingSelectedState(this);
+        this.textState = new TextIdleState(this);
 
         this._canvas.addEventListener("mousedown", this.handleMouseDown);
         this._canvas.addEventListener("mousemove", this.handleMouseMove);
@@ -40,24 +42,28 @@ export class CanvasController {
     handleMouseDown = (e: MouseEvent): void => {
         const input = {mousePos: getMousePosition(e, this._canvasPos), mouseDown: true};
 
+        this.textState.handleInput(input);
         this.state.handleInput(input);
     }
 
     handleMouseMove = (e: MouseEvent): void => {
         const input = {mousePos: getMousePosition(e, this._canvasPos), mouseMove: true};
 
+        this.textState.handleInput(input);
         this.state.handleInput(input);
     }
 
     handleMouseUp = (e: MouseEvent): void => {
         const input = {mousePos: getMousePosition(e, this._canvasPos), mouseUp: true};
 
+        this.textState.handleInput(input);
         this.state.handleInput(input);
     }
 
     handleKeyDown = (e: KeyboardEvent): void => {
         const input = {key: e.key, keydown: true};
         
+        this.textState.handleInput(input);
         this.state.handleInput(input);
     }
 
@@ -69,6 +75,12 @@ export class CanvasController {
         this.state.exit(input);
         this.state = state;
         state.enter(input);
+    }
+
+    setTextState(textState: CanvasState, input?: Input): void {
+        this.textState.exit(input);
+        this.textState = textState;
+        textState.enter(input);
     }
 
     detectShape(mousePos: Coord): Shape | null {
