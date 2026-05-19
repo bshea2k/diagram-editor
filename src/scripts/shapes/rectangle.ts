@@ -13,6 +13,7 @@ export class Rectangle extends Shape {
 
     render(ctx: CanvasRenderingContext2D): void {
         ctx.strokeStyle = "#0D0D0D";
+        ctx.lineWidth = 1;
         ctx.fillStyle = "#F8F8F8";
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.width, this.height);
