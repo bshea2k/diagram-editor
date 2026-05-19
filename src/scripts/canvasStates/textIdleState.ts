@@ -16,6 +16,8 @@ export class TextIdleState extends CanvasState {
 
     handleInput(input: Input): void {
         if (input.keydown && input.key) {
+            if (input.key === "Backspace") return;
+            
             if (this.canvasController.selectedShape) {
                 // type when a shape is selected -> TextTyping state
                 this.canvasController.setTextState(new TextTypingState(this.canvasController), input);
