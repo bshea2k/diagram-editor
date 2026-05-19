@@ -38,5 +38,5 @@ export type Input = {
     dblClick?: boolean;
     key?: string;
     keydown?: boolean;
-    notify?: "selectedShape" | "selectedConnection";
+    notify?: boolean;
 }
