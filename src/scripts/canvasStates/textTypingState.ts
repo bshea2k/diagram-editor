@@ -43,7 +43,7 @@ export class TextTypingState extends CanvasState {
             this.canvasController.render();
         }
         else if (input.notify) {
-            if (!this.canvasController.selectedShape) this.canvasController.setState(new TextIdleState(this.canvasController));
+            if (!this.canvasController.selectedShape) this.canvasController.setTextState(new TextIdleState(this.canvasController));
         }
     }
 
