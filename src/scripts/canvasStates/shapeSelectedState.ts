@@ -49,7 +49,7 @@ export class ShapeSelectedState extends CanvasState {
                 }
             }
         }
-        else if (input.mouseDown && input.mousePos) {
+        else if (input.mouseDown && input.mousePos  && input.button === 0) {
             let clickedShape = this.canvasController.detectShape(input.mousePos);
 
             // mousedown on this shape -> DraggingShape state

@@ -27,7 +27,7 @@ export class ShapeHoveredState extends CanvasState {
             // hover blankspace -> NothingSelected state
             else if (!hoveredShape) this.canvasController.setState(new NothingSelectedState(this.canvasController));
         }
-        else if (input.mouseDown && input.mousePos) {
+        else if (input.mouseDown && input.mousePos && input.button === 0) {
             // click to select shape -> DraggingShape state
             this.canvasController.setState(new DraggingShapeState(this.canvasController, this.hoveredShape, input.mousePos));
         }
