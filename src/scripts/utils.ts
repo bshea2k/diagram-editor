@@ -31,6 +31,7 @@ export type Coord = {
 }
 
 export type Input = {
+    button?: number;
     mousePos?: Coord;
     mouseDown?: boolean;
     mouseMove?: boolean;
