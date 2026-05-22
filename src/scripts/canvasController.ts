@@ -73,7 +73,7 @@ export class CanvasController {
     }
 
     render(): void {
-        this._renderer.render(this._diagram, this.selectedShape, this.draggingMouse, this.activeUP, this.selectedConnection);
+        this._renderer.render(this._diagram, this.selectedShape, this.draggingMouse, this.activeUP, this.selectedConnection, this.canvasXOffset, this.canvasYOffset);
     }
 
     setState(state: CanvasState, input?: Input): void {
@@ -90,7 +90,7 @@ export class CanvasController {
 
     detectShape(mousePos: Coord): Shape | null {
         for (const shape of this._diagram.getShapes()) {
-            if (shape.detect(mousePos.x, mousePos.y)) {
+            if (shape.detect(mousePos.x - this.canvasXOffset, mousePos.y - this.canvasYOffset)) {
                 // return because earliest found is at front of array, highest layer
                 return shape;
             }
@@ -101,7 +101,7 @@ export class CanvasController {
 
     detectConnection(mousePos: Coord): Connection | null {
         for (const connection of this._diagram.getConnections()) {
-            if (connection.detect(mousePos.x, mousePos.y)) {
+            if (connection.detect(mousePos.x - this.canvasXOffset, mousePos.y - this.canvasYOffset)) {
                 // return because earliest found is at front of array, highest layer
                 return connection;
             }
