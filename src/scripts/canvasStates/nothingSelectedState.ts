@@ -4,6 +4,7 @@ import { ConnectionHoveredState } from "./connectionHoveredState";
 import { DraggingShapeState } from "./draggingShapeState";
 import type { CanvasController } from "../canvasController";
 import type { Input } from "../utils";
+import { MovingCanvasState } from "./movingCanvasState";
 
 export class NothingSelectedState extends CanvasState {
     constructor(canvasController: CanvasController) {
@@ -14,7 +15,7 @@ export class NothingSelectedState extends CanvasState {
         this.canvasController.selectedShape = null;
         this.canvasController.notify();
         this.canvasController.render();
-
+        
         console.log("Entering NothingSelected"); // temp | debug
     }
 
@@ -30,12 +31,17 @@ export class NothingSelectedState extends CanvasState {
             // hover a connection -> ConnectionHovered state
             if (hoveredConnection) this.canvasController.setState(new ConnectionHoveredState(this.canvasController, hoveredConnection));
         }
-        // usually impossible transition, happens only in rare cases like deleting a shape on top another shape
         else if (input.mouseDown && input.mousePos) {
-            let clickedShape = this.canvasController.detectShape(input.mousePos);
+            if (input.button && input.button === 2) {
+                // right click canvas -> MovingCanvas state
+                this.canvasController.setState(new MovingCanvasState(this.canvasController, input.mousePos));
+            }
+            else if (input.button && input.button === 0) {
+                let clickedShape = this.canvasController.detectShape(input.mousePos);
 
-            // click a shape -> ShapeSelected state
-            if (clickedShape) this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
+                // click a shape -> ShapeSelected state
+                if (clickedShape) this.canvasController.setState(new DraggingShapeState(this.canvasController, clickedShape, input.mousePos));
+            }
         }
     }
 
