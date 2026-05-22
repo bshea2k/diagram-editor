@@ -40,6 +40,8 @@ export class CanvasController {
         this._canvas.addEventListener("mousemove", this.handleMouseMove);
         this._canvas.addEventListener("mouseup", this.handleMouseUp);
         document.addEventListener("keydown", this.handleKeyDown);
+
+        this._canvas.oncontextmenu = function(e) { e.preventDefault(); e.stopPropagation(); };
     }
     
     handleMouseDown = (e: MouseEvent): void => {
