@@ -11,7 +11,10 @@ export class Rectangle extends Shape {
         super(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, "Text");
     }
 
-    render(ctx: CanvasRenderingContext2D): void {
+    render(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
+        this.x += xOffset;
+        this.y += yOffset;
+
         ctx.strokeStyle = "#0D0D0D";
         ctx.lineWidth = 1;
         ctx.fillStyle = "#F8F8F8";
@@ -31,6 +34,9 @@ export class Rectangle extends Shape {
             align: "center",
             vAlign: "middle"
         });
+
+        this.x -= xOffset;
+        this.y -= yOffset;
     }
 
     detect(x: number, y: number): boolean {

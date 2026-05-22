@@ -39,7 +39,7 @@ export abstract class Shape {
     }
 
     // renders the shape
-    abstract render(ctx: CanvasRenderingContext2D): void;
+    abstract render(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void;
 
     // returns true if x & y are within the shapes area, false otherwise
     abstract detect(x: number, y: number): boolean;
