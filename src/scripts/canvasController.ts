@@ -43,21 +43,21 @@ export class CanvasController {
     handleMouseDown = (e: MouseEvent): void => {
         const input = {button: e.button, mousePos: getMousePosition(e, this._canvasPos), mouseDown: true};
 
-        this.textState.handleInput(input);
+        //this.textState.handleInput(input);
         this.state.handleInput(input);
     }
 
     handleMouseMove = (e: MouseEvent): void => {
         const input = {button: e.button, mousePos: getMousePosition(e, this._canvasPos), mouseMove: true};
 
-        this.textState.handleInput(input);
+        //this.textState.handleInput(input);
         this.state.handleInput(input);
     }
 
     handleMouseUp = (e: MouseEvent): void => {
         const input = {button: e.button, mousePos: getMousePosition(e, this._canvasPos), mouseUp: true};
 
-        this.textState.handleInput(input);
+        //this.textState.handleInput(input);
         this.state.handleInput(input);
     }
 
