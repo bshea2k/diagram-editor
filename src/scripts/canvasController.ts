@@ -23,6 +23,8 @@ export class CanvasController {
     public activeUP: UtilityPoint | null = null;
     public selectedConnection: Connection | null = null;
     public draggingMouse: boolean = false;
+    public canvasXOffset: number = 0;
+    public canvasYOffset: number = 0;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, diagram: Diagram, renderer: Renderer) {
         this._canvas = canvas;
