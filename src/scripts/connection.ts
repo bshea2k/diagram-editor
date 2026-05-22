@@ -24,12 +24,18 @@ export class Connection {
         ];
     }
 
-    render(ctx: CanvasRenderingContext2D): void {
+    render(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
         ctx.lineWidth = 2; // should be customizable later
         ctx.strokeStyle = "#0D0D0D" // should be customizable later(?)
         ctx.fillStyle = "#0D0D0D"; // should be customizable later(?)
-        const start = this.getActualStartPos();
-        const end = this.getActualEndPos();
+        let start = this.getActualStartPos();
+        let end = this.getActualEndPos();
+
+        // account for canvas translation
+        start.x += xOffset;
+        start.y += yOffset;
+        end.x += xOffset;
+        end.y += yOffset;
 
         // draw connection ine
         ctx.beginPath();
@@ -88,11 +94,13 @@ export class Connection {
 
     getActualStartPos(): Coord {
         if (this.startShape) return {x: this.startShape.x + this.startShape.width * this.startPos.x, y: this.startShape.y + this.startShape.height * this.startPos.y};
-        else return this.startPos;
+        // .assign() to not return direct reference to coord
+        else return Object.assign({}, this.startPos);
     }
 
     getActualEndPos(): Coord {
         if (this.endShape) return {x: this.endShape.x + this.endShape.width * this.endPos.x, y: this.endShape.y + this.endShape.height * this.endPos.y};
-        else return this.endPos;
+        // .assign() to not return direct reference to coord
+        else return Object.assign({}, this.endPos);
     }
 }
