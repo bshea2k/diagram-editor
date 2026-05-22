@@ -5,10 +5,14 @@ import type { Input, Coord } from "../utils";
 
 export class MovingCanvasState extends CanvasState {
     private clientMouseInitialPos: Coord;
+    private canvasInitialXOffset: number;
+    private canvasInitialYOffset: number;
 
     constructor(canvasController: CanvasController, clientMouseInitialPos: Coord) {
         super(canvasController);
         this.clientMouseInitialPos = clientMouseInitialPos;
+        this.canvasInitialXOffset = this.canvasController.canvasXOffset;
+        this.canvasInitialYOffset = this.canvasController.canvasYOffset;
     }
 
     enter(input?: Input): void {
@@ -25,8 +29,8 @@ export class MovingCanvasState extends CanvasState {
             let xOffset = input.mousePos.x - this.clientMouseInitialPos.x;
             let yOffset = input.mousePos.y - this.clientMouseInitialPos.y;
 
-            this.canvasController.canvasXOffset += xOffset;
-            this.canvasController.canvasYOffset += yOffset;
+            this.canvasController.canvasXOffset = this.canvasInitialXOffset + xOffset;
+            this.canvasController.canvasYOffset = this.canvasInitialYOffset + yOffset;
 
             this.canvasController.render();
         }
