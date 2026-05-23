@@ -16,7 +16,7 @@ export class ShapeCreationController {
 
         document.querySelector("#create__rect")?.addEventListener("click", () => {
             // to be in center, canvas.width / 2 - (shape.width / 2)
-            const rect = new Rectangle(this.canvas.width / 2, this.canvas.height / 2);
+            const rect = new Rectangle(this.canvas.width / 2 - this.canvasController.canvasXOffset, this.canvas.height / 2 - this.canvasController.canvasYOffset);
             rect.x -= rect.width / 2;
             rect.y -= rect.height / 2;
     
@@ -26,7 +26,7 @@ export class ShapeCreationController {
         })
 
         document.querySelector("#create__circ")?.addEventListener("click", () => {
-            const circ = new Circle(canvas.width / 2, canvas.height /2);
+            const circ = new Circle(this.canvas.width / 2 - this.canvasController.canvasXOffset, this.canvas.height / 2 - this.canvasController.canvasYOffset);
             circ.x -= circ.width / 2;
             circ.y -= circ.height / 2;
     
