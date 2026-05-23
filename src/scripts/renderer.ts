@@ -37,15 +37,15 @@ export class Renderer {
             for (let i = selectedShape.utilityPoints.length - 1; i >= 0; i--) {
                 const up = selectedShape.utilityPoints[i];
 
-                if (up === activeUtilityPoint) up.renderActive(this._ctx);
-                else up!.render(this._ctx);
+                if (up === activeUtilityPoint) up.renderActive(this._ctx, canvasXoffset, canvasYoffset);
+                else up!.render(this._ctx, canvasXoffset, canvasYoffset);
             }
         }
 
         // when dragging a shape, only render the resize edges
         if (selectedShape && draggingMouse) {
             selectedShape.utilityPoints.forEach((up) => {
-                if (up.type === "ResizeEdge") up.render(this._ctx);
+                if (up.type === "ResizeEdge") up.render(this._ctx, canvasXoffset, canvasYoffset);
             })
         }
 
@@ -54,8 +54,8 @@ export class Renderer {
             for (let i = selectedConnection.utilityPoints.length - 1; i >= 0; i--) {
                 const up = selectedConnection.utilityPoints[i];
 
-                if (up === activeUtilityPoint) up.renderActive(this._ctx);
-                else up!.render(this._ctx);
+                if (up === activeUtilityPoint) up.renderActive(this._ctx, canvasXoffset, canvasYoffset);
+                else up!.render(this._ctx, canvasXoffset, canvasYoffset);
             }
         }
     }
