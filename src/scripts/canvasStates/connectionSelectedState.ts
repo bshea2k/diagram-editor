@@ -26,7 +26,7 @@ export class ConnectionSelectedState extends CanvasState {
         if (input.mouseMove && input.mousePos) {
             let hoveredUtilityPoint = null;
             for (const up of this.selectedConnection.utilityPoints) {
-                if (up.detect(input.mousePos)) {
+                if (up.detect(input.mousePos, this.canvasController.canvasXOffset, this.canvasController.canvasYOffset)) {
                     hoveredUtilityPoint = up;
                     break;
                 }

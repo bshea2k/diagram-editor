@@ -37,7 +37,7 @@ export class ResizePointHoveredState extends CanvasState {
             let hoveredUtilityPoint = null;
             // could be its own function in shape.ts or canvasController.ts?
             for (const up of this.resizePoint.shape.utilityPoints) {
-                if (up.detect(input.mousePos)) {
+                if (up.detect(input.mousePos, this.canvasController.canvasXOffset, this.canvasController.canvasYOffset)) {
                     hoveredUtilityPoint = up;
                     break;
                 }
