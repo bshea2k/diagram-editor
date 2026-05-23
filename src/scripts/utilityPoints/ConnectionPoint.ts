@@ -21,33 +21,33 @@ export class ConnectionPoint extends UtilityPoint {
         this.updatePosition();
     }
 
-    detect(pos: Coord): boolean {
+    detect(pos: Coord, xOffset: number, yOffset: number): boolean {
         //pythagorean theorem
-        let a = this.x - pos.x;
-        let b = this.y - pos.y;
+        let a = this.x + xOffset - pos.x;
+        let b = this.y + yOffset - pos.y;
         let distance = Math.sqrt((a ** 2) + (b ** 2));
-        
+
         return distance <= RADIUS * 1.75; // multiply to increase leniency
     }
 
-    render(ctx: CanvasRenderingContext2D): void {
+    render(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
         this.updatePosition();
-        
+
         ctx.fillStyle = "#C9B4F1";
         ctx.strokeStyle = "#0D0D0D";
         ctx.beginPath();
-        ctx.arc(this.x, this.y, RADIUS, 0, Math.PI * 2, true);
+        ctx.arc(this.x + xOffset, this.y + yOffset, RADIUS, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.stroke();
     }
 
-    renderActive(ctx: CanvasRenderingContext2D): void {
+    renderActive(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
         this.updatePosition();
 
         ctx.fillStyle = "#855CC0";
         ctx.strokeStyle = "#0D0D0D";
         ctx.beginPath();
-        ctx.arc(this.x, this.y, RADIUS, 0, Math.PI * 2, true);
+        ctx.arc(this.x + xOffset, this.y + yOffset, RADIUS, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.stroke();
     }

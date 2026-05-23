@@ -18,33 +18,33 @@ export class MovementPoint extends UtilityPoint {
         this.updatePosition();
     }
 
-    detect(pos: Coord): boolean {
+    detect(pos: Coord, xOffset: number, yOffset: number): boolean {
         this.updatePosition();
 
-        if (pos.x > this.x && pos.x < this.x + WIDTH && pos.y > this.y && pos.y < this.y + WIDTH) {
+        if (pos.x > this.x + xOffset && pos.x < this.x + xOffset + WIDTH && pos.y > this.y + yOffset && pos.y < this.y + yOffset + WIDTH) {
             return true;
         }
         else return false;
     }
 
-    render(ctx: CanvasRenderingContext2D): void {
+    render(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
         this.updatePosition();
 
         ctx.strokeStyle = "#855CC0";
         ctx.fillStyle = "#F8F8F8";
         ctx.beginPath();
-        ctx.rect(this.x, this.y, WIDTH, WIDTH);
+        ctx.rect(this.x + xOffset, this.y + yOffset, WIDTH, WIDTH);
         ctx.stroke();
         ctx.fill();
     }
 
-    renderActive(ctx: CanvasRenderingContext2D): void {
+    renderActive(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
         this.updatePosition();
 
         ctx.strokeStyle = "#855CC0";
         ctx.fillStyle = "#855CC0";
         ctx.beginPath();
-        ctx.rect(this.x, this.y, WIDTH, WIDTH);
+        ctx.rect(this.x + xOffset, this.y + yOffset, WIDTH, WIDTH);
         ctx.stroke();
         ctx.fill();
     }

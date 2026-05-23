@@ -18,47 +18,33 @@ export class ResizeEdge extends UtilityPoint {
         this.updatePosition();
     }
 
-    detect(pos: Coord): boolean {
+    detect(pos: Coord, xOffset: number, yOffset: number): boolean {
         this.updatePosition();
 
         if (this.side === "top" || this.side === "bottom") {
-            if (pos.x > this.startPos.x && pos.x < this.startPos.x + this.endPos.x - this.startPos.x && pos.y > this.startPos.y - LENIENCY_WIDTH / 2 && pos.y < this.startPos.y - LENIENCY_WIDTH / 2 + LENIENCY_WIDTH) return true;
+            if (pos.x > this.startPos.x + xOffset && pos.x < this.startPos.x + + this.endPos.x - this.startPos.x + xOffset && pos.y > this.startPos.y + yOffset - LENIENCY_WIDTH / 2 && pos.y < this.startPos.y + yOffset - LENIENCY_WIDTH / 2 + LENIENCY_WIDTH) return true;
         }
         else if (this.side === "left" || this.side === "right") {
-            if (pos.x > this.startPos.x - LENIENCY_WIDTH / 2 && pos.x < this.startPos.x - LENIENCY_WIDTH / 2 + LENIENCY_WIDTH && pos.y > this.startPos.y && pos.y < this.startPos.y + this.endPos.y - this.startPos.y) return true;
+            if (pos.x > this.startPos.x + xOffset - LENIENCY_WIDTH / 2 && pos.x < this.startPos.x + xOffset - LENIENCY_WIDTH / 2 + LENIENCY_WIDTH && pos.y > this.startPos.y + yOffset && pos.y < this.startPos.y + this.endPos.y - this.startPos.y + yOffset) return true;
         }
 
         return false;
     }
 
-    render(ctx: CanvasRenderingContext2D): void {
+    render(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
         this.updatePosition();
 
         ctx.strokeStyle = "#855CC0";
         ctx.lineWidth = 1;
 
         ctx.beginPath();
-        ctx.moveTo(this.startPos.x, this.startPos.y);
-        ctx.lineTo(this.endPos.x, this.endPos.y);
+        ctx.moveTo(this.startPos.x + xOffset, this.startPos.y + yOffset);
+        ctx.lineTo(this.endPos.x + xOffset, this.endPos.y + yOffset);
         ctx.stroke();
-
-        /*VISUALIZATION FOR HITBOX PURPOSES
-        if (this.side === "top" || this.side === "bottom") {
-            ctx.fillStyle = "#88888888"
-            ctx.beginPath();
-            ctx.rect(this.startPos.x, this.startPos.y - LENIENCY_WIDTH / 2, this.endPos.x - this.startPos.x, LENIENCY_WIDTH);
-            ctx.fill();
-        }
-        else if (this.side === "left" || this.side === "right") {
-            ctx.fillStyle = "#88888888"
-            ctx.beginPath();
-            ctx.rect(this.startPos.x - LENIENCY_WIDTH / 2, this.startPos.y, LENIENCY_WIDTH, this.endPos.y - this.startPos.y);
-            ctx.fill();
-        } */
     }
 
-    renderActive(ctx: CanvasRenderingContext2D): void {
-        this.render(ctx);
+    renderActive(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
+        this.render(ctx, xOffset, yOffset);
     }
 
     // could use subscriber pattern, so function is only called when parent shape moves & thus notifies
