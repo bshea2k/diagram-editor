@@ -43,6 +43,7 @@ export class CanvasController {
         window.addEventListener("resize", this.handleResize);
 
         this._canvas.oncontextmenu = function(e) { e.preventDefault(); e.stopPropagation(); };
+        this.handleResize();
     }
     
     handleMouseDown = (e: MouseEvent): void => {
@@ -73,7 +74,7 @@ export class CanvasController {
         this.state.handleInput(input);
     }
 
-    handleResize = (e: Event): void => {
+    handleResize = (e?: Event): void => {
         const toolbar = document.querySelector(".toolbar");
         const toolBarRect = toolbar!.getBoundingClientRect();
         const creationMenu = document.querySelector(".shape-creation-menu");
@@ -81,6 +82,8 @@ export class CanvasController {
 
         this._canvas.width = window.innerWidth - creationMenuRect.width;
         this._canvas.height = window.innerHeight - toolBarRect.height;
+
+        this.render();
     }
 
     render(): void {
