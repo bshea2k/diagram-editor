@@ -46,7 +46,8 @@ export class ConnectionPointHoveredState extends CanvasState {
             this.canvasController.activeUP = null;
             this.canvasController.selectedShape = null;
             this.canvasController.notify();
-            let createdConnection = new Connection(this.connectionPoint.getShapeMidpoint(), input.mousePos, this.connectionPoint.shape);
+            const translationAdjustedPos = {x: input.mousePos.x - this.canvasController.canvasXOffset, y: input.mousePos.y - this.canvasController.canvasYOffset};
+            let createdConnection = new Connection(this.connectionPoint.getShapeMidpoint(), translationAdjustedPos, this.connectionPoint.shape);
             this.canvasController._diagram.addConnection(createdConnection);
             // click to create connection -> MovingConnection state
             this.canvasController.setState(new MovingConnectionState(this.canvasController, createdConnection.utilityPoints[1]!)); // fix hard code and non-null assertion
