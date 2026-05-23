@@ -7,16 +7,29 @@
 
 body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 canvas {
-    border: 1px solid black;
+    border: 2px solid red;
 }
 
-#text {
-    position: absolute;
-    display: none;
+.toolbar {
+    min-width: 100vw;
+    min-height: 120px;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.middle {
+    display: flex;
+    flex-direction: row;
+}
+
+.shape-creation-menu {
+    background-color: lightgray;
+    border: 2px solid black;
+    min-width: 150px;
 }
 
 .shape-creation-menu__shape-icon {
