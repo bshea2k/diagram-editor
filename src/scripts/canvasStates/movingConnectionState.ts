@@ -25,11 +25,13 @@ export class MovingConnectionState extends CanvasState {
     handleInput(input: Input): void {
         if (input.mouseMove && input.mousePos) {
             let snapped = false;
+            const xOffset = this.canvasController.canvasXOffset;
+            const yOffset = this.canvasController.canvasYOffset;
 
             for (const shape of this.canvasController._diagram.getShapes()) {
-                let edgePoint = shape.getNearestEdgePoint(input.mousePos.x, input.mousePos.y);
-                let xDist = edgePoint.x - input.mousePos.x;
-                let yDist = edgePoint.y - input.mousePos.y;
+                let edgePoint = shape.getNearestEdgePoint(input.mousePos.x - xOffset, input.mousePos.y - yOffset);
+                let xDist = edgePoint.x - input.mousePos.x + xOffset;
+                let yDist = edgePoint.y - input.mousePos.y + yOffset;
                 let dist = Math.sqrt(xDist ** 2 + yDist ** 2);
 
                 if (dist <= SNAP_LENIENCY) {
@@ -42,13 +44,15 @@ export class MovingConnectionState extends CanvasState {
             }
 
             if (!snapped) {
+                const translationAdjustedPos = {x: input.mousePos.x - this.canvasController.canvasXOffset, y: input.mousePos.y - this.canvasController.canvasYOffset};
+
                 if (this.movementPoint.side === "start") {
                     this.movementPoint.connection.startShape = null;
-                    this.movementPoint.connection.startPos = input.mousePos;
+                    this.movementPoint.connection.startPos = translationAdjustedPos;
                 }
                 else {
                     this.movementPoint.connection.endShape = null;
-                    this.movementPoint.connection.endPos = input.mousePos;
+                    this.movementPoint.connection.endPos = translationAdjustedPos;
                 }
             }
 
