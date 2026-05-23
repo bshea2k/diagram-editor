@@ -40,6 +40,7 @@ export class CanvasController {
         this._canvas.addEventListener("mousemove", this.handleMouseMove);
         this._canvas.addEventListener("mouseup", this.handleMouseUp);
         document.addEventListener("keydown", this.handleKeyDown);
+        window.addEventListener("resize", this.handleResize);
 
         this._canvas.oncontextmenu = function(e) { e.preventDefault(); e.stopPropagation(); };
     }
@@ -70,6 +71,16 @@ export class CanvasController {
         
         this.textState.handleInput(input);
         this.state.handleInput(input);
+    }
+
+    handleResize = (e: Event): void => {
+        const toolbar = document.querySelector(".toolbar");
+        const toolBarRect = toolbar!.getBoundingClientRect();
+        const creationMenu = document.querySelector(".shape-creation-menu");
+        const creationMenuRect = creationMenu!.getBoundingClientRect();
+
+        this._canvas.width = window.innerWidth - creationMenuRect.width;
+        this._canvas.height = window.innerHeight - toolBarRect.height;
     }
 
     render(): void {
