@@ -25,7 +25,7 @@ export class Connection {
     }
 
     render(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
-        ctx.lineWidth = 2; // should be customizable later
+        ctx.lineWidth = 1; // should be customizable later
         ctx.strokeStyle = "#0D0D0D" // should be customizable later(?)
         ctx.fillStyle = "#0D0D0D"; // should be customizable later(?)
         let start = this.getActualStartPos();
