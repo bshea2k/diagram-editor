@@ -9,13 +9,27 @@
     <script type="module" src="./src/scripts/script.js"></script>
 </head>
 <body>
+    <header class="doc-header">
+        <div class="doc-header__top-left">
+            <img class="doc-header__logo" src="./src/assets/logo--black.svg" alt="Black logo showing a feather with a subtle letter E in the shape">
+            <div class="doc-header__info">
+                <input type="text" class="doc-header__doc-title">
+                <div class="util-bar">
+                    <button class="util-bar__button" id="util-bar__button##file">file</button>
+                    <button class="util-bar__button" id="util-bar__button##help">help</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="toolbar">
 
     </div>
+
     <div class="middle">
         <div class="shape-creation-menu">
-        <img id="create__rect" class="shape-creation-menu__shape-icon" src="./src/assets/rectangle--black.svg" alt="Black rectangle outline">
-        <img id="create__circ" class="shape-creation-menu__shape-icon" src="./src/assets/circle--black.svg" alt="Black circle outline">
+            <img id="create__rect" class="shape-creation-menu__shape-icon" src="./src/assets/rectangle--black.svg" alt="Black rectangle outline">
+            <img id="create__circ" class="shape-creation-menu__shape-icon" src="./src/assets/circle--black.svg" alt="Black circle outline">
         </div>
         <canvas id="workspace" width="600" height="400"></canvas>
     </div>

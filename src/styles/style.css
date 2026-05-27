@@ -3,6 +3,12 @@
     padding: 0px;
     box-sizing: border-box;
     font-family: Helvetica, sans-serif;
+
+    --gray1: #F8F8F8;
+    --gray2: #D9D9D9;
+    --gray9: #0D0D0D;
+    --purple1: #DED2F9;
+    --purple5: #855CC0;
 }
 
 body {
@@ -12,6 +18,70 @@ body {
 
 canvas {
     
+}
+
+.doc-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    min-height: 80px;
+    background-color: var(--gray1)
+}
+
+.doc-header__top-left {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    max-height: 40px;
+}
+
+.doc-header__logo {
+    height: 40px;
+}
+
+.doc-header__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.doc-header__doc-title {
+    width: auto;
+    height: 20px;
+    padding: 5px 10px;
+    font-size: 19px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--gray1);
+}
+
+.doc-header__doc-title:hover {
+    border: 1px solid var(--gray2);
+}
+
+.doc-header__doc-title:focus {
+    border: 2px solid var(--gray2);
+}
+
+.util-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.util-bar__button {
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+}
+
+.util-bar__button:hover {
+    cursor: pointer;
+    background-color: var(--gray2);
 }
 
 .toolbar {
