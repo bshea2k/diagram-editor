@@ -68,7 +68,7 @@ canvas {
 .util-bar {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 0px;
 }
 
 .util-bar__button {
