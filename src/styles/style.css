@@ -183,14 +183,39 @@ canvas {
     flex-direction: row;
 }
 
+/* ----- SHAPE CREATION MENU ----- */
+
 .shape-creation-menu {
-    background-color: lightgray;
-    border: 2px solid black;
-    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    min-width: 240px;
+    background-color: var(--gray1);
+}
+
+.shape-creation-menu__title {
+    margin-bottom: 10px;
+    font-size: 19px;
+}
+
+.shape-creation-menu__shape-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.shape-creation-menu__shape-group-title {
+    font-size: 16px;
+}
+
+.shape-creation-menu__shape-group-shapes {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-left: -4px;
 }
 
 .shape-creation-menu__shape-icon {
-    width: 60px;
+    width: 40px;
 }
 
 .shape-creation-menu__shape-icon:hover {

@@ -25,9 +25,9 @@
     <div class="toolbar">
         <div class="toolbar__subsection">
             <select name="font" id="toolbar__dropdown##font" class="toolbar__dropdown">
-                <option class="toolbar__dropdown-option" value="Arial">Arial</option>
-                <option class="toolbar__dropdown-option" value="Times New Roman">Times New Roman</option>
-                <option class="toolbar__dropdown-option" value="Courier New">Courier New</option>
+                <option class="toolbar__dropdown-option" value="Arial">arial</option>
+                <option class="toolbar__dropdown-option" value="Times New Roman">times new roman</option>
+                <option class="toolbar__dropdown-option" value="Courier New">courier new</option>
             </select>
             <select name="font-size" id="toolbar__dropdown##font-size" class="toolbar__dropdown">
                 <option class="toolbar__dropdown-option" value="10">10</option>
@@ -60,8 +60,14 @@
 
     <div class="middle">
         <div class="shape-creation-menu">
-            <img id="create__rect" class="shape-creation-menu__shape-icon" src="./src/assets/rectangle--black.svg" alt="Black rectangle outline">
-            <img id="create__circ" class="shape-creation-menu__shape-icon" src="./src/assets/circle--black.svg" alt="Black circle outline">
+            <h1 class="shape-creation-menu__title">shapes</h1>
+            <div class="shape-creation-menu__shape-group">
+                <h2 class="shape-creation-menu__shape-group-title">basic</h2>
+                <div class="shape-creation-menu__shape-group-shapes">
+                    <img src="./src/assets/square--black.svg" alt="Square with a black outline" class="shape-creation-menu__shape-icon" id="create__square">
+                    <img src="./src/assets/circle--black.svg" alt="Circle with a black outline" class="shape-creation-menu__shape-icon" id="create__circle">
+                </div>
+            </div>
         </div>
         <canvas id="workspace" width="600" height="400"></canvas>
     </div>
