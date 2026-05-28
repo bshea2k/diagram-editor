@@ -6,8 +6,17 @@
 
     --gray1: #F8F8F8;
     --gray2: #D9D9D9;
+    --gray3: #B7B7B7;
+    --gray4: #9B9B9B;
+    --gray5: #7E7E7E;
+    --gray6: #626262;
+    --gray7: #464646;
+    --gray8: #2A2A2A;
     --gray9: #0D0D0D;
     --purple1: #DED2F9;
+    --purple2: #C9B4F1;
+    --purple3: #BF99E6;
+    --purple4:#9C7DD6;
     --purple5: #855CC0;
 }
 
@@ -84,11 +93,89 @@ canvas {
     background-color: var(--gray2);
 }
 
+/*----- TOOLBAR -----*/
+
 .toolbar {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    padding: 0px 20px;
+    padding-left: 15px;
     min-width: 100vw;
-    min-height: 120px;
-    background-color: lightgray;
-    border: 2px solid black;
+    min-height: 40px;
+    max-height: 40px;
+    background-color: var(--gray3);
+}
+
+.toolbar__subsection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.toolbar__dropdown {
+    field-sizing: content;
+    height: 30px;
+    padding: 5px 25px 5px 5px;
+    font-size: 19px;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    appearance: none;
+    background-image: url(../assets/drop-down-icon.svg);
+    background-repeat: no-repeat;
+    background-position: right 0px top 5px;
+    background-size: 20px auto;
+}
+
+.toolbar__dropdown:hover {
+    background-color: var(--gray4);
+}
+
+.toolbar__dropdown-option {
+    border: none;
+}
+
+.toolbar__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+}
+
+.toolbar__button:hover {
+    background-color: var(--gray4);
+}
+
+.toolbar__button--selected {
+    background-color: var(--purple4);
+}
+
+.toolbar__button-icon {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.toolbar__color-circle {
+    min-width: 30px;
+    min-height: 30px;
+    background-color: white;
+    border: 2px solid var(--gray7);
+    border-radius: 100%;
+}
+
+.toolbar__border-color-circle {
+    min-width: 30px;
+    min-height: 30px;
+    background-color: white;
+    border: 8px solid var(--gray7);
+    border-radius: 100%;
 }
 
 .middle {

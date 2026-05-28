@@ -23,32 +23,38 @@
     </header>
 
     <div class="toolbar">
-        <div class="toolbar__text">
+        <div class="toolbar__subsection">
             <select name="font" id="toolbar__dropdown##font" class="toolbar__dropdown">
                 <option class="toolbar__dropdown-option" value="Arial">Arial</option>
                 <option class="toolbar__dropdown-option" value="Times New Roman">Times New Roman</option>
                 <option class="toolbar__dropdown-option" value="Courier New">Courier New</option>
             </select>
-            <input class="toolbar__number-input" id="toolbar__number-input##font-size" type="number">
+            <select name="font-size" id="toolbar__dropdown##font-size" class="toolbar__dropdown">
+                <option class="toolbar__dropdown-option" value="10">10</option>
+                <option class="toolbar__dropdown-option" value="16">16</option>
+                <option class="toolbar__dropdown-option" value="26">26</option>
+            </select>
             <button class="toolbar__button" id="toolbar__button##bold"><img src="./src/assets/bold-icon.svg" alt="Capital letter B" class="toolbar__button-icon"></button>
             <button class="toolbar__button" id="toolbar__button##italics"><img src="./src/assets/italics-icon.svg" alt="Italics letter I" class="toolbar__button-icon"></button>
             <button class="toolbar__button" id="toolbar__button##underline"><img src="./src/assets/underline-icon.svg" alt="Underlined letter U" class="toolbar__button-icon"></button>
             <button class="toolbar__button" id="toolbar__button##text-color"><img src="./src/assets/text-color-icon.svg" alt="Letter A with a thick black line under it" class="toolbar__button-icon"></button>
             <button class="toolbar__button" id="toolbar__button##text-align"><img src="./src/assets/align-icon.svg" alt="Stacked lines" class="toolbar__button-icon"></button>
         </div>
-        <div class="toolbar__shape">
+        <div class="toolbar__subsection">
             <button class="toolbar__button" id="toolbar__button##shape-color"><div class="toolbar__color-circle"></div></button>
             <button class="toolbar__button" id="toolbar__button##shape-border-color"><div class="toolbar__border-color-circle"></div></button>
-            <div class="toolbar__connection-input">
-                <img src="./src/assets/line-width-icon.svg" alt="Straight horizontal line" class="toolbar__button-icon">
-                <input class="toolbar__number-input" id="toolbar__number-input##shape-border-width" type="number">
-            </div>
+            <select name="font-size" id="toolbar__dropdown##shape-border-width" class="toolbar__dropdown">
+                <option class="toolbar__dropdown-option" value="1">1</option>
+                <option class="toolbar__dropdown-option" value="2">2</option>
+                <option class="toolbar__dropdown-option" value="4">4</option>
+            </select>
         </div>
-        <div class="toolbar__connection">
-            <div class="toolbar__connection-input">
-                <img src="./src/assets/line-width-icon.svg" alt="Straight horizontal line" class="toolbar__button-icon">
-                <input class="toolbar__number-input" id="toolbar__number-input##connection-width" type="number">
-            </div>
+        <div class="toolbar__subsection">
+            <select name="font-size" id="toolbar__dropdown##connection-width" class="toolbar__dropdown">
+                <option class="toolbar__dropdown-option" value="1">1</option>
+                <option class="toolbar__dropdown-option" value="2">2</option>
+                <option class="toolbar__dropdown-option" value="4">4</option>
+            </select>
         </div>
     </div>
 
