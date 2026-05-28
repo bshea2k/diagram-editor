@@ -166,7 +166,7 @@ canvas {
     min-width: 30px;
     min-height: 30px;
     background-color: white;
-    border: 2px solid var(--gray7);
+    border: 2px solid var(--gray9);
     border-radius: 100%;
 }
 
@@ -174,7 +174,7 @@ canvas {
     min-width: 30px;
     min-height: 30px;
     background-color: white;
-    border: 8px solid var(--gray7);
+    border: 8px solid var(--gray9);
     border-radius: 100%;
 }
 
