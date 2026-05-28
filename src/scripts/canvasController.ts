@@ -75,13 +75,15 @@ export class CanvasController {
     }
 
     handleResize = (e?: Event): void => {
+        const docHeader = document.querySelector(".doc-header");
+        const docHeaderRect = docHeader!.getBoundingClientRect();
         const toolbar = document.querySelector(".toolbar");
         const toolBarRect = toolbar!.getBoundingClientRect();
         const creationMenu = document.querySelector(".shape-creation-menu");
         const creationMenuRect = creationMenu!.getBoundingClientRect();
 
         this._canvas.width = window.innerWidth - creationMenuRect.width;
-        this._canvas.height = window.innerHeight - toolBarRect.height;
+        this._canvas.height = window.innerHeight - docHeaderRect.height - toolBarRect.height;
 
         this.render();
     }
