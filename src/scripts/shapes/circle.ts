@@ -34,6 +34,7 @@ export class Circle extends Shape {
             height: this.height,
             font: "Helvetica",
             fontSize: 16,
+            fontWeight: this.bolded ? "bold" : "400",
             align: "center",
             vAlign: "middle"
         });

@@ -13,6 +13,7 @@ export abstract class Shape {
     public width: number;
     public height: number;
     public text: string;
+    public bolded: boolean = false;
     public utilityPoints: UtilityPoint[];
 
     constructor(x: number, y: number, width: number, height: number, text: string) {
