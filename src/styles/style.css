@@ -137,6 +137,35 @@ canvas {
     border: none;
 }
 
+.toolbar__hover-dropdown {
+
+}
+
+.toolbar__hover-dropdown-options {
+    display: none;
+    gap: 10px;
+    position: absolute;
+    padding-top: 10px;
+    list-style: none;
+    background-color: var(--gray3);
+}
+
+.toolbar__hover-dropdown:hover .toolbar__hover-dropdown-options {
+    display: flex;
+}
+
+.toolbar__hover-dropdown-options--vertical-alignment {
+    flex-direction: column;
+}
+
+.toolbar__hover-dropdown-options--horizontal-alignment {
+    flex-direction: row;
+}
+
+.toolbar__hover-dropdown-option {
+
+}
+
 .toolbar__button {
     display: flex;
     justify-content: center;

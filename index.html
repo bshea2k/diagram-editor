@@ -38,7 +38,14 @@
             <button class="toolbar__button" id="toolbar__button--italics"><img src="./src/assets/italics-icon.svg" alt="Italics letter I" class="toolbar__button-icon"></button>
             <button class="toolbar__button" id="toolbar__button--underline"><img src="./src/assets/underline-icon.svg" alt="Underlined letter U" class="toolbar__button-icon"></button>
             <button class="toolbar__button" id="toolbar__button--text-color"><img src="./src/assets/text-color-icon.svg" alt="Letter A with a thick black line under it" class="toolbar__button-icon"></button>
-            <button class="toolbar__button" id="toolbar__button##text-align"><img src="./src/assets/align-icon.svg" alt="Stacked lines" class="toolbar__button-icon"></button>
+            <div class="toolbar__hover-dropdown" id="toolbar__dropdown--alignment">
+                <button class="toolbar__button" id="toolbar__button--text-align"><img src="./src/assets/align-icon.svg" alt="Stacked lines" class="toolbar__button-icon"></button>
+                <ul class="toolbar__hover-dropdown-options toolbar__hover-dropdown-options--vertical-alignment">
+                    <li class="toolbar__hover-dropdown-option"><button class="toolbar__button" id="toolbar__button--align-top"><img src="./src/assets/align-top-icon.svg" alt="Align top icon" class="toolbar__button-icon"></button></li>
+                    <li class="toolbar__hover-dropdown-option"><button class="toolbar__button" id="toolbar__button--align-center"><img src="./src/assets/align-center-icon.svg" alt="Align center icon" class="toolbar__button-icon"></button></li>
+                    <li class="toolbar__hover-dropdown-option"><button class="toolbar__button" id="toolbar__button--align-bottom"><img src="./src/assets/align-bottom-icon.svg" alt="Align bottom icon" class="toolbar__button-icon"></button></li>
+                </ul>
+            </div>
         </div>
         <div class="toolbar__subsection">
             <button class="toolbar__button" id="toolbar__button##shape-color"><div class="toolbar__color-circle"></div></button>
