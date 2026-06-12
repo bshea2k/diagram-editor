@@ -17,7 +17,7 @@ export class Rectangle extends Shape {
 
         ctx.strokeStyle = "#0D0D0D";
         ctx.lineWidth = 1;
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = this.fillColor;
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
