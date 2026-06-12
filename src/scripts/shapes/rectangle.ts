@@ -32,8 +32,8 @@ export class Rectangle extends Shape {
             font: "Helvetica",
             fontSize: 16,
             fontWeight: this.bolded ? "bold" : "400",
-            align: "center",
-            vAlign: "middle"
+            align: this.textAlign,
+            vAlign: this.textVAlign
         });
 
         this.x -= xOffset;
