@@ -16,6 +16,7 @@ export abstract class Shape {
     public bolded: boolean = false;
     public textAlign: "left" | "center" | "right" = "center";
     public textVAlign: "middle" | "top" | "bottom" = "middle";
+    public fillColor: string = "#F8F8F8";
     public utilityPoints: UtilityPoint[];
 
     constructor(x: number, y: number, width: number, height: number, text: string) {

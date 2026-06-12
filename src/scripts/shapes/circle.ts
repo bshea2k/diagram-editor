@@ -15,7 +15,7 @@ export class Circle extends Shape {
 
         ctx.strokeStyle = "#0D0D0D";
         ctx.lineWidth = 1;
-        ctx.fillStyle = "#F8F8F8";
+        ctx.fillStyle = this.fillColor;
         ctx.beginPath();
         ctx.lineTo(this.x + this.width / 2, this.y);
         ctx.quadraticCurveTo(this.x + this.width, this.y, this.x + this.width, this.y + this.height / 2);
