@@ -7,6 +7,11 @@ const textAlignTopIcon: Element = document.querySelector("#toolbar__button--alig
 const textAlignCenterIcon: Element = document.querySelector("#toolbar__button--align-center")!;
 const textAlignBottomIcon: Element = document.querySelector("#toolbar__button--align-bottom")!;
 
+const shapeFillColorBlueIcon: Element = document.querySelector("#toolbar__button--shape-color-blue")!;
+const shapeFillColorGreenIcon: Element = document.querySelector("#toolbar__button--shape-color-green")!;
+const shapeFillColorYellowIcon: Element = document.querySelector("#toolbar__button--shape-color-yellow")!;
+const shapeFillColorRedIcon: Element = document.querySelector("#toolbar__button--shape-color-red")!;
+
 export class ToolbarController {
     private canvasController: CanvasController;
     private selectedShape: Shape | null = null;
@@ -19,6 +24,11 @@ export class ToolbarController {
         textAlignTopIcon.addEventListener("click", this.handleTextAlignTop);
         textAlignCenterIcon.addEventListener("click", this.handleTextAlignCenter);
         textAlignBottomIcon.addEventListener("click", this.handleTextAlignBottom);
+
+        shapeFillColorBlueIcon.addEventListener("click", this.handleFillColorBlue);
+        shapeFillColorGreenIcon.addEventListener("click", this.handleFillColorGreen);
+        shapeFillColorYellowIcon.addEventListener("click", this.handleFillColorYellow);
+        shapeFillColorRedIcon.addEventListener("click", this.handleFillColorRed);
     }
 
     handleBold = (): void => {
@@ -49,6 +59,38 @@ export class ToolbarController {
         const shape = this.canvasController.selectedShape;
         if (shape) {
             shape.textVAlign = "bottom";
+            this.canvasController.render();
+        }
+    }
+
+    handleFillColorBlue = (): void => {
+        const shape = this.canvasController.selectedShape;
+        if (shape) {
+            shape.fillColor = "#4D96FF";
+            this.canvasController.render();
+        }
+    }
+
+    handleFillColorGreen = (): void => {
+        const shape = this.canvasController.selectedShape;
+        if (shape) {
+            shape.fillColor = "#6BCB77";
+            this.canvasController.render();
+        }
+    }
+
+    handleFillColorYellow = (): void => {
+        const shape = this.canvasController.selectedShape;
+        if (shape) {
+            shape.fillColor = "#FFD93D";
+            this.canvasController.render();
+        }
+    }
+
+    handleFillColorRed = (): void => {
+        const shape = this.canvasController.selectedShape;
+        if (shape) {
+            shape.fillColor = "#FF6B6B";
             this.canvasController.render();
         }
     }
