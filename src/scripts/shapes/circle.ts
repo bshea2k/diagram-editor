@@ -13,15 +13,16 @@ export class Circle extends Shape {
         this.x += xOffset;
         this.y += yOffset;
 
+        const centerX = this.x + this.width / 2;
+        const centerY = this.y + this.height / 2;
+        const radiusX = this.width / 2;
+        const radiusY = this.height / 2;
+
         ctx.strokeStyle = "#0D0D0D";
         ctx.lineWidth = 1;
         ctx.fillStyle = this.fillColor;
         ctx.beginPath();
-        ctx.lineTo(this.x + this.width / 2, this.y);
-        ctx.quadraticCurveTo(this.x + this.width, this.y, this.x + this.width, this.y + this.height / 2);
-        ctx.quadraticCurveTo(this.x + this.width, this.y + this.height, this.x + this.width / 2, this.y + this.height);
-        ctx.quadraticCurveTo(this.x, this.y + this.height, this.x, this.y + this.height / 2);
-        ctx.quadraticCurveTo(this.x, this.y, this.x + this.width / 2, this.y);
+        ctx.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, Math.PI * 2);
         ctx.closePath();
         ctx.stroke();
         ctx.fill();
