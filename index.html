@@ -48,8 +48,16 @@
             </div>
         </div>
         <div class="toolbar__subsection">
-            <button class="toolbar__button" id="toolbar__button##shape-color"><div class="toolbar__color-circle"></div></button>
-            <button class="toolbar__button" id="toolbar__button##shape-border-color"><div class="toolbar__border-color-circle"></div></button>
+            <div class="toolbar__hover-dropdown" id="toolbar__dropdown--shape-color">
+                <button class="toolbar__button" id="toolbar__button--shape-color"><div class="toolbar__color-circle"></div></button>
+                <ul class="toolbar__hover-dropdown-options toolbar__hover-dropdown-options--horizontal-alignment">
+                    <li class="toolbar__hover-dropdown-option"><button class="toolbar__button" id="toolbar__button--shape-color-blue"><div class="toolbar__color-circle toolbar__color-circle--blue"></div></button></li>
+                    <li class="toolbar__hover-dropdown-option"><button class="toolbar__button" id="toolbar__button--shape-color-green"><div class="toolbar__color-circle toolbar__color-circle--green"></div></button></li>
+                    <li class="toolbar__hover-dropdown-option"><button class="toolbar__button" id="toolbar__button--shape-color-yellow"><div class="toolbar__color-circle toolbar__color-circle--yellow"></div></button></li>
+                    <li class="toolbar__hover-dropdown-option"><button class="toolbar__button" id="toolbar__button--shape-color-red"><div class="toolbar__color-circle toolbar__color-circle--red"></div></button></li>
+                </ul>
+            </div>
+            <button class="toolbar__button" id="toolbar__button--shape-border-color"><div class="toolbar__border-color-circle"></div></button>
             <select name="font-size" id="toolbar__dropdown##shape-border-width" class="toolbar__dropdown">
                 <option class="toolbar__dropdown-option" value="1">1</option>
                 <option class="toolbar__dropdown-option" value="2">2</option>

@@ -145,7 +145,6 @@ canvas {
     display: none;
     gap: 10px;
     position: absolute;
-    padding-top: 10px;
     list-style: none;
     background-color: var(--gray3);
 }
@@ -155,6 +154,7 @@ canvas {
 }
 
 .toolbar__hover-dropdown-options--vertical-alignment {
+    padding-top: 10px;
     flex-direction: column;
 }
 
@@ -197,6 +197,22 @@ canvas {
     background-color: white;
     border: 2px solid var(--gray9);
     border-radius: 100%;
+}
+
+.toolbar__color-circle--blue {
+    background-color: #4D96FF;
+}
+
+.toolbar__color-circle--green {
+    background-color: #6BCB77;
+}
+
+.toolbar__color-circle--yellow {
+    background-color: #FFD93D;
+}
+
+.toolbar__color-circle--red {
+    background-color: #FF6B6B;
 }
 
 .toolbar__border-color-circle {
