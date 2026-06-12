@@ -13,6 +13,7 @@ export abstract class Shape {
     public width: number;
     public height: number;
     public text: string;
+    public italics: boolean = false;
     public bolded: boolean = false;
     public textAlign: "left" | "center" | "right" = "center";
     public textVAlign: "middle" | "top" | "bottom" = "middle";

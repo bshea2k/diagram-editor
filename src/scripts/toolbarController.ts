@@ -3,6 +3,7 @@ import type { Connection } from "./connection";
 import type { Shape } from "./shapes/shape";
 
 const boldIcon: Element = document.querySelector("#toolbar__button--bold")!;
+const italicsIcon: Element = document.querySelector("#toolbar__button--italics")!;
 const textAlignTopIcon: Element = document.querySelector("#toolbar__button--align-top")!;
 const textAlignCenterIcon: Element = document.querySelector("#toolbar__button--align-center")!;
 const textAlignBottomIcon: Element = document.querySelector("#toolbar__button--align-bottom")!;
@@ -21,6 +22,7 @@ export class ToolbarController {
     constructor(canvasController: CanvasController) {
         this.canvasController = canvasController;
 
+        italicsIcon.addEventListener("click", this.handleItalics);
         boldIcon.addEventListener("click", this.handleBold);
         textAlignTopIcon.addEventListener("click", this.handleTextAlignTop);
         textAlignCenterIcon.addEventListener("click", this.handleTextAlignCenter);
@@ -31,6 +33,14 @@ export class ToolbarController {
         shapeFillColorGreenIcon.addEventListener("click", this.handleFillColorGreen);
         shapeFillColorYellowIcon.addEventListener("click", this.handleFillColorYellow);
         shapeFillColorRedIcon.addEventListener("click", this.handleFillColorRed);
+    }
+
+    handleItalics = (): void => {
+        const shape = this.canvasController.selectedShape;
+        if (shape) {
+            shape.italics = !shape.italics;
+            this.canvasController.render();
+        }
     }
 
     handleBold = (): void => {
