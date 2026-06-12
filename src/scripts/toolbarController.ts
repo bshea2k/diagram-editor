@@ -7,6 +7,7 @@ const textAlignTopIcon: Element = document.querySelector("#toolbar__button--alig
 const textAlignCenterIcon: Element = document.querySelector("#toolbar__button--align-center")!;
 const textAlignBottomIcon: Element = document.querySelector("#toolbar__button--align-bottom")!;
 
+const shapeFillColorWhiteIcon: Element = document.querySelector("#toolbar__button--shape-color-white")!;
 const shapeFillColorBlueIcon: Element = document.querySelector("#toolbar__button--shape-color-blue")!;
 const shapeFillColorGreenIcon: Element = document.querySelector("#toolbar__button--shape-color-green")!;
 const shapeFillColorYellowIcon: Element = document.querySelector("#toolbar__button--shape-color-yellow")!;
@@ -25,6 +26,7 @@ export class ToolbarController {
         textAlignCenterIcon.addEventListener("click", this.handleTextAlignCenter);
         textAlignBottomIcon.addEventListener("click", this.handleTextAlignBottom);
 
+        shapeFillColorWhiteIcon.addEventListener("click", this.handleFillColorWhite);
         shapeFillColorBlueIcon.addEventListener("click", this.handleFillColorBlue);
         shapeFillColorGreenIcon.addEventListener("click", this.handleFillColorGreen);
         shapeFillColorYellowIcon.addEventListener("click", this.handleFillColorYellow);
@@ -59,6 +61,14 @@ export class ToolbarController {
         const shape = this.canvasController.selectedShape;
         if (shape) {
             shape.textVAlign = "bottom";
+            this.canvasController.render();
+        }
+    }
+
+    handleFillColorWhite = (): void => {
+        const shape = this.canvasController.selectedShape;
+        if (shape) {
+            shape.fillColor = "#F8F8F8";
             this.canvasController.render();
         }
     }
